@@ -1,0 +1,5 @@
+1. Novo (1ª mensagem)
+2. FolowUP (2ª mensagem)
+3. Respondeu (sai da cadência)
+4. Falhou (sai da cadência)
+5. Fim da cadência (folowup realizado)

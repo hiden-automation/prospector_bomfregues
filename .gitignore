@@ -1,0 +1,14 @@
+# Ignora qualquer .env em qualquer pasta/subpasta
+**/.env
+.env
+.env.*
+!.env.example
+
+# Pastas comuns de dependências e builds (ajuste conforme a stack)
+node_modules/
+dist/
+build/
+__pycache__/
+*.pyc
+.venv/
+venv/

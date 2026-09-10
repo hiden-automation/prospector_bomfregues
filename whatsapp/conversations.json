@@ -1,0 +1,81 @@
+{
+  "5511945414569": {
+    "phone": "5511945414569",
+    "chatTitle": "Caio Vilor Brandão",
+    "unread": 1,
+    "updatedAt": "2026-09-10T22:47:29.902Z",
+    "messages": [
+      {
+        "id": "wamid.HBgNNTUxMTk0NTQxNDU2ORUCABIYIEE1RDcyOUEyNTQ5OTk5NkExMzJBOUEyODFERjNCRTg0AA==",
+        "sender": "user",
+        "text": "Olá, tudo bem?",
+        "status": "sent",
+        "timestamp": "2026-09-10T19:15:15.632Z"
+      },
+      {
+        "id": "wamid.HBgNNTUxMTk0NTQxNDU2ORUCABEYEjQwRkZFMUFGRUUwRjA0RjQ1RAA=",
+        "sender": "agent",
+        "text": "Tudo, como posso ajudar?",
+        "status": "read",
+        "timestamp": "2026-09-10T19:17:04.573Z"
+      },
+      {
+        "id": "wamid.HBgNNTUxMTk0NTQxNDU2ORUCABIYFjNFQjA5MTdENzIxRjE3RUIwNzJDMTAA",
+        "sender": "user",
+        "text": "Preciso automatizar minhas vendas.",
+        "status": "sent",
+        "timestamp": "2026-09-10T19:31:00.511Z"
+      },
+      {
+        "id": "wamid.HBgNNTUxMTk0NTQxNDU2ORUCABEYEjQ5NUU5MTMyQjBGRjkwMjVCMAA=",
+        "sender": "agent",
+        "text": "Legal!",
+        "status": "read",
+        "timestamp": "2026-09-10T19:31:31.386Z"
+      },
+      {
+        "id": "wamid.HBgNNTUxMTk0NTQxNDU2ORUCABEYEjZGNjEzRDkyQ0EzMDlCQkNCRgA=",
+        "sender": "agent",
+        "text": "Você tem algum horário disponível amanhã para uma chamada por vídeo?\n\nAssim você pode me contar mais sobre a sua empresa e sobre o seu processo comercial.",
+        "status": "read",
+        "timestamp": "2026-09-10T19:34:11.550Z"
+      },
+      {
+        "id": "wamid.HBgNNTUxMTk0NTQxNDU2ORUCABEYEkE0MjBCQTcyNkQ5QzQ2RjJBNQA=",
+        "sender": "agent",
+        "text": "Se preferir, pode me dar mais detalhes por aqui.",
+        "status": "read",
+        "timestamp": "2026-09-10T22:47:10.730Z"
+      },
+      {
+        "id": "wamid.HBgNNTUxMTk0NTQxNDU2ORUCABIYIEE1RTA3RjhBNDVCOTAzMDk1MzBFNTM4QkEwQUQyMURBAA==",
+        "sender": "user",
+        "text": "Pode ser por vídeo mesmo!",
+        "status": "sent",
+        "timestamp": "2026-09-10T22:47:29.902Z"
+      }
+    ]
+  },
+  "5511997246698": {
+    "phone": "5511997246698",
+    "chatTitle": "Renato Brandão",
+    "unread": 0,
+    "updatedAt": "2026-09-10T19:38:06.029Z",
+    "messages": [
+      {
+        "id": "wamid.HBgNNTUxMTk5NzI0NjY5OBUCABIYIEE1MUZERTUyMDRFMTkyQTYyNzA4REQyNzM1MTdCQzlCAA==",
+        "sender": "user",
+        "text": "Olá! Quero automatizar o meu trabalho.",
+        "status": "sent",
+        "timestamp": "2026-09-10T19:37:34.556Z"
+      },
+      {
+        "id": "wamid.HBgNNTUxMTk5NzI0NjY5OBUCABEYEjZENDU2MzM1QTI0ODFFNkEyNwA=",
+        "sender": "agent",
+        "text": "Legal",
+        "status": "delivered",
+        "timestamp": "2026-09-10T19:38:06.029Z"
+      }
+    ]
+  }
+}

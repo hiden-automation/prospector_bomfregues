@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>WhatsApp Atendimento - Painel de Leads</title>
+
+  <!-- PWA & Mobile Web App Meta -->
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#008069">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Leads WA">
+  <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/124/124034.png">
+
+  <script src="/socket.io/socket.io.js"></script>
+
+  <!-- OneSignal Web SDK -->
+  <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+  <script>
+    window.OneSignalDeferred = window.OneSignalDeferred || [];
+    OneSignalDeferred.push(async function(OneSignal) {
+      await OneSignal.init({
+        appId: "4b4abc7b-86a5-4abc-b477-d42fb8b78f87",
+        notifyButton: { enable: false }
+      });
+
+      OneSignal.User.PushSubscription.addEventListener("change", function(event) {
+        if (event.current && event.current.optedIn) {
+          const btn = document.getElementById('btnEnablePush');
+          if (btn) btn.style.display = 'none';
+        }
+      });
+    });
+  </script>
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      height: 100%;
+      height: 100dvh;
+      overflow: hidden;
+      width: 100%;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: #f0f2f5;
+    }
+
+    .container {
+      display: flex;
+      width: 100vw;
+      height: 100%;
+      height: 100dvh;
+      overflow: hidden;
+      background: #fff;
+    }
+
+    /* Lista Lateral */
+    .sidebar { width: 360px; border-right: 1px solid #e9edef; display: flex; flex-direction: column; background: #fff; height: 100%; }
+    .sidebar-header { padding: 16px; background: #008069; color: #fff; font-weight: 600; font-size: 1.05rem; display: flex; justify-content: space-between; align-items: center; flex-shrink: 0; }
+    .header-actions { display: flex; align-items: center; gap: 8px; }
+    .action-btn { background: rgba(255,255,255,0.2); border: none; color: #fff; padding: 5px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 600; cursor: pointer; display: none; }
+    .action-btn:hover { background: rgba(255,255,255,0.3); }
+    .logout-btn { background: none; border: 1px solid rgba(255,255,255,0.4); color: #fff; padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; cursor: pointer; text-decoration: none; }
+    .contacts-list { flex: 1; overflow-y: auto; list-style: none; -webkit-overflow-scrolling: touch; }
+    .contact-item { padding: 14px 16px; border-bottom: 1px solid #f2f2f2; cursor: pointer; transition: background 0.2s; display: flex; justify-content: space-between; align-items: center; }
+    .contact-item:hover, .contact-item.active { background-color: #f0f2f5; }
+    .contact-info .name { font-weight: 600; color: #111b21; font-size: 0.95rem; margin-bottom: 3px; }
+    .contact-info .last-msg { color: #667781; font-size: 0.85rem; max-width: 220px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .contact-meta { text-align: right; }
+    .contact-meta .badge { background: #25d366; color: #fff; font-size: 0.75rem; border-radius: 12px; padding: 2px 7px; font-weight: bold; }
+
+    /* Área do Chat */
+    .chat-area { 
+      flex: 1; 
+      display: flex; 
+      flex-direction: column; 
+      background: #efeae2; 
+      height: 100%; 
+      height: 100dvh;
+      min-width: 0; 
+      position: relative; 
+      overflow: hidden;
+    }
+
+    .chat-header { padding: 14px 20px; background: #f0f2f5; border-bottom: 1px solid #e9edef; display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+    .back-btn { display: none; background: none; border: none; font-size: 1.3rem; cursor: pointer; color: #54656f; margin-right: 8px; }
+    .chat-header-info h3 { font-size: 1rem; color: #111b21; }
+    .chat-header-info p { font-size: 0.8rem; color: #667781; }
+
+    #activeChat {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      width: 100%;
+      min-height: 0;
+      overflow: hidden;
+    }
+
+    .messages-box {
+      flex: 1 1 0%;
+      min-height: 0;
+      padding: 20px;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .msg-bubble { max-width: 75%; padding: 8px 12px; border-radius: 8px; font-size: 0.92rem; line-height: 1.35; position: relative; word-wrap: break-word; }
+    .msg-bubble.user { align-self: flex-start; background: #fff; color: #111b21; border-top-left-radius: 0; box-shadow: 0 1px 1px rgba(0,0,0,0.1); }
+    .msg-bubble.agent { align-self: flex-end; background: #d9fdd3; color: #111b21; border-top-right-radius: 0; box-shadow: 0 1px 1px rgba(0,0,0,0.1); }
+    .msg-bubble.failed { background: #ffebee !important; border: 1px solid #ffcdd2; }
+    
+    .msg-content { white-space: pre-wrap; word-break: break-word; }
+    .msg-footer { display: flex; align-items: center; justify-content: flex-end; gap: 4px; margin-top: 4px; }
+    .msg-time { font-size: 0.68rem; color: #667781; }
+    .msg-status { font-size: 0.72rem; }
+    .status-failed { color: #d32f2f; font-weight: bold; cursor: pointer; }
+    .status-delivered { color: #53bdeb; }
+    .status-sent { color: #8696a0; }
+
+    /* Caixa Flexível de Entrada com Textarea */
+    .chat-input-area {
+      flex-shrink: 0;
+      padding: 10px 14px;
+      padding-bottom: max(10px, env(safe-area-inset-bottom));
+      background: #f0f2f5;
+      border-top: 1px solid #e9edef;
+      display: flex;
+      gap: 10px;
+      align-items: flex-end;
+      width: 100%;
+      position: sticky;
+      bottom: 0;
+      z-index: 10;
+    }
+
+    .chat-input-area textarea {
+      flex: 1;
+      padding: 12px 16px;
+      border-radius: 12px;
+      border: 1px solid #fff;
+      background: #fff;
+      font-size: 0.95rem;
+      outline: none;
+      resize: none;
+      font-family: inherit;
+      line-height: 1.35;
+      max-height: 140px;
+      min-height: 44px;
+      overflow-y: auto;
+      box-sizing: border-box;
+    }
+    .chat-input-area textarea:focus { border-color: #00a884; }
+    .chat-input-area button { 
+      background: #00a884; 
+      color: #fff; 
+      border: none; 
+      padding: 12px 20px; 
+      border-radius: 8px; 
+      font-weight: 600; 
+      cursor: pointer; 
+      transition: background 0.2s; 
+      flex-shrink: 0; 
+      height: 44px;
+    }
+    .chat-input-area button:hover { background: #008f6f; }
+
+    .empty-state { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; color: #8696a0; text-align: center; gap: 8px; }
+
+    /* Modal iOS */
+    .ios-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 9999; align-items: flex-end; justify-content: center; }
+    .ios-modal-content { background: #fff; width: 100%; max-width: 420px; border-radius: 16px 16px 0 0; padding: 24px; padding-bottom: max(24px, env(safe-area-inset-bottom)); text-align: center; position: relative; animation: slideUp 0.3s ease-out; }
+    .ios-modal-content h3 { color: #111b21; margin-bottom: 12px; font-size: 1.1rem; }
+    .ios-step { display: flex; align-items: center; gap: 12px; margin: 12px 0; text-align: left; font-size: 0.9rem; color: #3b4a54; }
+    .ios-step span { background: #e9edef; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; flex-shrink: 0; }
+    .ios-close-btn { margin-top: 16px; width: 100%; padding: 12px; background: #008069; color: #fff; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; }
+
+    @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+
+    @media (max-width: 768px) {
+      .sidebar { width: 100%; }
+      .chat-area { display: none; width: 100%; }
+      .container.open-chat .sidebar { display: none; }
+      .container.open-chat .chat-area { display: flex; }
+      .back-btn { display: block; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="mainContainer">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <span>Painel WhatsApp</span>
+        <div class="header-actions">
+          <button id="btnInstallApp" class="action-btn" onclick="handleInstallClick()">Instalar App</button>
+          <button id="btnEnablePush" class="action-btn" onclick="enableNotifications()">Ativar Notificações</button>
+          <a href="/logout" class="logout-btn" onclick="localStorage.removeItem('pwa_auth_token')">Sair</a>
+        </div>
+      </div>
+      <ul class="contacts-list" id="contactsList"></ul>
+    </aside>
+
+    <main class="chat-area" id="chatArea">
+      <div class="empty-state" id="emptyState">
+        <h2>Nenhuma conversa selecionada</h2>
+        <p>Selecione um contato na lista para ler e responder.</p>
+      </div>
+
+      <div id="activeChat" style="display: none;">
+        <header class="chat-header">
+          <button class="back-btn" onclick="closeChatMobile()">←</button>
+          <div class="chat-header-info">
+            <h3 id="currentContactTitle">Contato</h3>
+            <p id="currentContactPhone"></p>
+          </div>
+        </header>
+
+        <div class="messages-box" id="messagesBox"></div>
+
+        <form class="chat-input-area" id="chatForm">
+          <textarea id="messageInput" rows="1" placeholder="Digite uma resposta livre..." autocomplete="off" required></textarea>
+          <button type="submit">Enviar</button>
+        </form>
+      </div>
+    </main>
+  </div>
+
+  <div id="iosModal" class="ios-modal" onclick="closeIosModal(event)">
+    <div class="ios-modal-content">
+      <h3>Instalar no iPhone</h3>
+      <div class="ios-step">
+        <span>1</span>
+        <p>Toque no ícone de <strong>Compartilhar</strong> (quadrado com seta) no Safari.</p>
+      </div>
+      <div class="ios-step">
+        <span>2</span>
+        <p>Toque em <strong>"Adicionar à Tela de Início"</strong>.</p>
+      </div>
+      <div class="ios-step">
+        <span>3</span>
+        <p>Abra pelo app para receber notificações e avisos de erro.</p>
+      </div>
+      <button class="ios-close-btn" onclick="document.getElementById('iosModal').style.display='none'">Entendi</button>
+    </div>
+  </div>
+
+  <script>
+    const socket = io();
+    let currentPhone = null;
+    let deferredInstallPrompt = null;
+
+    function getAuthHeaders(extra = {}) {
+      const savedToken = localStorage.getItem('pwa_auth_token') || '';
+      return {
+        'Content-Type': 'application/json',
+        ...(savedToken ? { 'x-auth-token': savedToken } : {}),
+        ...extra
+      };
+    }
+
+    const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredInstallPrompt = e;
+      updateHeaderButtons();
+    });
+
+    async function updateHeaderButtons() {
+      const btnInstall = document.getElementById('btnInstallApp');
+      const btnPush = document.getElementById('btnEnablePush');
+
+      if (!isStandalone) {
+        btnInstall.style.display = 'inline-block';
+        btnPush.style.display = 'none';
+      } else {
+        btnInstall.style.display = 'none';
+        window.OneSignalDeferred = window.OneSignalDeferred || [];
+        window.OneSignalDeferred.push(function(OneSignal) {
+          const isOptedIn = OneSignal.User?.PushSubscription?.optedIn;
+          btnPush.style.display = isOptedIn ? 'none' : 'inline-block';
+        });
+      }
+    }
+
+    function handleInstallClick() {
+      if (isIOS) {
+        document.getElementById('iosModal').style.display = 'flex';
+      } else if (deferredInstallPrompt) {
+        deferredInstallPrompt.prompt();
+        deferredInstallPrompt.userChoice.then((res) => {
+          if (res.outcome === 'accepted') document.getElementById('btnInstallApp').style.display = 'none';
+          deferredInstallPrompt = null;
+        });
+      } else {
+        alert('Selecione "Instalar aplicativo" ou "Adicionar à tela inicial" no menu do navegador.');
+      }
+    }
+
+    function closeIosModal(e) {
+      if (e.target.id === 'iosModal') document.getElementById('iosModal').style.display = 'none';
+    }
+
+    async function enableNotifications() {
+      if (window.OneSignalDeferred) {
+        window.OneSignalDeferred.push(async function(OneSignal) {
+          try {
+            await OneSignal.User.PushSubscription.optIn();
+            if (OneSignal.User.PushSubscription.optedIn) {
+              const btn = document.getElementById('btnEnablePush');
+              if (btn) btn.style.display = 'none';
+            }
+          } catch (err) {
+            console.error('Falha ao registrar push:', err);
+          }
+        });
+      }
+    }
+
+    // ─── EVENTOS SOCKET.IO ──────────────────────────────────────────
+    socket.on('new_message', (data) => {
+      loadConversations();
+      const phone = data.phone || data.from;
+      if (currentPhone && phone === currentPhone) {
+        appendMessage(data.message);
+      }
+    });
+
+    socket.on('message_status_update', (data) => {
+      const bubble = document.querySelector(`[data-msg-id="${CSS.escape(data.messageId)}"]`);
+      if (bubble) {
+        const statusSpan = bubble.querySelector('.msg-status');
+        if (data.status === 'failed') {
+          bubble.classList.add('failed');
+          if (statusSpan) {
+            statusSpan.innerHTML = '<span class="status-failed" title="' + (data.error || 'Falha') + '">❌ Falha no Envio</span>';
+          }
+        } else if (data.status === 'delivered' || data.status === 'read') {
+          if (statusSpan) {
+            statusSpan.innerHTML = '<span class="status-delivered">✓✓</span>';
+          }
+        }
+      }
+    });
+
+    async function loadConversations() {
+      try {
+        const res = await fetch('/api/chat/conversations', {
+          headers: getAuthHeaders()
+        });
+        if (res.status === 401) {
+          window.location.href = '/login';
+          return;
+        }
+        const conversations = await res.json();
+        const listEl = document.getElementById('contactsList');
+        listEl.innerHTML = '';
+
+        conversations.forEach(c => {
+          const li = document.createElement('li');
+          li.className = `contact-item ${currentPhone === c.phone ? 'active' : ''}`;
+          li.onclick = () => openConversation(c.phone);
+
+          const lastMsg = c.messages && c.messages.length ? c.messages[c.messages.length - 1] : null;
+          
+          let previewText = 'Sem mensagens';
+          if (lastMsg) { 
+            const prefix = lastMsg.sender === 'agent' ? 'Você: ' : '';
+            previewText = `${prefix}${lastMsg.text}`;
+          }
+
+          li.innerHTML = `
+            <div class="contact-info">
+              <div class="name">${c.chatTitle || c.phone}</div>
+              <div class="last-msg">${previewText}</div>
+            </div>
+            <div class="contact-meta">
+              ${c.unread > 0 ? `<span class="badge">${c.unread}</span>` : ''}
+            </div>
+          `;
+          listEl.appendChild(li);
+        });
+      } catch (err) {
+        console.error('Falha ao carregar conversas', err);
+      }
+    }
+
+    async function openConversation(phone) {
+      currentPhone = phone;
+      document.getElementById('mainContainer').classList.add('open-chat');
+      document.getElementById('emptyState').style.display = 'none';
+      const activeChat = document.getElementById('activeChat');
+      activeChat.style.display = 'flex';
+
+      try {
+        const res = await fetch(`/api/chat/conversations/${phone}`, {
+          headers: getAuthHeaders()
+        });
+        const data = await res.json();
+
+        document.getElementById('currentContactTitle').textContent = data.chatTitle || data.phone;
+        document.getElementById('currentContactPhone').textContent = `+${data.phone}`;
+
+        const box = document.getElementById('messagesBox');
+        box.innerHTML = '';
+        if (Array.isArray(data.messages)) {
+          data.messages.forEach(appendMessage);
+        }
+
+        loadConversations();
+        resetTextareaHeight();
+      } catch (err) {
+        console.error('Erro ao abrir conversa', err);
+      }
+    }
+
+    function appendMessage(msg) {
+      const box = document.getElementById('messagesBox');
+      const msgId = msg.id || `local_${Date.now()}`;
+
+      if (document.querySelector(`[data-msg-id="${CSS.escape(msgId)}"]`)) return;
+
+      const bubble = document.createElement('div');
+      const isFailed = msg.status === 'failed';
+      bubble.className = `msg-bubble ${msg.sender} ${isFailed ? 'failed' : ''}`;
+      bubble.setAttribute('data-msg-id', msgId);
+
+      const time = new Date(msg.timestamp || Date.now()).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+      let statusIcon = '';
+      if (msg.sender === 'agent') {
+        if (isFailed) {
+          statusIcon = `<span class="status-failed" title="${msg.error || 'Erro na entrega'}">❌ Falha</span>`;
+        } else if (msg.status === 'delivered' || msg.status === 'read') {
+          statusIcon = `<span class="status-delivered">✓✓</span>`;
+        } else if (msg.status === 'sent') {
+          statusIcon = `<span class="status-sent">✓</span>`;
+        } else {
+          statusIcon = `<span class="status-sent">⏳</span>`;
+        }
+      }
+
+      bubble.innerHTML = `
+        <div class="msg-content"></div>
+        <div class="msg-footer">
+          <span class="msg-time">${time}</span>
+          <span class="msg-status">${statusIcon}</span>
+        </div>
+      `;
+
+      bubble.querySelector('.msg-content').textContent = msg.text;
+
+      box.appendChild(bubble);
+      box.scrollTop = box.scrollHeight;
+    }
+
+    // Gerenciamento de expansão automática do textarea
+    const textarea = document.getElementById('messageInput');
+    
+    function resetTextareaHeight() {
+      textarea.style.height = 'auto';
+      textarea.style.height = '44px';
+    }
+
+    textarea.addEventListener('input', function() {
+      this.style.height = 'auto';
+      this.style.height = Math.min(this.scrollHeight, 140) + 'px';
+    });
+
+    // Desktop: Enter envia, Shift+Enter quebra linha.
+    // Mobile: Tecla enter apenas quebra linha (usuário envia pelo botão).
+    textarea.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' && !e.shiftKey && window.innerWidth > 768) {
+        e.preventDefault();
+        document.getElementById('chatForm').requestSubmit();
+      }
+    });
+
+    document.getElementById('chatForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const text = textarea.value.trim();
+      if (!text || !currentPhone) return;
+
+      textarea.value = '';
+      resetTextareaHeight();
+
+      try {
+        const res = await fetch('/api/chat/send', {
+          method: 'POST',
+          headers: getAuthHeaders(),
+          body: JSON.stringify({ phone: currentPhone, text })
+        });
+
+        const data = await res.json();
+        if (!res.ok) {
+          alert('🚨 ATENÇÃO: Falha imediata ao enviar mensagem!\n\nMotivo: ' + (data.error || 'Erro desconhecido.'));
+        }
+        loadConversations();
+      } catch (err) {
+        alert('🚨 ERRO DE CONEXÃO: Não foi possível alcançar o servidor para enviar a mensagem.');
+      }
+    });
+
+    function closeChatMobile() {
+      document.getElementById('mainContainer').classList.remove('open-chat');
+      currentPhone = null;
+    }
+
+    setInterval(() => {
+      loadConversations();
+    }, 4000);
+
+    loadConversations();
+    updateHeaderButtons();
+  </script>
+</body>
+</html>
