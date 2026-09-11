@@ -55,18 +55,70 @@
     }
 
     /* Lista Lateral */
-    .sidebar { width: 360px; border-right: 1px solid #e9edef; display: flex; flex-direction: column; background: #fff; height: 100%; }
+    .sidebar { width: 380px; border-right: 1px solid #e9edef; display: flex; flex-direction: column; background: #fff; height: 100%; }
     .sidebar-header { padding: 16px; background: #008069; color: #fff; font-weight: 600; font-size: 1.05rem; display: flex; justify-content: space-between; align-items: center; flex-shrink: 0; }
     .header-actions { display: flex; align-items: center; gap: 8px; }
     .action-btn { background: rgba(255,255,255,0.2); border: none; color: #fff; padding: 5px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 600; cursor: pointer; display: none; }
     .action-btn:hover { background: rgba(255,255,255,0.3); }
     .logout-btn { background: none; border: 1px solid rgba(255,255,255,0.4); color: #fff; padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; cursor: pointer; text-decoration: none; }
+
+    /* Barra de Navegação Discreta com 4 Abas */
+    .filter-tabs {
+      display: flex;
+      background: #f0f2f5;
+      border-bottom: 1px solid #e9edef;
+      padding: 6px 8px;
+      gap: 4px;
+      flex-shrink: 0;
+      overflow-x: auto;
+    }
+    .tab-btn {
+      flex: 1;
+      background: transparent;
+      border: none;
+      padding: 6px 4px;
+      font-size: 0.74rem;
+      font-weight: 500;
+      color: #667781;
+      border-radius: 6px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .tab-btn.active {
+      background: #fff;
+      color: #111b21;
+      font-weight: 600;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+    }
+    .tab-badge {
+      background: #e9edef;
+      color: #54656f;
+      font-size: 0.68rem;
+      padding: 1px 5px;
+      border-radius: 10px;
+      font-weight: 600;
+    }
+    .tab-btn.active .tab-badge {
+      background: #008069;
+      color: #fff;
+    }
+
     .contacts-list { flex: 1; overflow-y: auto; list-style: none; -webkit-overflow-scrolling: touch; }
-    .contact-item { padding: 14px 16px; border-bottom: 1px solid #f2f2f2; cursor: pointer; transition: background 0.2s; display: flex; justify-content: space-between; align-items: center; }
+    .contact-item { padding: 12px 16px; border-bottom: 1px solid #f2f2f2; cursor: pointer; transition: background 0.2s; display: flex; flex-direction: column; gap: 4px; }
     .contact-item:hover, .contact-item.active { background-color: #f0f2f5; }
-    .contact-info .name { font-weight: 600; color: #111b21; font-size: 0.95rem; margin-bottom: 3px; }
-    .contact-info .last-msg { color: #667781; font-size: 0.85rem; max-width: 220px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .contact-meta { text-align: right; }
+    
+    .contact-top { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+    .contact-info .name { font-weight: 600; color: #111b21; font-size: 0.95rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .contact-time { font-size: 0.72rem; color: #667781; white-space: nowrap; flex-shrink: 0; font-weight: 400; }
+    
+    .contact-bottom { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+    .contact-info .last-msg { color: #667781; font-size: 0.85rem; max-width: 250px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-weight: normal; }
+    .contact-meta { text-align: right; flex-shrink: 0; }
     .contact-meta .badge { background: #25d366; color: #fff; font-size: 0.75rem; border-radius: 12px; padding: 2px 7px; font-weight: bold; }
 
     /* Área do Chat */
@@ -76,16 +128,37 @@
       flex-direction: column; 
       background: #efeae2; 
       height: 100%; 
-      height: 100dvh;
+      height: 100dvh; 
       min-width: 0; 
       position: relative; 
       overflow: hidden;
     }
 
-    .chat-header { padding: 14px 20px; background: #f0f2f5; border-bottom: 1px solid #e9edef; display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
-    .back-btn { display: none; background: none; border: none; font-size: 1.3rem; cursor: pointer; color: #54656f; margin-right: 8px; }
-    .chat-header-info h3 { font-size: 1rem; color: #111b21; }
+    .chat-header { padding: 12px 18px; background: #f0f2f5; border-bottom: 1px solid #e9edef; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
+    .chat-header-left { display: flex; align-items: center; gap: 12px; min-width: 0; }
+    .back-btn { display: none; background: none; border: none; font-size: 1.3rem; cursor: pointer; color: #54656f; margin-right: 4px; }
+    .chat-header-info h3 { font-size: 1rem; color: #111b21; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .chat-header-info p { font-size: 0.8rem; color: #667781; }
+
+    /* Botão de Descarte (Lixeira) */
+    /* Botão sutil de Descarte / Recuperação */
+    .btn-action-chat {
+      background: transparent;
+      border: 1px solid #d1d7db;
+      color: #54656f;
+      font-size: 0.76rem;
+      font-weight: 500;
+      cursor: pointer;
+      padding: 5px 10px;
+      border-radius: 6px;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+    .btn-action-chat:hover {
+      background: #e9edef;
+      border-color: #bec5c9;
+      color: #111b21;
+    }
 
     #activeChat {
       display: flex;
@@ -120,7 +193,7 @@
     .status-delivered { color: #53bdeb; }
     .status-sent { color: #8696a0; }
 
-    /* Caixa Flexível de Entrada com Textarea */
+    /* Caixa Flexível de Entrada */
     .chat-input-area {
       flex-shrink: 0;
       padding: 10px 14px;
@@ -199,6 +272,23 @@
           <a href="/logout" class="logout-btn" onclick="localStorage.removeItem('pwa_auth_token')">Sair</a>
         </div>
       </div>
+
+      <!-- Abas Estruturadas do Funil -->
+      <nav class="filter-tabs">
+        <button class="tab-btn" id="tabIniciada" onclick="switchTab('iniciada')">
+          Iniciadas <span class="tab-badge" id="countIniciada">0</span>
+        </button>
+        <button class="tab-btn active" id="tabInteragindo" onclick="switchTab('interagindo')">
+          Interagindo <span class="tab-badge" id="countInteragindo">0</span>
+        </button>
+        <button class="tab-btn" id="tabDescartada" onclick="switchTab('descartada')">
+          Descartadas <span class="tab-badge" id="countDescartada">0</span>
+        </button>
+        <button class="tab-btn" id="tabFailed" onclick="switchTab('failed')">
+          Recusadas <span class="tab-badge" id="countFailed">0</span>
+        </button>
+      </nav>
+
       <ul class="contacts-list" id="contactsList"></ul>
     </aside>
 
@@ -210,11 +300,14 @@
 
       <div id="activeChat" style="display: none;">
         <header class="chat-header">
-          <button class="back-btn" onclick="closeChatMobile()">←</button>
-          <div class="chat-header-info">
-            <h3 id="currentContactTitle">Contato</h3>
-            <p id="currentContactPhone"></p>
+          <div class="chat-header-left">
+            <button class="back-btn" onclick="closeChatMobile()">←</button>
+            <div class="chat-header-info">
+              <h3 id="currentContactTitle">Contato</h3>
+              <p id="currentContactPhone"></p>
+            </div>
           </div>
+          <button id="btnChatAction" class="btn-action-chat" onclick="discardCurrentConversation()">Descartar</button>
         </header>
 
         <div class="messages-box" id="messagesBox"></div>
@@ -250,6 +343,8 @@
     const socket = io();
     let currentPhone = null;
     let deferredInstallPrompt = null;
+    let currentTab = 'interagindo'; // 'interagindo', 'iniciada', 'descartada', 'failed'
+    let cachedConversations = [];
 
     function getAuthHeaders(extra = {}) {
       const savedToken = localStorage.getItem('pwa_auth_token') || '';
@@ -320,6 +415,160 @@
       }
     }
 
+    function switchTab(tab) {
+      currentTab = tab;
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      const activeBtn = document.getElementById('tab' + tab.charAt(0).toUpperCase() + tab.slice(1));
+      if (activeBtn) activeBtn.classList.add('active');
+      renderList();
+    }
+
+    // Regra de categorização da conversa
+    function getConversationCategory(c) {
+      const msgs = c.messages || [];
+
+      // 1. Falha exclusivamente no primeiro contato
+      if (msgs.length === 1 && msgs[0].sender === 'agent' && msgs[0].status === 'failed') {
+        return 'failed';
+      }
+
+      // 2. Descartadas: descartada manualmente OU cliente respondeu "não tenho interesse"
+      const hasOptOut = msgs.some(m => {
+        if (m.sender !== 'user') return false;
+        const norm = (m.text || '').toLowerCase().trim();
+        return norm.includes('não tenho interesse') || norm.includes('nao tenho interesse');
+      });
+
+      if (c.discarded || hasOptOut) {
+        return 'descartada';
+      }
+
+      // 3. interagindo: o cliente respondeu qualquer outra coisa
+      const hasUserMessage = msgs.some(m => m.sender === 'user');
+      if (hasUserMessage) {
+        return 'interagindo';
+      }
+
+      // 4. Iniciada: ainda sem respostas do cliente
+      return 'iniciada';
+    }
+
+    function formatMessageDate(isoDateString) {
+      if (!isoDateString) return '';
+      const date = new Date(isoDateString);
+      const now = new Date();
+
+      const isToday = (
+        date.getDate() === now.getDate() &&
+        date.getMonth() === now.getMonth() &&
+        date.getFullYear() === now.getFullYear()
+      );
+
+      if (isToday) {
+        return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      }
+      
+      const day = String(date.getDate()).padStart(2, '0');
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      return `${day}/${month}`;
+    }
+
+    function renderList() {
+      const listEl = document.getElementById('contactsList');
+      listEl.innerHTML = '';
+
+      const counts = { interagindo: 0, iniciada: 0, descartada: 0, failed: 0 };
+
+      cachedConversations.forEach(c => {
+        const cat = getConversationCategory(c);
+        if (counts[cat] !== undefined) counts[cat]++;
+      });
+
+      document.getElementById('countInteragindo').textContent = counts.interagindo;
+      document.getElementById('countIniciada').textContent = counts.iniciada;
+      document.getElementById('countDescartada').textContent = counts.descartada;
+      document.getElementById('countFailed').textContent = counts.failed;
+
+      const filtered = cachedConversations.filter(c => getConversationCategory(c) === currentTab);
+
+      if (filtered.length === 0) {
+        const emptyLi = document.createElement('li');
+        emptyLi.style.padding = '28px 16px';
+        emptyLi.style.textAlign = 'center';
+        emptyLi.style.color = '#8696a0';
+        emptyLi.style.fontSize = '0.85rem';
+
+        const labels = {
+          interagindo: 'Nenhum lead interagindo no momento.',
+          iniciada: 'Nenhuma conversa aguardando resposta.',
+          descartada: 'Nenhum lead descartado.',
+          failed: 'Nenhum disparo falhou no 1º envio.'
+        };
+        emptyLi.textContent = labels[currentTab];
+        listEl.appendChild(emptyLi);
+        return;
+      }
+
+      filtered.forEach(c => {
+        const li = document.createElement('li');
+        li.className = `contact-item ${currentPhone === c.phone ? 'active' : ''}`;
+        li.onclick = () => openConversation(c.phone);
+
+        const lastMsg = c.messages && c.messages.length ? c.messages[c.messages.length - 1] : null;
+        
+        let previewText = 'Sem mensagens';
+        if (lastMsg) {
+          if (lastMsg.sender === 'agent' && lastMsg.status === 'failed') {
+            previewText = 'Falha na entrega';
+          } else {
+            const prefix = lastMsg.sender === 'agent' ? 'Você: ' : '';
+            previewText = `${prefix}${lastMsg.text}`;
+          }
+        }
+
+        const timeText = formatMessageDate(lastMsg?.timestamp || c.updatedAt);
+
+        li.innerHTML = `
+          <div class="contact-top">
+            <div class="contact-info" style="min-width: 0; flex: 1;">
+              <div class="name">${c.chatTitle || c.phone}</div>
+            </div>
+            <div class="contact-time">${timeText}</div>
+          </div>
+          <div class="contact-bottom">
+            <div class="contact-info" style="min-width: 0; flex: 1;">
+              <div class="last-msg">${previewText}</div>
+            </div>
+            <div class="contact-meta">
+              ${c.unread > 0 ? `<span class="badge">${c.unread}</span>` : ''}
+            </div>
+          </div>
+        `;
+        listEl.appendChild(li);
+      });
+    }
+
+    async function discardCurrentConversation() {
+      if (!currentPhone) return;
+      if (!confirm('Deseja mover esta conversa para Descartadas?')) return;
+
+      try {
+        const res = await fetch(`/api/chat/conversations/${currentPhone}/discard`, {
+          method: 'POST',
+          headers: getAuthHeaders()
+        });
+
+        if (res.ok) {
+          await loadConversations();
+          closeChatMobile();
+        } else {
+          alert('Erro ao descartar a conversa.');
+        }
+      } catch (err) {
+        alert('Erro de conexão ao descartar.');
+      }
+    }
+
     // ─── EVENTOS SOCKET.IO ──────────────────────────────────────────
     socket.on('new_message', (data) => {
       loadConversations();
@@ -329,14 +578,19 @@
       }
     });
 
+    socket.on('conversation_updated', () => {
+      loadConversations();
+    });
+
     socket.on('message_status_update', (data) => {
+      loadConversations();
       const bubble = document.querySelector(`[data-msg-id="${CSS.escape(data.messageId)}"]`);
       if (bubble) {
         const statusSpan = bubble.querySelector('.msg-status');
         if (data.status === 'failed') {
           bubble.classList.add('failed');
           if (statusSpan) {
-            statusSpan.innerHTML = '<span class="status-failed" title="' + (data.error || 'Falha') + '">❌ Falha no Envio</span>';
+            statusSpan.innerHTML = '<span class="status-failed" title="' + (data.error || 'Falha') + '">❌ Falha</span>';
           }
         } else if (data.status === 'delivered' || data.status === 'read') {
           if (statusSpan) {
@@ -355,39 +609,13 @@
           window.location.href = '/login';
           return;
         }
-        const conversations = await res.json();
-        const listEl = document.getElementById('contactsList');
-        listEl.innerHTML = '';
-
-        conversations.forEach(c => {
-          const li = document.createElement('li');
-          li.className = `contact-item ${currentPhone === c.phone ? 'active' : ''}`;
-          li.onclick = () => openConversation(c.phone);
-
-          const lastMsg = c.messages && c.messages.length ? c.messages[c.messages.length - 1] : null;
-          
-          let previewText = 'Sem mensagens';
-          if (lastMsg) { 
-            const prefix = lastMsg.sender === 'agent' ? 'Você: ' : '';
-            previewText = `${prefix}${lastMsg.text}`;
-          }
-
-          li.innerHTML = `
-            <div class="contact-info">
-              <div class="name">${c.chatTitle || c.phone}</div>
-              <div class="last-msg">${previewText}</div>
-            </div>
-            <div class="contact-meta">
-              ${c.unread > 0 ? `<span class="badge">${c.unread}</span>` : ''}
-            </div>
-          `;
-          listEl.appendChild(li);
-        });
+        cachedConversations = await res.json();
+        renderList();
       } catch (err) {
         console.error('Falha ao carregar conversas', err);
       }
     }
-
+    
     async function openConversation(phone) {
       currentPhone = phone;
       document.getElementById('mainContainer').classList.add('open-chat');
@@ -404,6 +632,19 @@
         document.getElementById('currentContactTitle').textContent = data.chatTitle || data.phone;
         document.getElementById('currentContactPhone').textContent = `+${data.phone}`;
 
+        // Alterna entre texto "Descartar" e "Recuperar"
+        const isDiscarded = getConversationCategory(data) === 'descartada';
+        const actionBtn = document.getElementById('btnChatAction');
+        if (actionBtn) {
+          if (isDiscarded) {
+            actionBtn.textContent = 'Recuperar';
+            actionBtn.onclick = restoreCurrentConversation;
+          } else {
+            actionBtn.textContent = 'Descartar';
+            actionBtn.onclick = discardCurrentConversation;
+          }
+        }
+
         const box = document.getElementById('messagesBox');
         box.innerHTML = '';
         if (Array.isArray(data.messages)) {
@@ -414,6 +655,48 @@
         resetTextareaHeight();
       } catch (err) {
         console.error('Erro ao abrir conversa', err);
+      }
+    }
+
+    async function discardCurrentConversation() {
+      if (!currentPhone) return;
+      if (!confirm('Deseja mover esta conversa para Descartadas?')) return;
+
+      try {
+        const res = await fetch(`/api/chat/conversations/${currentPhone}/discard`, {
+          method: 'POST',
+          headers: getAuthHeaders()
+        });
+
+        if (res.ok) {
+          await loadConversations();
+          openConversation(currentPhone); // Atualiza o botão para "Recuperar"
+        } else {
+          alert('Erro ao descartar a conversa.');
+        }
+      } catch (err) {
+        alert('Erro de conexão ao descartar.');
+      }
+    }
+
+    async function restoreCurrentConversation() {
+      if (!currentPhone) return;
+      if (!confirm('Deseja recuperar esta conversa e devolvê-la ao funil ativo?')) return;
+
+      try {
+        const res = await fetch(`/api/chat/conversations/${currentPhone}/restore`, {
+          method: 'POST',
+          headers: getAuthHeaders()
+        });
+
+        if (res.ok) {
+          await loadConversations();
+          openConversation(currentPhone); // Atualiza o botão de volta para "Descartar"
+        } else {
+          alert('Erro ao recuperar a conversa.');
+        }
+      } catch (err) {
+        alert('Erro de conexão ao recuperar.');
       }
     }
 
@@ -457,7 +740,6 @@
       box.scrollTop = box.scrollHeight;
     }
 
-    // Gerenciamento de expansão automática do textarea
     const textarea = document.getElementById('messageInput');
     
     function resetTextareaHeight() {
@@ -470,8 +752,6 @@
       this.style.height = Math.min(this.scrollHeight, 140) + 'px';
     });
 
-    // Desktop: Enter envia, Shift+Enter quebra linha.
-    // Mobile: Tecla enter apenas quebra linha (usuário envia pelo botão).
     textarea.addEventListener('keydown', function(e) {
       if (e.key === 'Enter' && !e.shiftKey && window.innerWidth > 768) {
         e.preventDefault();

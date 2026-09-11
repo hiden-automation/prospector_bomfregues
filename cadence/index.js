@@ -134,20 +134,20 @@ function isWithinWorkingHours() {
   return true;
 }
 
-// Disparo a cada 10 minutos cravados
+// Disparo a cada 5 minutos cravados
 setInterval(async () => {
   if (!isWithinWorkingHours()) {
     console.log('⛔ Fora do horário comercial (10h às 19h, Seg–Sex). Envio suspenso.');
     return;
   }
-  console.log('⏰ [Ciclo de 10 minutos] Avaliando próximo envio...');
+  console.log('⏰ [Ciclo de 5 minutos] Avaliando próximo envio...');
   await processNextContact();
-}, 10 * 60 * 1000);
+}, 5 * 60 * 1000);
 
 app.listen(PORT, () => {
   console.log(`🚀 Orquestrador rodando em http://localhost:${PORT}`);
   console.log('📅 Horário de operação: 10h às 19h (Segunda a Sexta)');
-  console.log('⚖️ Cadência: 1 envio a cada 10 min (70% Novos / 30% Follow-up)');
+  console.log('⚖️ Cadência: 1 envio a cada 5 min (70% Novos / 30% Follow-up)');
 
   // Verificação inicial 5 segundos após inicialização
   setTimeout(async () => {

@@ -17,6 +17,7 @@ const WA_PHONE_NUMBER_ID = process.env.WA_PHONE_NUMBER_ID;
 const WA_ACCESS_TOKEN = process.env.WA_ACCESS_TOKEN;
 const WA_WEBHOOK_VERIFY_TOKEN = process.env.WA_WEBHOOK_VERIFY_TOKEN;
 const WA_TEMPLATE_LANG = process.env.WA_TEMPLATE_LANG || 'pt_BR';
+const pendingDispatches = new Map();
 
 // Segurança do Painel & Notificações OneSignal
 const DASHBOARD_ACCESS_TOKEN = process.env.DASHBOARD_ACCESS_TOKEN || 'admin_secreto_123';
@@ -210,18 +211,14 @@ async function sendMessage({ phone, text, templateName, templateParams = [] }) {
       io.emit('new_message', recorded);
     }
 
-    await sendPushNotification(
-      `🚨 Falha no envio para ${cleanPhone}`,
-      `A mensagem não pôde ser enviada. Erro: ${errorMsg}`
-    );
-
+    // Push de falha removido aqui (silencioso)
     throw new Error(errorMsg);
   }
 }
 
 // ─── SERVIDOR EXPRESS + COOKIES + SOCKET.IO ─────────────────────────────
 const app = express();
-app.set('trust proxy', 1); // Permite ao Express reconhecer o protocolo HTTPS do Cloudflare
+app.set('trust proxy', 1);
 const server = http.createServer(app);
 const io = new Server(server, { cors: { origin: '*' } });
 
@@ -241,16 +238,15 @@ function checkAuthCookie(req, res, next) {
   return res.status(401).json({ error: 'Não autorizado.' });
 }
 
-// Endpoint de Login: Grava cookie de 1 ano em modo Lax
 app.post('/api/auth/login', (req, res) => {
   const { token } = req.body;
   if (token === DASHBOARD_ACCESS_TOKEN) {
     res.cookie('auth_session', token, {
       httpOnly: true,
       secure: true,
-      sameSite: 'Lax', // Imprescindível para o PWA abrir autenticado pelo ícone
+      sameSite: 'Lax',
       path: '/',
-      maxAge: 365 * 24 * 60 * 60 * 1000 // 1 ano de validade
+      maxAge: 365 * 24 * 60 * 60 * 1000
     });
     return res.json({ success: true, token });
   }
@@ -287,7 +283,6 @@ app.get('/login', (req, res) => {
         </form>
       </div>
       <script>
-        // Auto-login se já existir token persistido no aparelho
         const savedToken = localStorage.getItem('pwa_auth_token');
         if (savedToken) {
           fetch('/api/auth/login', {
@@ -352,6 +347,51 @@ app.post('/api/chat/send', checkAuthCookie, async (req, res) => {
   }
 });
 
+// 🗑️ Descartar conversa manualmente
+app.post('/api/chat/conversations/:phone/discard', checkAuthCookie, (req, res) => {
+  const cleanPhone = req.params.phone.replace(/\D/g, '');
+  const data = loadConversations();
+  const conv = data[cleanPhone];
+  if (!conv) return res.status(404).json({ error: 'Conversa não encontrada' });
+
+  conv.discarded = true;
+  saveConversations(data);
+
+  if (io) {
+    io.emit('conversation_updated', conv);
+  }
+
+  res.json({ success: true, phone: cleanPhone });
+});
+
+// ↩️ Recuperar conversa descartada
+app.post('/api/chat/conversations/:phone/restore', checkAuthCookie, (req, res) => {
+  const cleanPhone = req.params.phone.replace(/\D/g, '');
+  const data = loadConversations();
+  const conv = data[cleanPhone];
+  if (!conv) return res.status(404).json({ error: 'Conversa não encontrada' });
+
+  // Remove a marcação de descarte manual
+  conv.discarded = false;
+
+  // Se o cliente havia enviado "não tenho interesse", limpamos a flag para ele voltar ao funil normal
+  if (conv.messages) {
+    conv.messages.forEach(m => {
+      if (m.sender === 'user' && m.text) {
+        m.text = m.text.replace(/não tenho interesse|nao tenho interesse/gi, '[Interesse Reaberto]');
+      }
+    });
+  }
+
+  saveConversations(data);
+
+  if (io) {
+    io.emit('conversation_updated', conv);
+  }
+
+  res.json({ success: true, phone: cleanPhone });
+});
+
 // ─── WEBHOOK DA META (RECEBIMENTO E STATUS) ─────────────────────────────
 app.get('/webhook', (req, res) => {
   if (req.query['hub.mode'] === 'subscribe' && req.query['hub.verify_token'] === WA_WEBHOOK_VERIFY_TOKEN) {
@@ -360,18 +400,77 @@ app.get('/webhook', (req, res) => {
   return res.sendStatus(403);
 });
 
+app.post('/send', async (req, res) => {
+  const apiKey = req.headers['x-api-key'];
+  if (!apiKey || apiKey !== API_KEY) {
+    return res.status(401).json({ error: 'Unauthorized' });
+  }
+
+  const { phone, templateName, templateParams, text } = req.body;
+  if (!phone) {
+    return res.status(400).json({ error: 'phone é obrigatório' });
+  }
+
+  try {
+    const result = await sendMessage({ phone, text, templateName, templateParams });
+    const messageId = result.messageId;
+
+    const deliveryConfirmation = await new Promise((resolve) => {
+      const timer = setTimeout(() => {
+        pendingDispatches.delete(messageId);
+        resolve({ delivered: true });
+      }, 6000);
+
+      pendingDispatches.set(messageId, (status, reason) => {
+        clearTimeout(timer);
+        pendingDispatches.delete(messageId);
+        if (status === 'failed') {
+          resolve({ delivered: false, reason });
+        } else {
+          resolve({ delivered: true });
+        }
+      });
+    });
+
+    if (!deliveryConfirmation.delivered) {
+      return res.status(422).json({ 
+        error: `Meta rejeitou o envio: ${deliveryConfirmation.reason}` 
+      });
+    }
+
+    return res.json(result);
+  } catch (err) {
+    return res.status(500).json({ error: err.message });
+  }
+});
+
 app.post('/webhook', async (req, res) => {
   res.sendStatus(200);
 
   const entry = req.body?.entry?.[0];
   const change = entry?.changes?.[0]?.value;
 
+  // Recebimento de mensagens (Respostas dos leads) -> PUSH ATIVO
   if (change?.messages && change.messages.length > 0) {
     for (const msg of change.messages) {
       const fromNumber = msg.from;
       const contactInfo = change.contacts?.find((c) => c.wa_id === fromNumber);
       const profileName = contactInfo?.profile?.name || null;
-      let incomingText = msg.text?.body || `[Mensagem do tipo ${msg.type}]`;
+
+      let incomingText = '';
+      if (msg.type === 'text') {
+        incomingText = msg.text?.body || '';
+      } else if (msg.type === 'button') {
+        incomingText = msg.button?.text || '[Botão clicado]';
+      } else if (msg.type === 'interactive') {
+        if (msg.interactive?.type === 'button_reply') {
+          incomingText = msg.interactive.button_reply?.title || '[Botão clicado]';
+        } else if (msg.interactive?.type === 'list_reply') {
+          incomingText = msg.interactive.list_reply?.title || '[Opção selecionada]';
+        }
+      } else {
+        incomingText = `[Mensagem do tipo ${msg.type}]`;
+      }
 
       const recorded = recordMessage(fromNumber, {
         sender: 'user',
@@ -381,15 +480,37 @@ app.post('/webhook', async (req, res) => {
       });
 
       io.emit('new_message', recorded);
+
+      // Único push disparado: quando o lead responde
       await sendPushNotification(`WhatsApp: ${profileName || fromNumber}`, incomingText);
+
+      try {
+        await axios.post(
+          `${ORCHESTRATOR_URL}/contacts/responded`,
+          { phone: fromNumber },
+          {
+            headers: { 'x-api-key': API_KEY },
+            timeout: 5000
+          }
+        );
+      } catch (err) {
+        console.warn('⚠️ Falha ao sincronizar resposta com orquestrador:', err.message);
+      }
     }
   }
 
+  // Atualizações de status de entrega (Sent, Delivered, Read, Failed) -> PUSH SILENCIADO
   if (change?.statuses && change.statuses.length > 0) {
     for (const st of change.statuses) {
       const msgId = st.id;
       const status = st.status;
       const recipient = st.recipient_id;
+
+      if (pendingDispatches.has(msgId)) {
+        const notifyPending = pendingDispatches.get(msgId);
+        const reason = st.errors?.[0]?.message || st.errors?.[0]?.title || null;
+        notifyPending(status, reason);
+      }
 
       if (status === 'failed') {
         const errDetails = st.errors?.[0];
@@ -397,18 +518,27 @@ app.post('/webhook', async (req, res) => {
         console.warn(`❌ Mensagem ${msgId} para ${recipient} FALHOU: ${reason}`);
 
         const updated = updateMessageStatus(msgId, 'failed', reason);
-        if (updated) {
-          io.emit('message_status_update', { messageId: msgId, phone: recipient, status: 'failed', error: reason });
+        if (updated && io) {
+          io.emit('message_status_update', { 
+            messageId: msgId, 
+            phone: recipient, 
+            status: 'failed', 
+            error: reason 
+          });
         }
 
-        await sendPushNotification(
-          `❌ Não Entregue: +${recipient}`,
-          `Sua mensagem falhou na entrega do WhatsApp: ${reason}`
-        );
+        // Marca como inválido no orquestrador silenciosamente sem enviar push
+        axios.post(`${ORCHESTRATOR_URL}/contacts/invalid`, { phone: recipient }, {
+          headers: { 'x-api-key': API_KEY }
+        }).catch(() => {});
       } else {
         const updated = updateMessageStatus(msgId, status);
-        if (updated) {
-          io.emit('message_status_update', { messageId: msgId, phone: recipient, status: status });
+        if (updated && io) {
+          io.emit('message_status_update', { 
+            messageId: msgId, 
+            phone: recipient, 
+            status: status 
+          });
         }
       }
     }
