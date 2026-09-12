@@ -3,7 +3,7 @@
     "phone": "5511945414569",
     "chatTitle": "Caio Vilor Brandão",
     "unread": 0,
-    "updatedAt": "2026-09-11T15:18:54.576Z",
+    "updatedAt": "2026-09-12T14:16:21.073Z",
     "messages": [
       {
         "id": "wamid.HBgNNTUxMTk0NTQxNDU2ORUCABEYEjM4MzY0Njc2NTg2MTUwQjg3NAA=",
@@ -18,8 +18,37 @@
         "text": "Sim, quero saber mais",
         "status": "sent",
         "timestamp": "2026-09-11T15:18:54.576Z"
+      },
+      {
+        "id": "wamid.HBgNNTUxMTk0NTQxNDU2ORUCABIYIEE1OTMzQzYzQkU5MkQyNEY3OEM2NjNCNjhBNEQ4ODY0AA==",
+        "sender": "user",
+        "text": "Podemos agendar uma reunião?",
+        "status": "sent",
+        "timestamp": "2026-09-11T23:09:05.341Z"
+      },
+      {
+        "id": "wamid.HBgNNTUxMTk0NTQxNDU2ORUCABIYIEE1MDEyMUM5QkVFNUQ0NzAzOEQwRDQ2RUIwMTRBODU4AA==",
+        "sender": "user",
+        "text": "Teste",
+        "status": "sent",
+        "timestamp": "2026-09-12T00:39:29.463Z"
+      },
+      {
+        "id": "wamid.HBgNNTUxMTk0NTQxNDU2ORUCABIYIEE1MDEyMUM5QkVFNUQ0NzAzOEQwRDQ2RUIwMTRBODU4AA==",
+        "sender": "user",
+        "text": "Teste",
+        "status": "sent",
+        "timestamp": "2026-09-12T00:43:48.706Z"
+      },
+      {
+        "id": "wamid.HBgNNTUxMTk0NTQxNDU2ORUCABIYIEE1RUQxMjhBNUIxMUUzRUZFNzgwRDE2RUYwRDUxODUwAA==",
+        "sender": "user",
+        "text": "Teste",
+        "status": "sent",
+        "timestamp": "2026-09-12T14:16:21.073Z"
       }
-    ]
+    ],
+    "discarded": true
   },
   "551137770187": {
     "phone": "551137770187",
@@ -42,7 +71,7 @@
         "timestamp": "2026-09-11T14:17:38.766Z"
       }
     ],
-    "discarded": false
+    "discarded": true
   },
   "5511966167668": {
     "phone": "5511966167668",
@@ -69,7 +98,7 @@
         "id": "wamid.HBgMNTUxMTM2ODM0Njg4FQIAERgSMTA0ODY1NDBDQ0Y2MjcyNDBEAA==",
         "sender": "agent",
         "text": "[Template: primeiro_contato]",
-        "status": "delivered",
+        "status": "read",
         "timestamp": "2026-09-11T14:24:11.363Z"
       }
     ]
@@ -178,7 +207,7 @@
         "id": "wamid.HBgMNTUxMTI1NzY2NjA0FQIAERgSNEFEMkU4NkZGMTNEN0EyQTAyAA==",
         "sender": "agent",
         "text": "[Template: primeiro_contato]",
-        "status": "sent",
+        "status": "read",
         "timestamp": "2026-09-11T14:41:17.713Z"
       }
     ]
@@ -340,7 +369,7 @@
         "id": "wamid.HBgNNTUxMTk4ODc4MDk0ORUCABEYEjgxQzgwQTRCN0E3OENGOEFFRgA=",
         "sender": "agent",
         "text": "[Template: primeiro_contato]",
-        "status": "delivered",
+        "status": "read",
         "timestamp": "2026-09-11T15:06:14.322Z"
       }
     ]
@@ -441,6 +470,1786 @@
         "text": "A AW Contábil agradece seu contato. Como podemos ajudar?",
         "status": "sent",
         "timestamp": "2026-09-11T15:26:15.906Z"
+      }
+    ],
+    "discarded": true
+  },
+  "5511952420892": {
+    "phone": "5511952420892",
+    "chatTitle": "5511952420892",
+    "unread": 0,
+    "updatedAt": "2026-09-11T15:30:57.983Z",
+    "messages": [
+      {
+        "id": "wamid.HBgNNTUxMTk1MjQyMDg5MhUCABEYEjY3ODA3N0ZGOTc3QzRDMTFBOAA=",
+        "sender": "agent",
+        "text": "[Template: primeiro_contato]",
+        "status": "delivered",
+        "timestamp": "2026-09-11T15:30:57.983Z"
+      }
+    ]
+  },
+  "551146181003": {
+    "phone": "551146181003",
+    "chatTitle": "551146181003",
+    "unread": 0,
+    "updatedAt": "2026-09-11T15:35:58.951Z",
+    "messages": [
+      {
+        "id": "wamid.HBgMNTUxMTQ2MTgxMDAzFQIAERgSNjFDNTJFNkI0QkY5MTQ5NzU3AA==",
+        "sender": "agent",
+        "text": "[Template: primeiro_contato]",
+        "status": "delivered",
+        "timestamp": "2026-09-11T15:35:58.951Z"
+      }
+    ]
+  },
+  "551151963434": {
+    "phone": "551151963434",
+    "chatTitle": "NORTH CONTABILIDADE",
+    "unread": 0,
+    "updatedAt": "2026-09-11T15:42:19.736Z",
+    "messages": [
+      {
+        "id": "wamid.HBgMNTUxMTUxOTYzNDM0FQIAERgSMEMyOEI2RTNBQzE1QTZDNjlEAA==",
+        "sender": "agent",
+        "text": "[Template: primeiro_contato]",
+        "status": "read",
+        "timestamp": "2026-09-11T15:40:58.870Z"
+      },
+      {
+        "id": "wamid.HBgMNTUxMTUxOTYzNDM0FQIAEhgWM0VCMDhFM0EzQjI2Mzk3NzFFRDJFNwA=",
+        "sender": "user",
+        "text": "Olá +55, você está no Atendimento da *North Contabilidade*\n\n1 - Certificação Digital\n2 - Contador\n3 - Departamento Contábil\n4 - Departamento Financeiro\n5 - Departamento Fiscal\n6 - Departamento Pessoal\n7 - Legalização\n\nDigite o número da opção desejada:",
+        "status": "sent",
+        "timestamp": "2026-09-11T15:41:03.273Z"
+      },
+      {
+        "id": "wamid.HBgMNTUxMTUxOTYzNDM0FQIAEhgWM0VCMDZEQTBBQTg3OTE1QzQ1ODNDMwA=",
+        "sender": "user",
+        "text": "*Claudia Ferreira:*\nOlá Caio, boa tarde.\nTudo bem graças a Deus e você?\n\nNo momento não temos interesse, obrigada.",
+        "status": "sent",
+        "timestamp": "2026-09-11T15:42:19.736Z"
+      }
+    ],
+    "discarded": true
+  },
+  "5511999655521": {
+    "phone": "5511999655521",
+    "chatTitle": "5511999655521",
+    "unread": 0,
+    "updatedAt": "2026-09-11T15:45:59.005Z",
+    "messages": [
+      {
+        "id": "wamid.HBgNNTUxMTk5OTY1NTUyMRUCABEYEjdDNzYyODcxMjM4RjgxQzczRQA=",
+        "sender": "agent",
+        "text": "[Template: primeiro_contato]",
+        "status": "read",
+        "timestamp": "2026-09-11T15:45:59.005Z"
+      }
+    ]
+  },
+  "551136830530": {
+    "phone": "551136830530",
+    "chatTitle": "Ferrarezi Engenharia",
+    "unread": 0,
+    "updatedAt": "2026-09-11T15:51:02.738Z",
+    "messages": [
+      {
+        "id": "wamid.HBgMNTUxMTM2ODMwNTMwFQIAERgSNzM4RTk5OUFCQTBFRkE4MEQxAA==",
+        "sender": "agent",
+        "text": "[Template: primeiro_contato]",
+        "status": "delivered",
+        "timestamp": "2026-09-11T15:50:58.798Z"
+      },
+      {
+        "id": "wamid.HBgMNTUxMTM2ODMwNTMwFQIAEhgUNkE5RkJDNEZGRjkwOTA5NTlGNjQA",
+        "sender": "user",
+        "text": "Olá! A Ferrarezi Engenharia agradece o seu contato. \nComo podemos lhe ajudar?\nResponderemos assim que possível.\nO nosso horário de atendimento é de Segunda a Sexta-feira, das 9h00 às 16h30.\nPor favor, não enviar áudio neste WhatsApp. Esse número não atende ligações por WhatsApp, somente ligação normal.",
+        "status": "sent",
+        "timestamp": "2026-09-11T15:51:02.738Z"
+      }
+    ],
+    "discarded": true
+  },
+  "5511982840504": {
+    "phone": "5511982840504",
+    "chatTitle": "Leandro Lara",
+    "unread": 0,
+    "updatedAt": "2026-09-11T15:55:55.913Z",
+    "messages": [
+      {
+        "id": "wamid.HBgNNTUxMTk4Mjg0MDUwNBUCABEYEjYzODlEMTJBMjI1NTQ3NzkxNgA=",
+        "sender": "agent",
+        "text": "[Template: primeiro_contato]",
+        "status": "read",
+        "timestamp": "2026-09-11T15:55:51.905Z"
+      },
+      {
+        "id": "wamid.HBgNNTUxMTk4Mjg0MDUwNBUCABIYIEE1NzI2NzBBNjc2NTNGOEI5RjY3OUM5QzhERDUyODBGAA==",
+        "sender": "user",
+        "text": "🤝🏼Olá!!!! Como vai? Como podemos te ajudar?",
+        "status": "sent",
+        "timestamp": "2026-09-11T15:55:55.913Z"
+      }
+    ],
+    "discarded": true
+  },
+  "5511917188900": {
+    "phone": "5511917188900",
+    "chatTitle": "5511917188900",
+    "unread": 0,
+    "updatedAt": "2026-09-11T15:57:47.700Z",
+    "messages": [
+      {
+        "id": "wamid.HBgNNTUxMTkxNzE4ODkwMBUCABEYEjAyRERGMUU0NDUxMjRBOUY4NAA=",
+        "sender": "agent",
+        "text": "[Template: primeiro_contato]",
+        "status": "delivered",
+        "timestamp": "2026-09-11T15:57:47.700Z"
+      }
+    ]
+  },
+  "5511999483362": {
+    "phone": "5511999483362",
+    "chatTitle": "5511999483362",
+    "unread": 0,
+    "updatedAt": "2026-09-11T15:59:47.823Z",
+    "messages": [
+      {
+        "id": "wamid.HBgNNTUxMTk5OTQ4MzM2MhUCABEYEkM2MEEzNEYyNTY1MzhEQjQ5RQA=",
+        "sender": "agent",
+        "text": "[Template: primeiro_contato]",
+        "status": "read",
+        "timestamp": "2026-09-11T15:59:47.823Z"
+      }
+    ]
+  },
+  "5511994644592": {
+    "phone": "5511994644592",
+    "chatTitle": "Clínica Bela Vista Implantes",
+    "unread": 0,
+    "updatedAt": "2026-09-11T16:02:23.784Z",
+    "messages": [
+      {
+        "id": "wamid.HBgNNTUxMTk5NDY0NDU5MhUCABEYEkE1NDBBRTYxQzI1M0Q3REQyMwA=",
+        "sender": "agent",
+        "text": "[Template: primeiro_contato]",
+        "status": "read",
+        "timestamp": "2026-09-11T16:01:47.892Z"
+      },
+      {
+        "id": "wamid.HBgNNTUxMTk5NDY0NDU5MhUCABIYIEE1M0NBRDg3Q0UwMTJGMEY2QjcwMEEzOTcyMTQzODcxAA==",
+        "sender": "user",
+        "text": "A Clínica Odontológica Bela Vista Implantes agradece o seu contato. Como podemos lhe ajudar?\n\n📲Enquanto aguarda o nosso atendimento, que tal seguir nossa página no Instagram para nos conhecer melhor?\nhttps://www.instagram.com/belavistaimplantes",
+        "status": "sent",
+        "timestamp": "2026-09-11T16:02:23.784Z"
+      }
+    ],
+    "discarded": true
+  },
+  "551137325500": {
+    "phone": "551137325500",
+    "chatTitle": "551137325500",
+    "unread": 0,
+    "updatedAt": "2026-09-11T16:03:47.939Z",
+    "messages": [
+      {
+        "id": "wamid.HBgMNTUxMTM3MzI1NTAwFQIAERgSRkNGNzk3Rjk0RkUyNjJGN0QyAA==",
+        "sender": "agent",
+        "text": "[Template: primeiro_contato]",
+        "status": "failed",
+        "timestamp": "2026-09-11T16:03:47.939Z",
+        "error": "Message undeliverable"
+      }
+    ]
+  },
+  "5511952311891": {
+    "phone": "5511952311891",
+    "chatTitle": "Janete",
+    "unread": 0,
+    "updatedAt": "2026-09-11T16:03:56.888Z",
+    "messages": [
+      {
+        "id": "wamid.HBgNNTUxMTk1MjMxMTg5MRUCABEYEjU3ODlFNjE2RUU5QUU5RDNGQQA=",
+        "sender": "agent",
+        "text": "[Template: primeiro_contato]",
+        "status": "read",
+        "timestamp": "2026-09-11T16:03:50.125Z"
+      },
+      {
+        "id": "wamid.HBgNNTUxMTk1MjMxMTg5MRUCABIYIEE1RTQ2RTcyRDgwNDNDMDU0Qzk1OTJDODVDNTQ0QjlCAA==",
+        "sender": "user",
+        "text": "✨",
+        "status": "sent",
+        "timestamp": "2026-09-11T16:03:56.118Z"
+      },
+      {
+        "id": "wamid.HBgNNTUxMTk1MjMxMTg5MRUCABIYIEE1QzUzMzkyRUY2QkZBODlBMEE4MDcwNDFFNDgwOThBAA==",
+        "sender": "user",
+        "text": "Agradecemos sua mensagem. Não estamos disponíveis no momento, mas responderemos assim que possível.",
+        "status": "sent",
+        "timestamp": "2026-09-11T16:03:56.888Z"
+      }
+    ],
+    "discarded": true
+  },
+  "551129761573": {
+    "phone": "551129761573",
+    "chatTitle": "551129761573",
+    "unread": 0,
+    "updatedAt": "2026-09-11T16:05:47.767Z",
+    "messages": [
+      {
+        "id": "wamid.HBgMNTUxMTI5NzYxNTczFQIAERgSNjJFRDBCNTQ5MUE4NjU5NUYyAA==",
+        "sender": "agent",
+        "text": "[Template: primeiro_contato]",
+        "status": "read",
+        "timestamp": "2026-09-11T16:05:47.767Z"
+      }
+    ]
+  },
+  "551130819404": {
+    "phone": "551130819404",
+    "chatTitle": "551130819404",
+    "unread": 0,
+    "updatedAt": "2026-09-11T16:07:46.901Z",
+    "messages": [
+      {
+        "id": "wamid.HBgMNTUxMTMwODE5NDA0FQIAERgSOTg0RkFDRUVERkE2ODA1NzdFAA==",
+        "sender": "agent",
+        "text": "[Template: primeiro_contato]",
+        "status": "failed",
+        "timestamp": "2026-09-11T16:07:46.901Z",
+        "error": "Message undeliverable"
+      }
+    ]
+  },
+  "5511981225451": {
+    "phone": "5511981225451",
+    "chatTitle": "5511981225451",
+    "unread": 0,
+    "updatedAt": "2026-09-11T16:07:48.793Z",
+    "messages": [
+      {
+        "id": "wamid.HBgNNTUxMTk4MTIyNTQ1MRUCABEYEjEzQTZBNUQzNEEyQ0IyNkVBNwA=",
+        "sender": "agent",
+        "text": "[Template: primeiro_contato]",
+        "status": "sent",
+        "timestamp": "2026-09-11T16:07:48.793Z"
+      }
+    ]
+  },
+  "5511992096991": {
+    "phone": "5511992096991",
+    "chatTitle": "5511992096991",
+    "unread": 0,
+    "updatedAt": "2026-09-11T16:09:47.695Z",
+    "messages": [
+      {
+        "id": "wamid.HBgNNTUxMTk5MjA5Njk5MRUCABEYEjk1NUFFQzdDRDE3RjM0NTM2OAA=",
+        "sender": "agent",
+        "text": "[Template: primeiro_contato]",
+        "status": "failed",
+        "timestamp": "2026-09-11T16:09:47.695Z",
+        "error": "Message undeliverable"
+      }
+    ]
+  },
+  "551129555358": {
+    "phone": "551129555358",
+    "chatTitle": "Despachante Agil Assessoria e Consultoria",
+    "unread": 0,
+    "updatedAt": "2026-09-12T01:23:18.758Z",
+    "messages": [
+      {
+        "id": "wamid.HBgMNTUxMTI5NTU1MzU4FQIAERgSNTk3NTUyNjg4NzJFNUNENThFAA==",
+        "sender": "agent",
+        "text": "[Template: primeiro_contato]",
+        "status": "read",
+        "timestamp": "2026-09-11T16:09:49.753Z"
+      },
+      {
+        "id": "wamid.HBgMNTUxMTI5NTU1MzU4FQIAEhgWM0VCMDY4QUVCNEUzM0VGQjNBOTcwQgA=",
+        "sender": "user",
+        "text": "Sim, quero saber mais",
+        "status": "sent",
+        "timestamp": "2026-09-11T19:37:44.559Z"
+      },
+      {
+        "id": "wamid.HBgMNTUxMTI5NTU1MzU4FQIAEhgWM0VCMEE0OTYyMzQ1NUQ3MEExQTYwRQA=",
+        "sender": "user",
+        "text": "preciso de uma automação para busca de vagas de atendimento em consulados do Brasil",
+        "status": "sent",
+        "timestamp": "2026-09-11T19:38:07.050Z"
+      },
+      {
+        "id": "wamid.HBgMNTUxMTI5NTU1MzU4FQIAERgSQUI3RUY2MTZCODA2NDVGODQ3AA==",
+        "sender": "agent",
+        "text": "Legal, eu posso te ajudar com isso!\n\nVocê tem disponibilidade para uma conversa por vídeo?\n\nNessa conversa você pode me apresentar com mais detalhes o que precisa automatizar e eu te digo como faremos isso.",
+        "status": "read",
+        "timestamp": "2026-09-11T19:50:23.069Z"
+      },
+      {
+        "id": "wamid.HBgMNTUxMTI5NTU1MzU4FQIAEhgWM0VCMEFBODQyNTc2NzU2OTBCRDlFMwA=",
+        "sender": "user",
+        "text": "pode ser na segunda?",
+        "status": "sent",
+        "timestamp": "2026-09-11T19:51:12.059Z"
+      },
+      {
+        "id": "wamid.HBgMNTUxMTI5NTU1MzU4FQIAERgSRDI5RjdENjEwNzA2RTAyNjM0AA==",
+        "sender": "agent",
+        "text": "Pode sim! No período da tarde, qual horário seria bom para você?",
+        "status": "read",
+        "timestamp": "2026-09-11T19:52:29.276Z"
+      },
+      {
+        "id": "wamid.HBgMNTUxMTI5NTU1MzU4FQIAEhgUMkExODM4REE3NEQyNkUyNTJBOEEA",
+        "sender": "user",
+        "text": "Obrigado pelo seu contato. No momento não estamos em atendimento, sendo nosso horário das 9:30 as 17:00 horas de segunda a sexta feira, mas se quiser pode deixar sua mensagem, exceto áudio. Infelizmente não atendemos ligações via WhatsApp, somente pelo telefone fixo (11) 2955-5358.\n\nAproveite e tenha informações importantes de Cidadania, Passaporte e Vistos de forma antecipada em nosso instagram. \n\nSiga-nos: @despachanteagil",
+        "status": "sent",
+        "timestamp": "2026-09-12T01:23:18.758Z"
+      }
+    ]
+  },
+  "5511956072926": {
+    "phone": "5511956072926",
+    "chatTitle": "5511956072926",
+    "unread": 0,
+    "updatedAt": "2026-09-11T16:11:49.179Z",
+    "messages": [
+      {
+        "id": "wamid.HBgNNTUxMTk1NjA3MjkyNhUCABEYEjU4RDQxQUIwODlDOTM3ODEzOAA=",
+        "sender": "agent",
+        "text": "[Template: primeiro_contato]",
+        "status": "read",
+        "timestamp": "2026-09-11T16:11:49.179Z"
+      }
+    ]
+  },
+  "551126280350": {
+    "phone": "551126280350",
+    "chatTitle": "551126280350",
+    "unread": 0,
+    "updatedAt": "2026-09-11T16:13:46.572Z",
+    "messages": [
+      {
+        "id": "wamid.HBgMNTUxMTI2MjgwMzUwFQIAERgSMjk1QzNBMjc2NUJCNTdDODU5AA==",
+        "sender": "agent",
+        "text": "[Template: primeiro_contato]",
+        "status": "failed",
+        "timestamp": "2026-09-11T16:13:46.572Z",
+        "error": "Message undeliverable"
+      }
+    ]
+  },
+  "5511971115677": {
+    "phone": "5511971115677",
+    "chatTitle": "Camargo e Associados Imóveis",
+    "unread": 0,
+    "updatedAt": "2026-09-11T16:13:55.559Z",
+    "messages": [
+      {
+        "id": "wamid.HBgNNTUxMTk3MTExNTY3NxUCABEYEkMxMjM0NjAwNTRCQTMwRUFCMQA=",
+        "sender": "agent",
+        "text": "[Template: primeiro_contato]",
+        "status": "read",
+        "timestamp": "2026-09-11T16:13:48.809Z"
+      },
+      {
+        "id": "wamid.HBgNNTUxMTk3MTExNTY3NxUCABIYIEE1QjRDMEM5OTVFMjZEOUYyMTlFODVCQ0Y2MDcwQzBGAA==",
+        "sender": "user",
+        "text": "A Camargo & Associados agradece seu contato. \n\nEm que podemos ajudá-lo (a)?",
+        "status": "sent",
+        "timestamp": "2026-09-11T16:13:55.559Z"
+      }
+    ],
+    "discarded": true
+  },
+  "5511966000689": {
+    "phone": "5511966000689",
+    "chatTitle": "You odontologia e especialidades",
+    "unread": 0,
+    "updatedAt": "2026-09-11T16:15:53.831Z",
+    "messages": [
+      {
+        "id": "wamid.HBgNNTUxMTk2NjAwMDY4ORUCABEYEjVBNkQwRUQzNjY5NTA0RjRDRAA=",
+        "sender": "agent",
+        "text": "[Template: primeiro_contato]",
+        "status": "read",
+        "timestamp": "2026-09-11T16:15:48.052Z"
+      },
+      {
+        "id": "wamid.HBgNNTUxMTk2NjAwMDY4ORUCABIYIEE1QThGM0U4QjlCQkQzRjAyRDFBQjVBRjJBQUEzMzQ5AA==",
+        "sender": "user",
+        "text": "Olá, You Odontologia agradece seu contato. Nossa equipe altamente qualificada está pronta para te atender. Como podemos te ajudar?",
+        "status": "sent",
+        "timestamp": "2026-09-11T16:15:53.831Z"
+      }
+    ],
+    "discarded": true
+  },
+  "5511996254317": {
+    "phone": "5511996254317",
+    "chatTitle": "Abrão Lucas - Corretor e Avaliador de Imóveis",
+    "unread": 0,
+    "updatedAt": "2026-09-11T16:17:54.804Z",
+    "messages": [
+      {
+        "id": "wamid.HBgNNTUxMTk5NjI1NDMxNxUCABEYEjkzMjI4M0UxQTY3ODgxRjc2QgA=",
+        "sender": "agent",
+        "text": "[Template: primeiro_contato]",
+        "status": "read",
+        "timestamp": "2026-09-11T16:17:46.656Z"
+      },
+      {
+        "id": "wamid.HBgNNTUxMTk5NjI1NDMxNxUCABIYIEE1N0M0NjEyRjkzRjE0N0JENDdGRDFBNzRGRkZCRTY5AA==",
+        "sender": "user",
+        "text": "‎Abrão Lucas Corretor e Avaliador de Imóveis, agradece seu contato. Deixe sua mensagem que retornarei em seguida. Obrigado.",
+        "status": "sent",
+        "timestamp": "2026-09-11T16:17:54.804Z"
+      }
+    ],
+    "discarded": true
+  },
+  "5511976331174": {
+    "phone": "5511976331174",
+    "chatTitle": "5511976331174",
+    "unread": 0,
+    "updatedAt": "2026-09-11T16:19:47.217Z",
+    "messages": [
+      {
+        "id": "wamid.HBgNNTUxMTk3NjMzMTE3NBUCABEYEkFEN0MyRDI0M0RFRTBCMURFRAA=",
+        "sender": "agent",
+        "text": "[Template: primeiro_contato]",
+        "status": "read",
+        "timestamp": "2026-09-11T16:19:47.217Z"
+      }
+    ]
+  },
+  "551129515950": {
+    "phone": "551129515950",
+    "chatTitle": "551129515950",
+    "unread": 0,
+    "updatedAt": "2026-09-11T16:21:47.951Z",
+    "messages": [
+      {
+        "id": "wamid.HBgMNTUxMTI5NTE1OTUwFQIAERgSNEE5NEUwMTg0RTQ0QTlERDY1AA==",
+        "sender": "agent",
+        "text": "[Template: primeiro_contato]",
+        "status": "failed",
+        "timestamp": "2026-09-11T16:21:47.951Z",
+        "error": "Message undeliverable"
+      }
+    ]
+  },
+  "551138657836": {
+    "phone": "551138657836",
+    "chatTitle": "551138657836",
+    "unread": 0,
+    "updatedAt": "2026-09-11T16:21:49.636Z",
+    "messages": [
+      {
+        "id": "wamid.HBgMNTUxMTM4NjU3ODM2FQIAERgSQTBDNTM0Njg1QzRCNTIxREMwAA==",
+        "sender": "agent",
+        "text": "[Template: primeiro_contato]",
+        "status": "failed",
+        "timestamp": "2026-09-11T16:21:49.636Z",
+        "error": "Message undeliverable"
+      }
+    ]
+  },
+  "551123599005": {
+    "phone": "551123599005",
+    "chatTitle": "551123599005",
+    "unread": 0,
+    "updatedAt": "2026-09-11T16:21:51.164Z",
+    "messages": [
+      {
+        "id": "wamid.HBgMNTUxMTIzNTk5MDA1FQIAERgSMTNBMUJDNzUxNjM0NDg5QUI0AA==",
+        "sender": "agent",
+        "text": "[Template: primeiro_contato]",
+        "status": "failed",
+        "timestamp": "2026-09-11T16:21:51.164Z",
+        "error": "Message undeliverable"
+      }
+    ]
+  },
+  "551137330747": {
+    "phone": "551137330747",
+    "chatTitle": "551137330747",
+    "unread": 0,
+    "updatedAt": "2026-09-11T16:21:52.925Z",
+    "messages": [
+      {
+        "id": "wamid.HBgMNTUxMTM3MzMwNzQ3FQIAERgSQURDQUY5QjEyNzM2N0Q3NkYzAA==",
+        "sender": "agent",
+        "text": "[Template: primeiro_contato]",
+        "status": "failed",
+        "timestamp": "2026-09-11T16:21:52.925Z",
+        "error": "Message undeliverable"
+      }
+    ]
+  },
+  "556121039555": {
+    "phone": "556121039555",
+    "chatTitle": "‎Fox Engenharia",
+    "unread": 0,
+    "updatedAt": "2026-09-11T22:08:45.915Z",
+    "messages": [
+      {
+        "id": "wamid.HBgMNTU2MTIxMDM5NTU1FQIAERgSRDBBRDNDOEVGRTc2NzlFNjJFAA==",
+        "sender": "agent",
+        "text": "[Template: primeiro_contato]",
+        "status": "sent",
+        "timestamp": "2026-09-11T16:21:54.752Z"
+      },
+      {
+        "id": "wamid.HBgMNTU2MTIxMDM5NTU1FQIAEhgWM0VCMEEyQUE0MUY4M0U4NkM5NDMwOQA=",
+        "sender": "user",
+        "text": "Não tenho interesse",
+        "status": "sent",
+        "timestamp": "2026-09-11T22:08:45.915Z"
+      }
+    ]
+  },
+  "551129912323": {
+    "phone": "551129912323",
+    "chatTitle": "551129912323",
+    "unread": 0,
+    "updatedAt": "2026-09-11T16:22:44.590Z",
+    "messages": [
+      {
+        "id": "wamid.HBgMNTUxMTI5OTEyMzIzFQIAERgSMDhFNzM5MUVDRDc2N0IwRTdFAA==",
+        "sender": "agent",
+        "text": "[Template: primeiro_contato]",
+        "status": "failed",
+        "timestamp": "2026-09-11T16:22:44.590Z",
+        "error": "Message undeliverable"
+      }
+    ]
+  },
+  "551120813240": {
+    "phone": "551120813240",
+    "chatTitle": "551120813240",
+    "unread": 0,
+    "updatedAt": "2026-09-11T16:22:46.258Z",
+    "messages": [
+      {
+        "id": "wamid.HBgMNTUxMTIwODEzMjQwFQIAERgSQjZDMzdGN0M1MTVENEM5RTg2AA==",
+        "sender": "agent",
+        "text": "[Template: primeiro_contato]",
+        "status": "delivered",
+        "timestamp": "2026-09-11T16:22:46.258Z"
+      }
+    ]
+  },
+  "551145563555": {
+    "phone": "551145563555",
+    "chatTitle": "Ix8 Corretora",
+    "unread": 0,
+    "updatedAt": "2026-09-11T16:32:45.947Z",
+    "messages": [
+      {
+        "id": "wamid.HBgMNTUxMTQ1NTYzNTU1FQIAERgSNkU5NkI5REUwQzZCQTI3MUNEAA==",
+        "sender": "agent",
+        "text": "[Template: primeiro_contato]",
+        "status": "read",
+        "timestamp": "2026-09-11T16:32:41.110Z"
+      },
+      {
+        "id": "wamid.HBgMNTUxMTQ1NTYzNTU1FQIAEhgUNkE0QTc1QTEzNjYwMkZFNzExMEIA",
+        "sender": "user",
+        "text": "IX8 Corretora agradece seu contato, nosso horário de atendimento é das 8:30h as 17:30h.\nComo podemos ajudar?",
+        "status": "sent",
+        "timestamp": "2026-09-11T16:32:45.947Z"
+      }
+    ],
+    "discarded": true
+  },
+  "5511947679129": {
+    "phone": "5511947679129",
+    "chatTitle": "5511947679129",
+    "unread": 0,
+    "updatedAt": "2026-09-11T16:42:41.058Z",
+    "messages": [
+      {
+        "id": "wamid.HBgNNTUxMTk0NzY3OTEyORUCABEYEjFCNEZFQkVCOUYzQjhEODMyMgA=",
+        "sender": "agent",
+        "text": "[Template: primeiro_contato]",
+        "status": "read",
+        "timestamp": "2026-09-11T16:42:41.058Z"
+      }
+    ]
+  },
+  "5511956961413": {
+    "phone": "5511956961413",
+    "chatTitle": "apontualc",
+    "unread": 0,
+    "updatedAt": "2026-09-11T16:52:48.235Z",
+    "messages": [
+      {
+        "id": "wamid.HBgNNTUxMTk1Njk2MTQxMxUCABEYEjNFNkI0RkI0NzNENzAxNkVFNQA=",
+        "sender": "agent",
+        "text": "[Template: primeiro_contato]",
+        "status": "delivered",
+        "timestamp": "2026-09-11T16:52:41.632Z"
+      },
+      {
+        "id": "wamid.HBgNNTUxMTk1Njk2MTQxMxUCABIYIEE1Qzg1NDVFNTdBMTBDNUU3Q0NBNUIyQ0QxN0YzMzQ3AA==",
+        "sender": "user",
+        "text": "‎A Pontual Contabilidade agradece seu contato. Como podemos ajudar?",
+        "status": "sent",
+        "timestamp": "2026-09-11T16:52:48.235Z"
+      }
+    ],
+    "discarded": true
+  },
+  "5511911771777": {
+    "phone": "5511911771777",
+    "chatTitle": "Recepção Barueri 𝜗ৎ",
+    "unread": 0,
+    "updatedAt": "2026-09-11T17:03:25.795Z",
+    "messages": [
+      {
+        "id": "wamid.HBgNNTUxMTkxMTc3MTc3NxUCABEYEjMyNEIyNTUwRUZDQTZDQjMyOQA=",
+        "sender": "agent",
+        "text": "[Template: primeiro_contato]",
+        "status": "delivered",
+        "timestamp": "2026-09-11T17:02:40.623Z"
+      },
+      {
+        "id": "wamid.HBgNNTUxMTkxMTc3MTc3NxUCABIYIEE1ODM2NkRBNjdEQjdBNjM4MTczNzI2MjYzQTczODA3AA==",
+        "sender": "user",
+        "text": "Olá! Seja bem-vindo(a) 😊\nNosso horário de atendimento na recepção é:\n\nSegunda à Sexta\n🕙 Das 10:00 às 13:30\n🕜 Das 14:30 às 19:00\n\nSábado \n🕜 Das 09:00 às 13:00\n\nEstamos à disposição para te atender dentro desses horários. Será um prazer falar com você! 💖",
+        "status": "sent",
+        "timestamp": "2026-09-11T17:02:45.042Z"
+      },
+      {
+        "id": "wamid.HBgNNTUxMTkxMTc3MTc3NxUCABIYIEE1NEE5Q0VDRkY5NkM0MjBFN0I0NzUxQkNENzJBNzlBAA==",
+        "sender": "user",
+        "text": "Olá! Seja bem-vindo(a) 😊\nNosso horário de atendimento na recepção é:\n\nSegunda à Sexta\n🕙 Das 10:00 às 13:30\n🕜 Das 14:30 às 19:00\n\nSábado \n🕜 Das 09:00 às 13:00\n\nEstamos à disposição para te atender dentro desses horários. Será um prazer falar com você! 💖",
+        "status": "sent",
+        "timestamp": "2026-09-11T17:02:45.106Z"
+      },
+      {
+        "id": "wamid.HBgNNTUxMTkxMTc3MTc3NxUCABIYIEE1M0M1ODFFRkNBMEVBRTBFQ0RFMjk0OUVDMTM3OTExAA==",
+        "sender": "user",
+        "text": "Boa tarde Caio, tudo bem?\nPor enquanto não temos interesse 🙏🏽☺️",
+        "status": "sent",
+        "timestamp": "2026-09-11T17:03:25.795Z"
+      }
+    ],
+    "discarded": true
+  },
+  "5511941574145": {
+    "phone": "5511941574145",
+    "chatTitle": "5511941574145",
+    "unread": 0,
+    "updatedAt": "2026-09-11T17:12:40.571Z",
+    "messages": [
+      {
+        "id": "wamid.HBgNNTUxMTk0MTU3NDE0NRUCABEYEjEwNjMyQTNEMzUzRTRFMjY4MAA=",
+        "sender": "agent",
+        "text": "[Template: primeiro_contato]",
+        "status": "failed",
+        "timestamp": "2026-09-11T17:12:40.571Z",
+        "error": "This message was not delivered to maintain healthy ecosystem engagement."
+      }
+    ]
+  },
+  "551127792087": {
+    "phone": "551127792087",
+    "chatTitle": "551127792087",
+    "unread": 0,
+    "updatedAt": "2026-09-11T17:12:43.608Z",
+    "messages": [
+      {
+        "id": "wamid.HBgMNTUxMTI3NzkyMDg3FQIAERgSOTU0OTBDQUQxQjFDNjY3MTFGAA==",
+        "sender": "agent",
+        "text": "[Template: primeiro_contato]",
+        "status": "failed",
+        "timestamp": "2026-09-11T17:12:43.608Z",
+        "error": "Message undeliverable"
+      }
+    ]
+  },
+  "551137491945": {
+    "phone": "551137491945",
+    "chatTitle": "551137491945",
+    "unread": 0,
+    "updatedAt": "2026-09-11T17:12:45.141Z",
+    "messages": [
+      {
+        "id": "wamid.HBgMNTUxMTM3NDkxOTQ1FQIAERgSMEJDRkU1NUI4NTQyN0RFQjI4AA==",
+        "sender": "agent",
+        "text": "[Template: primeiro_contato]",
+        "status": "failed",
+        "timestamp": "2026-09-11T17:12:45.141Z",
+        "error": "Message undeliverable"
+      }
+    ]
+  },
+  "551138312755": {
+    "phone": "551138312755",
+    "chatTitle": "551138312755",
+    "unread": 0,
+    "updatedAt": "2026-09-11T17:12:46.746Z",
+    "messages": [
+      {
+        "id": "wamid.HBgMNTUxMTM4MzEyNzU1FQIAERgSMzhGOUVBNTQ1OEZDM0JGMzE2AA==",
+        "sender": "agent",
+        "text": "[Template: primeiro_contato]",
+        "status": "failed",
+        "timestamp": "2026-09-11T17:12:46.746Z",
+        "error": "Message undeliverable"
+      }
+    ]
+  },
+  "551131054499": {
+    "phone": "551131054499",
+    "chatTitle": "551131054499",
+    "unread": 0,
+    "updatedAt": "2026-09-11T17:12:48.969Z",
+    "messages": [
+      {
+        "id": "wamid.HBgMNTUxMTMxMDU0NDk5FQIAERgSNzU5RjVCMjgyQUY3MzkyOTJGAA==",
+        "sender": "agent",
+        "text": "[Template: primeiro_contato]",
+        "status": "failed",
+        "timestamp": "2026-09-11T17:12:48.969Z",
+        "error": "Message undeliverable"
+      }
+    ]
+  },
+  "551126593032": {
+    "phone": "551126593032",
+    "chatTitle": "551126593032",
+    "unread": 0,
+    "updatedAt": "2026-09-11T17:12:50.995Z",
+    "messages": [
+      {
+        "id": "wamid.HBgMNTUxMTI2NTkzMDMyFQIAERgSNDVEMkU0MTM2NTlEOUI3MjY2AA==",
+        "sender": "agent",
+        "text": "[Template: primeiro_contato]",
+        "status": "failed",
+        "timestamp": "2026-09-11T17:12:50.995Z",
+        "error": "Message undeliverable"
+      }
+    ]
+  },
+  "5511914203165": {
+    "phone": "5511914203165",
+    "chatTitle": "Ivone Martins",
+    "unread": 0,
+    "updatedAt": "2026-09-11T17:13:16.167Z",
+    "messages": [
+      {
+        "id": "wamid.HBgNNTUxMTkxNDIwMzE2NRUCABEYEjMzMzA0RkU1MDExQUYwNDVBOQA=",
+        "sender": "agent",
+        "text": "[Template: primeiro_contato]",
+        "status": "delivered",
+        "timestamp": "2026-09-11T17:12:52.368Z"
+      },
+      {
+        "id": "wamid.HBgNNTUxMTkxNDIwMzE2NRUCABIYFjNFQjAzREU3Q0VEOTNFRkQwMUFENkQA",
+        "sender": "user",
+        "text": "Olá, Caio! Aqui é a Ivone, especialista de negócios da Razy Corretora. Vi aqui que você não mencionou ter um plano de saúde conosco. Gostaria de saber se tem interesse em receber um orçamento para um plano de saúde que possa atender você e sua empresa? Posso te ajudar com isso!",
+        "status": "sent",
+        "timestamp": "2026-09-11T17:13:16.167Z"
+      }
+    ],
+    "discarded": true
+  },
+  "5511941127314": {
+    "phone": "5511941127314",
+    "chatTitle": "Digital Contador",
+    "unread": 0,
+    "updatedAt": "2026-09-11T17:22:59.466Z",
+    "messages": [
+      {
+        "id": "wamid.HBgNNTUxMTk0MTEyNzMxNBUCABEYEjYxMjhDNUVFN0ZFRjA4MEM5OAA=",
+        "sender": "agent",
+        "text": "[Template: primeiro_contato]",
+        "status": "read",
+        "timestamp": "2026-09-11T17:22:41.148Z"
+      },
+      {
+        "id": "wamid.HBgNNTUxMTk0MTEyNzMxNBUCABIYIEE1RDJFNTVDNzI2RTBGMkYxQjU1OENENUYzRDIxQTkyAA==",
+        "sender": "user",
+        "text": "Olá!\nSeja bem-vindo(a) à *Digital Contador*. \nSomos especialistas em contabilidade e estamos aqui para ajudar. Como podemos auxiliá-lo(a) hoje?",
+        "status": "sent",
+        "timestamp": "2026-09-11T17:22:59.466Z"
+      }
+    ],
+    "discarded": true
+  },
+  "551137339897": {
+    "phone": "551137339897",
+    "chatTitle": "551137339897",
+    "unread": 0,
+    "updatedAt": "2026-09-11T17:32:40.510Z",
+    "messages": [
+      {
+        "id": "wamid.HBgMNTUxMTM3MzM5ODk3FQIAERgSQkY0QzhDNjIzQjNCRkFGRDY5AA==",
+        "sender": "agent",
+        "text": "[Template: primeiro_contato]",
+        "status": "failed",
+        "timestamp": "2026-09-11T17:32:40.510Z",
+        "error": "Message undeliverable"
+      }
+    ]
+  },
+  "5511973790101": {
+    "phone": "5511973790101",
+    "chatTitle": "5511973790101",
+    "unread": 0,
+    "updatedAt": "2026-09-11T17:32:42.313Z",
+    "messages": [
+      {
+        "id": "wamid.HBgNNTUxMTk3Mzc5MDEwMRUCABEYEjVFNDdDOEM1QkYxNjFFODdDMwA=",
+        "sender": "agent",
+        "text": "[Template: primeiro_contato]",
+        "status": "read",
+        "timestamp": "2026-09-11T17:32:42.313Z"
+      }
+    ]
+  },
+  "551120201122": {
+    "phone": "551120201122",
+    "chatTitle": "551120201122",
+    "unread": 0,
+    "updatedAt": "2026-09-11T17:42:40.540Z",
+    "messages": [
+      {
+        "id": "wamid.HBgMNTUxMTIwMjAxMTIyFQIAERgSREQ3RkY3OEVERTg0NEE1REY2AA==",
+        "sender": "agent",
+        "text": "[Template: primeiro_contato]",
+        "status": "failed",
+        "timestamp": "2026-09-11T17:42:40.540Z",
+        "error": "Message undeliverable"
+      }
+    ]
+  },
+  "551123913662": {
+    "phone": "551123913662",
+    "chatTitle": "JCR Segurança do Trabalho",
+    "unread": 0,
+    "updatedAt": "2026-09-11T17:43:31.625Z",
+    "messages": [
+      {
+        "id": "wamid.HBgMNTUxMTIzOTEzNjYyFQIAERgSQThFQ0YzQjYwODQyRjFCMzVEAA==",
+        "sender": "agent",
+        "text": "[Template: primeiro_contato]",
+        "status": "delivered",
+        "timestamp": "2026-09-11T17:42:42.397Z"
+      },
+      {
+        "id": "wamid.HBgMNTUxMTIzOTEzNjYyFQIAEhgUNkE3RjEyMUE3MUQxRTkwOTExRDIA",
+        "sender": "user",
+        "text": "Olá! Tudo bem? 🤍💙\nObrigada por entrar em contato com a *JCR Engenharia*.\n\nSou *Agnes*, do setor comercial.\nEste número é destinado a assuntos como:\n📄 propostas e orçamentos\n💼 contratos\n💰 financeiro e faturamento\n\nCaso o seu contato seja sobre outro assunto, por gentileza, informe abaixo para que eu possa direcionar da melhor forma 💙\nEm breve retorno.",
+        "status": "sent",
+        "timestamp": "2026-09-11T17:43:31.625Z"
+      }
+    ],
+    "discarded": true
+  },
+  "551120281853": {
+    "phone": "551120281853",
+    "chatTitle": "551120281853",
+    "unread": 0,
+    "updatedAt": "2026-09-11T17:52:41.713Z",
+    "messages": [
+      {
+        "id": "wamid.HBgMNTUxMTIwMjgxODUzFQIAERgSODVFM0I2RUQyQjI3NzkyRkVGAA==",
+        "sender": "agent",
+        "text": "[Template: primeiro_contato]",
+        "status": "sent",
+        "timestamp": "2026-09-11T17:52:41.713Z"
+      }
+    ]
+  },
+  "551131295453": {
+    "phone": "551131295453",
+    "chatTitle": "551131295453",
+    "unread": 0,
+    "updatedAt": "2026-09-11T18:02:39.786Z",
+    "messages": [
+      {
+        "id": "wamid.HBgMNTUxMTMxMjk1NDUzFQIAERgSNjUyQzYyMDk0QTZCNkQ1QUZGAA==",
+        "sender": "agent",
+        "text": "[Template: primeiro_contato]",
+        "status": "failed",
+        "timestamp": "2026-09-11T18:02:39.786Z",
+        "error": "Message undeliverable"
+      }
+    ]
+  },
+  "5511955959825": {
+    "phone": "5511955959825",
+    "chatTitle": "clínica Lauravi",
+    "unread": 0,
+    "updatedAt": "2026-09-11T18:04:29.181Z",
+    "messages": [
+      {
+        "id": "wamid.HBgNNTUxMTk1NTk1OTgyNRUCABEYEjkyNUFDQ0ZFNERGMDE2NjNCMgA=",
+        "sender": "agent",
+        "text": "[Template: primeiro_contato]",
+        "status": "delivered",
+        "timestamp": "2026-09-11T18:02:42.943Z"
+      },
+      {
+        "id": "wamid.HBgNNTUxMTk1NTk1OTgyNRUCABIYIEE1MTY3OEE3M0Y5RkRGODFEMzIzQkU2NDhCRTM5MkQ2AA==",
+        "sender": "user",
+        "text": "Olá, tudo bem? ☺️\nSeja bem-vindo(a) à Clínica Lauravi!  \nMe chamo Stephanie e vou dar continuidade ao seu atendimento. \nComo posso ajudá-lo (a)?",
+        "status": "sent",
+        "timestamp": "2026-09-11T18:04:29.181Z"
+      }
+    ],
+    "discarded": true
+  },
+  "5511939354462": {
+    "phone": "5511939354462",
+    "chatTitle": "Bellarrê Imóveis",
+    "unread": 0,
+    "updatedAt": "2026-09-11T18:14:57.104Z",
+    "messages": [
+      {
+        "id": "wamid.HBgNNTUxMTkzOTM1NDQ2MhUCABEYEjk4NDAwQUFCNUI2OTc4QjIwMwA=",
+        "sender": "agent",
+        "text": "[Template: primeiro_contato]",
+        "status": "read",
+        "timestamp": "2026-09-11T18:12:40.872Z"
+      },
+      {
+        "id": "wamid.HBgNNTUxMTkzOTM1NDQ2MhUCABIYFjNFQjAzODg3OTUzODE2MEM3MkUyRkIA",
+        "sender": "user",
+        "text": "Boa tarde! Caio estou enviando sua mensagem para a pp. da empresa qq coisa retornamos seu contato.",
+        "status": "sent",
+        "timestamp": "2026-09-11T18:14:57.104Z"
+      }
+    ],
+    "discarded": true
+  },
+  "551130187700": {
+    "phone": "551130187700",
+    "chatTitle": "551130187700",
+    "unread": 0,
+    "updatedAt": "2026-09-11T18:22:40.707Z",
+    "messages": [
+      {
+        "id": "wamid.HBgMNTUxMTMwMTg3NzAwFQIAERgSRkY5RTBCRkUxRUE3MzhBNUFEAA==",
+        "sender": "agent",
+        "text": "[Template: primeiro_contato]",
+        "status": "failed",
+        "timestamp": "2026-09-11T18:22:40.707Z",
+        "error": "Message undeliverable"
+      }
+    ]
+  },
+  "5511997012273": {
+    "phone": "5511997012273",
+    "chatTitle": "5511997012273",
+    "unread": 0,
+    "updatedAt": "2026-09-11T18:22:42.944Z",
+    "messages": [
+      {
+        "id": "wamid.HBgNNTUxMTk5NzAxMjI3MxUCABEYEjEwQTk3NkQzMzIxOTA0MkJDNgA=",
+        "sender": "agent",
+        "text": "[Template: primeiro_contato]",
+        "status": "read",
+        "timestamp": "2026-09-11T18:22:42.944Z"
+      }
+    ]
+  },
+  "551130326526": {
+    "phone": "551130326526",
+    "chatTitle": "551130326526",
+    "unread": 0,
+    "updatedAt": "2026-09-11T18:32:39.770Z",
+    "messages": [
+      {
+        "id": "wamid.HBgMNTUxMTMwMzI2NTI2FQIAERgSRTgyRDEwMDk3Q0I4RjkzRDY5AA==",
+        "sender": "agent",
+        "text": "[Template: primeiro_contato]",
+        "status": "failed",
+        "timestamp": "2026-09-11T18:32:39.770Z",
+        "error": "Message undeliverable"
+      }
+    ]
+  },
+  "551141980858": {
+    "phone": "551141980858",
+    "chatTitle": "551141980858",
+    "unread": 0,
+    "updatedAt": "2026-09-11T18:32:41.345Z",
+    "messages": [
+      {
+        "id": "wamid.HBgMNTUxMTQxOTgwODU4FQIAERgSRDBENTk4MkQ1REZEREUzMjNCAA==",
+        "sender": "agent",
+        "text": "[Template: primeiro_contato]",
+        "status": "failed",
+        "timestamp": "2026-09-11T18:32:41.345Z",
+        "error": "Message undeliverable"
+      }
+    ]
+  },
+  "551137680877": {
+    "phone": "551137680877",
+    "chatTitle": "551137680877",
+    "unread": 0,
+    "updatedAt": "2026-09-11T18:32:42.593Z",
+    "messages": [
+      {
+        "id": "wamid.HBgMNTUxMTM3NjgwODc3FQIAERgSNTg5NkI3MTU0MUY1MDQyOTA0AA==",
+        "sender": "agent",
+        "text": "[Template: primeiro_contato]",
+        "status": "failed",
+        "timestamp": "2026-09-11T18:32:42.593Z",
+        "error": "Message undeliverable"
+      }
+    ]
+  },
+  "551129710017": {
+    "phone": "551129710017",
+    "chatTitle": "551129710017",
+    "unread": 0,
+    "updatedAt": "2026-09-11T18:32:43.997Z",
+    "messages": [
+      {
+        "id": "wamid.HBgMNTUxMTI5NzEwMDE3FQIAERgSRTYxMDM2MkVCODcwMEFDREQ0AA==",
+        "sender": "agent",
+        "text": "[Template: primeiro_contato]",
+        "status": "failed",
+        "timestamp": "2026-09-11T18:32:43.997Z",
+        "error": "Message undeliverable"
+      }
+    ]
+  },
+  "551128940548": {
+    "phone": "551128940548",
+    "chatTitle": "551128940548",
+    "unread": 0,
+    "updatedAt": "2026-09-11T18:32:45.681Z",
+    "messages": [
+      {
+        "id": "wamid.HBgMNTUxMTI4OTQwNTQ4FQIAERgSODlFRTc2NzIwRjE1N0VFQkVDAA==",
+        "sender": "agent",
+        "text": "[Template: primeiro_contato]",
+        "status": "failed",
+        "timestamp": "2026-09-11T18:32:45.681Z",
+        "error": "Message undeliverable"
+      }
+    ]
+  },
+  "5511974327283": {
+    "phone": "5511974327283",
+    "chatTitle": "Iran Morais",
+    "unread": 0,
+    "updatedAt": "2026-09-11T18:33:20.508Z",
+    "messages": [
+      {
+        "id": "wamid.HBgNNTUxMTk3NDMyNzI4MxUCABEYEkM2MEU1NTJCRTVCMzE5OENGQwA=",
+        "sender": "agent",
+        "text": "[Template: primeiro_contato]",
+        "status": "delivered",
+        "timestamp": "2026-09-11T18:32:47.901Z"
+      },
+      {
+        "id": "wamid.HBgNNTUxMTk3NDMyNzI4MxUCABIYFjNFQjBFMDgxQUEwOEVGMzM0ODgzNkMA",
+        "sender": "user",
+        "text": "Não tenho interesse",
+        "status": "sent",
+        "timestamp": "2026-09-11T18:33:20.508Z"
+      }
+    ]
+  },
+  "5511978473867": {
+    "phone": "5511978473867",
+    "chatTitle": "5511978473867",
+    "unread": 0,
+    "updatedAt": "2026-09-11T18:42:41.068Z",
+    "messages": [
+      {
+        "id": "wamid.HBgNNTUxMTk3ODQ3Mzg2NxUCABEYEkMxREQ3ODkyRTMwNzYwMzkxMQA=",
+        "sender": "agent",
+        "text": "[Template: primeiro_contato]",
+        "status": "read",
+        "timestamp": "2026-09-11T18:42:41.068Z"
+      }
+    ]
+  },
+  "551137976895": {
+    "phone": "551137976895",
+    "chatTitle": "551137976895",
+    "unread": 0,
+    "updatedAt": "2026-09-11T18:52:40.785Z",
+    "messages": [
+      {
+        "id": "wamid.HBgMNTUxMTM3OTc2ODk1FQIAERgSNjJEREM4QUNGODAxRTA5Rjg1AA==",
+        "sender": "agent",
+        "text": "[Template: primeiro_contato]",
+        "status": "failed",
+        "timestamp": "2026-09-11T18:52:40.785Z",
+        "error": "Message undeliverable"
+      }
+    ]
+  },
+  "551122629900": {
+    "phone": "551122629900",
+    "chatTitle": "551122629900",
+    "unread": 0,
+    "updatedAt": "2026-09-11T18:52:42.379Z",
+    "messages": [
+      {
+        "id": "wamid.HBgMNTUxMTIyNjI5OTAwFQIAERgSQ0JFRjVCNUYwQjkyQUY4QUM0AA==",
+        "sender": "agent",
+        "text": "[Template: primeiro_contato]",
+        "status": "failed",
+        "timestamp": "2026-09-11T18:52:42.379Z",
+        "error": "Message undeliverable"
+      }
+    ]
+  },
+  "5511981830119": {
+    "phone": "5511981830119",
+    "chatTitle": "5511981830119",
+    "unread": 0,
+    "updatedAt": "2026-09-11T18:52:44.282Z",
+    "messages": [
+      {
+        "id": "wamid.HBgNNTUxMTk4MTgzMDExORUCABEYEjFGMDE2MTgzQjk1QjExRTUzOAA=",
+        "sender": "agent",
+        "text": "[Template: primeiro_contato]",
+        "status": "read",
+        "timestamp": "2026-09-11T18:52:44.282Z"
+      }
+    ]
+  },
+  "551135549464": {
+    "phone": "551135549464",
+    "chatTitle": "551135549464",
+    "unread": 0,
+    "updatedAt": "2026-09-11T19:02:40.932Z",
+    "messages": [
+      {
+        "id": "wamid.HBgMNTUxMTM1NTQ5NDY0FQIAERgSRTYxNTVCMENBMTk4MDU3RkJCAA==",
+        "sender": "agent",
+        "text": "[Template: primeiro_contato]",
+        "status": "failed",
+        "timestamp": "2026-09-11T19:02:40.932Z",
+        "error": "This message was not delivered to maintain healthy ecosystem engagement."
+      }
+    ]
+  },
+  "5511915068887": {
+    "phone": "5511915068887",
+    "chatTitle": "CCD DESPACHANTES",
+    "unread": 0,
+    "updatedAt": "2026-09-11T19:03:01.688Z",
+    "messages": [
+      {
+        "id": "wamid.HBgNNTUxMTkxNTA2ODg4NxUCABEYEjA0QjJCRTFDRDg0MUFGNDA4MwA=",
+        "sender": "agent",
+        "text": "[Template: primeiro_contato]",
+        "status": "read",
+        "timestamp": "2026-09-11T19:02:43.274Z"
+      },
+      {
+        "id": "wamid.HBgNNTUxMTkxNTA2ODg4NxUCABIYIEE1RDBFNkE4RDc3ODEyNDE5MDMwQjJBOUFBQTRFNjNGAA==",
+        "sender": "user",
+        "text": "Olá somos a CCD DESPACHANTE \nDeixe seu recado que assim que possível estaremos retornando para melhor atendê-los OK.",
+        "status": "sent",
+        "timestamp": "2026-09-11T19:03:01.688Z"
+      }
+    ],
+    "discarded": true
+  },
+  "551137355172": {
+    "phone": "551137355172",
+    "chatTitle": "551137355172",
+    "unread": 0,
+    "updatedAt": "2026-09-11T19:12:40.664Z",
+    "messages": [
+      {
+        "id": "wamid.HBgMNTUxMTM3MzU1MTcyFQIAERgSNTEwMTYwQjMxNDA5Q0Q4NTg5AA==",
+        "sender": "agent",
+        "text": "[Template: primeiro_contato]",
+        "status": "failed",
+        "timestamp": "2026-09-11T19:12:40.664Z",
+        "error": "Message undeliverable"
+      }
+    ]
+  },
+  "551144509353": {
+    "phone": "551144509353",
+    "chatTitle": "551144509353",
+    "unread": 0,
+    "updatedAt": "2026-09-11T19:12:42.541Z",
+    "messages": [
+      {
+        "id": "wamid.HBgMNTUxMTQ0NTA5MzUzFQIAERgSODJDREVGQzg3QTM5OTQ4MTRBAA==",
+        "sender": "agent",
+        "text": "[Template: primeiro_contato]",
+        "status": "failed",
+        "timestamp": "2026-09-11T19:12:42.541Z",
+        "error": "Message undeliverable"
+      }
+    ]
+  },
+  "551145524825": {
+    "phone": "551145524825",
+    "chatTitle": "551145524825",
+    "unread": 0,
+    "updatedAt": "2026-09-11T19:12:44.061Z",
+    "messages": [
+      {
+        "id": "wamid.HBgMNTUxMTQ1NTI0ODI1FQIAERgSM0JGOTU5NEI3RDJFMjI1MTk2AA==",
+        "sender": "agent",
+        "text": "[Template: primeiro_contato]",
+        "status": "failed",
+        "timestamp": "2026-09-11T19:12:44.061Z",
+        "error": "Message undeliverable"
+      }
+    ]
+  },
+  "551132800286": {
+    "phone": "551132800286",
+    "chatTitle": "2H Engenharia",
+    "unread": 0,
+    "updatedAt": "2026-09-11T19:14:34.934Z",
+    "messages": [
+      {
+        "id": "wamid.HBgMNTUxMTMyODAwMjg2FQIAERgSQzY1ODJDMjNDOTMxRTM2NTMyAA==",
+        "sender": "agent",
+        "text": "[Template: primeiro_contato]",
+        "status": "sent",
+        "timestamp": "2026-09-11T19:12:45.515Z"
+      },
+      {
+        "id": "wamid.HBgMNTUxMTMyODAwMjg2FQIAEhgUMkExMDRDRUUwQzgxREQ5MUIyNzEA",
+        "sender": "user",
+        "text": "Não tenho interesse",
+        "status": "sent",
+        "timestamp": "2026-09-11T19:14:34.934Z"
+      }
+    ]
+  },
+  "5511942822827": {
+    "phone": "5511942822827",
+    "chatTitle": "5511942822827",
+    "unread": 0,
+    "updatedAt": "2026-09-11T19:22:41.003Z",
+    "messages": [
+      {
+        "id": "wamid.HBgNNTUxMTk0MjgyMjgyNxUCABEYEkZDNjE2NERGRkJEQkQzODhBMwA=",
+        "sender": "agent",
+        "text": "[Template: primeiro_contato]",
+        "status": "read",
+        "timestamp": "2026-09-11T19:22:41.003Z"
+      }
+    ]
+  },
+  "551136676370": {
+    "phone": "551136676370",
+    "chatTitle": "551136676370",
+    "unread": 0,
+    "updatedAt": "2026-09-11T19:32:40.738Z",
+    "messages": [
+      {
+        "id": "wamid.HBgMNTUxMTM2Njc2MzcwFQIAERgSNDk1MjM2MzA1QTI3QzRFMUU3AA==",
+        "sender": "agent",
+        "text": "[Template: primeiro_contato]",
+        "status": "read",
+        "timestamp": "2026-09-11T19:32:40.738Z"
+      }
+    ]
+  },
+  "5511956986091": {
+    "phone": "5511956986091",
+    "chatTitle": "5511956986091",
+    "unread": 0,
+    "updatedAt": "2026-09-11T19:42:41.072Z",
+    "messages": [
+      {
+        "id": "wamid.HBgNNTUxMTk1Njk4NjA5MRUCABEYEkJCRTZBMTRCOTNFRjk1NzE3NgA=",
+        "sender": "agent",
+        "text": "[Template: primeiro_contato]",
+        "status": "read",
+        "timestamp": "2026-09-11T19:42:41.072Z"
+      }
+    ]
+  },
+  "551125970707": {
+    "phone": "551125970707",
+    "chatTitle": "551125970707",
+    "unread": 0,
+    "updatedAt": "2026-09-11T19:52:39.813Z",
+    "messages": [
+      {
+        "id": "wamid.HBgMNTUxMTI1OTcwNzA3FQIAERgSQTlBQTA2NjAyMDg0QkU3MzVDAA==",
+        "sender": "agent",
+        "text": "[Template: primeiro_contato]",
+        "status": "failed",
+        "timestamp": "2026-09-11T19:52:39.813Z",
+        "error": "This message was not delivered to maintain healthy ecosystem engagement."
+      }
+    ]
+  },
+  "5511947894571": {
+    "phone": "5511947894571",
+    "chatTitle": "Estetica Integrada Santana",
+    "unread": 0,
+    "updatedAt": "2026-09-11T19:52:46.639Z",
+    "messages": [
+      {
+        "id": "wamid.HBgNNTUxMTk0Nzg5NDU3MRUCABEYEjI2QjQ3OUM3NDZENzM3MEE1OQA=",
+        "sender": "agent",
+        "text": "[Template: primeiro_contato]",
+        "status": "delivered",
+        "timestamp": "2026-09-11T19:52:42.184Z"
+      },
+      {
+        "id": "wamid.HBgNNTUxMTk0Nzg5NDU3MRUCABIYFDZBMEM0NUNCN0MyOEMxMTI2RTNBAA==",
+        "sender": "user",
+        "text": "🌸 Olá! Seja muito bem-vindo(a) à Clínica Estética Integrada.\n\nFicamos muito felizes com o seu contato e agradecemos a confiança! 💛\n\nMe conta: qual procedimento você deseja realizar ou qual resultado está buscando? Assim consigo te orientar da melhor forma e verificar nossa disponibilidade. ✨",
+        "status": "sent",
+        "timestamp": "2026-09-11T19:52:46.639Z"
+      }
+    ],
+    "discarded": true
+  },
+  "551130615567": {
+    "phone": "551130615567",
+    "chatTitle": "551130615567",
+    "unread": 0,
+    "updatedAt": "2026-09-11T20:02:40.851Z",
+    "messages": [
+      {
+        "id": "wamid.HBgMNTUxMTMwNjE1NTY3FQIAERgSNzQzMTA2RDVDNUZCMkU3MEFGAA==",
+        "sender": "agent",
+        "text": "[Template: primeiro_contato]",
+        "status": "failed",
+        "timestamp": "2026-09-11T20:02:40.851Z",
+        "error": "Message undeliverable"
+      }
+    ]
+  },
+  "551136824922": {
+    "phone": "551136824922",
+    "chatTitle": "551136824922",
+    "unread": 0,
+    "updatedAt": "2026-09-11T20:02:42.912Z",
+    "messages": [
+      {
+        "id": "wamid.HBgMNTUxMTM2ODI0OTIyFQIAERgSODFBRjg1NUE5MTlCMzE0RjU3AA==",
+        "sender": "agent",
+        "text": "[Template: primeiro_contato]",
+        "status": "failed",
+        "timestamp": "2026-09-11T20:02:42.912Z",
+        "error": "Message undeliverable"
+      }
+    ]
+  },
+  "5511991112606": {
+    "phone": "5511991112606",
+    "chatTitle": "5511991112606",
+    "unread": 0,
+    "updatedAt": "2026-09-11T20:02:44.667Z",
+    "messages": [
+      {
+        "id": "wamid.HBgNNTUxMTk5MTExMjYwNhUCABEYEjNEOTBEMjY4MjE3RkRGMjVDQgA=",
+        "sender": "agent",
+        "text": "[Template: primeiro_contato]",
+        "status": "delivered",
+        "timestamp": "2026-09-11T20:02:44.667Z"
+      }
+    ]
+  },
+  "551127800456": {
+    "phone": "551127800456",
+    "chatTitle": "Planari Seguros",
+    "unread": 0,
+    "updatedAt": "2026-09-11T20:14:27.730Z",
+    "messages": [
+      {
+        "id": "wamid.HBgMNTUxMTI3ODAwNDU2FQIAERgSRTU5RTY4RDM4ODNFNjlBNzUyAA==",
+        "sender": "agent",
+        "text": "[Template: primeiro_contato]",
+        "status": "read",
+        "timestamp": "2026-09-11T20:12:40.888Z"
+      },
+      {
+        "id": "wamid.HBgMNTUxMTI3ODAwNDU2FQIAEhgWM0VCMDZENTEzQkFCMTcyMzg3MjBDQgA=",
+        "sender": "user",
+        "text": "Não tenho interesse",
+        "status": "sent",
+        "timestamp": "2026-09-11T20:14:27.730Z"
+      }
+    ]
+  },
+  "5511981710292": {
+    "phone": "5511981710292",
+    "chatTitle": "5511981710292",
+    "unread": 0,
+    "updatedAt": "2026-09-11T20:22:41.211Z",
+    "messages": [
+      {
+        "id": "wamid.HBgNNTUxMTk4MTcxMDI5MhUCABEYEkUyMUY1MzUwRTZGODUwRDNFQgA=",
+        "sender": "agent",
+        "text": "[Template: primeiro_contato]",
+        "status": "delivered",
+        "timestamp": "2026-09-11T20:22:41.211Z"
+      }
+    ]
+  },
+  "5511947710480": {
+    "phone": "5511947710480",
+    "chatTitle": "Pactual Contabilidade",
+    "unread": 0,
+    "updatedAt": "2026-09-11T20:32:46.526Z",
+    "messages": [
+      {
+        "id": "wamid.HBgNNTUxMTk0NzcxMDQ4MBUCABEYEjAxMjZENkFERDAxRUQxNjYzNwA=",
+        "sender": "agent",
+        "text": "[Template: primeiro_contato]",
+        "status": "delivered",
+        "timestamp": "2026-09-11T20:32:40.958Z"
+      },
+      {
+        "id": "wamid.HBgNNTUxMTk0NzcxMDQ4MBUCABIYIEE1RkM0OUU1ODZCM0IwOUY0QUYxRDQ4OTI1NEUzQkNDAA==",
+        "sender": "user",
+        "text": "‎Pactual Contabilidade agradece seu contato. Como podemos ajudar?",
+        "status": "sent",
+        "timestamp": "2026-09-11T20:32:45.812Z"
+      },
+      {
+        "id": "wamid.HBgNNTUxMTk0NzcxMDQ4MBUCABIYIEE1NENDRTNGNDE3Mjk5OTM1QjA0RTM3QjZGN0NGN0ZFAA==",
+        "sender": "user",
+        "text": "A Pactual Contabilidade agradece seu contato. Nosso horário de atendimento é de segunda a sexta-feira, das 8h00 às 17h30. No momento estamos fora do expediente, assim que retornamos,  responderemos sua mensagem.",
+        "status": "sent",
+        "timestamp": "2026-09-11T20:32:46.526Z"
+      }
+    ],
+    "discarded": true
+  },
+  "551156816991": {
+    "phone": "551156816991",
+    "chatTitle": "551156816991",
+    "unread": 0,
+    "updatedAt": "2026-09-11T20:42:41.031Z",
+    "messages": [
+      {
+        "id": "wamid.HBgMNTUxMTU2ODE2OTkxFQIAERgSMEIwODhCRkQ0RUE4QTAxN0U2AA==",
+        "sender": "agent",
+        "text": "[Template: primeiro_contato]",
+        "status": "failed",
+        "timestamp": "2026-09-11T20:42:41.031Z",
+        "error": "Message undeliverable"
+      }
+    ]
+  },
+  "551126092781": {
+    "phone": "551126092781",
+    "chatTitle": "551126092781",
+    "unread": 0,
+    "updatedAt": "2026-09-11T20:42:42.634Z",
+    "messages": [
+      {
+        "id": "wamid.HBgMNTUxMTI2MDkyNzgxFQIAERgSODgxNDdCMENEN0IyNTJDMTVGAA==",
+        "sender": "agent",
+        "text": "[Template: primeiro_contato]",
+        "status": "failed",
+        "timestamp": "2026-09-11T20:42:42.634Z",
+        "error": "Message undeliverable"
+      }
+    ]
+  },
+  "5511982731418": {
+    "phone": "5511982731418",
+    "chatTitle": "5511982731418",
+    "unread": 0,
+    "updatedAt": "2026-09-11T20:42:44.331Z",
+    "messages": [
+      {
+        "id": "wamid.HBgNNTUxMTk4MjczMTQxOBUCABEYEjM2RDcyRjM4MDJFNUI0NzZGRQA=",
+        "sender": "agent",
+        "text": "[Template: primeiro_contato]",
+        "status": "failed",
+        "timestamp": "2026-09-11T20:42:44.331Z",
+        "error": "Message undeliverable"
+      }
+    ]
+  },
+  "551136479023": {
+    "phone": "551136479023",
+    "chatTitle": "551136479023",
+    "unread": 0,
+    "updatedAt": "2026-09-11T20:42:45.736Z",
+    "messages": [
+      {
+        "id": "wamid.HBgMNTUxMTM2NDc5MDIzFQIAERgSRTZFNzcwNTA4OEVFMUY3QjMzAA==",
+        "sender": "agent",
+        "text": "[Template: primeiro_contato]",
+        "status": "sent",
+        "timestamp": "2026-09-11T20:42:45.736Z"
+      }
+    ]
+  },
+  "551126136208": {
+    "phone": "551126136208",
+    "chatTitle": "551126136208",
+    "unread": 0,
+    "updatedAt": "2026-09-11T20:52:40.870Z",
+    "messages": [
+      {
+        "id": "wamid.HBgMNTUxMTI2MTM2MjA4FQIAERgSN0Q4MThCNkJEMTBCNjQ4OTRGAA==",
+        "sender": "agent",
+        "text": "[Template: primeiro_contato]",
+        "status": "failed",
+        "timestamp": "2026-09-11T20:52:40.870Z",
+        "error": "User's number is part of an experiment"
+      }
+    ]
+  },
+  "5511951941032": {
+    "phone": "5511951941032",
+    "chatTitle": "5511951941032",
+    "unread": 0,
+    "updatedAt": "2026-09-11T20:52:49.825Z",
+    "messages": [
+      {
+        "id": "wamid.HBgNNTUxMTk1MTk0MTAzMhUCABEYEjA0NTk4MEE3M0Q2OUJDMTdDRgA=",
+        "sender": "agent",
+        "text": "[Template: primeiro_contato]",
+        "status": "sent",
+        "timestamp": "2026-09-11T20:52:44.651Z"
+      },
+      {
+        "id": "wamid.HBgNNTUxMTk1MTk0MTAzMhUCABIYEjg2NkVDQ0I1Njg4RDAwNzUxNQA=",
+        "sender": "user",
+        "text": "Olá! 😊\n\nSeja bem-vindo(a) ao atendimento da Viu Odontologia - Unidade Bonfiglioli\n\nSerá um prazer atender você!",
+        "status": "sent",
+        "timestamp": "2026-09-11T20:52:49.825Z"
+      }
+    ],
+    "discarded": true
+  },
+  "5511971972038": {
+    "phone": "5511971972038",
+    "chatTitle": "Emiorto",
+    "unread": 0,
+    "updatedAt": "2026-09-11T21:42:38.381Z",
+    "messages": [
+      {
+        "id": "wamid.HBgNNTUxMTk3MTk3MjAzOBUCABEYEjAwNjU0MTg3MEM3M0Y5NEM4MwA=",
+        "sender": "agent",
+        "text": "[Template: primeiro_contato]",
+        "status": "delivered",
+        "timestamp": "2026-09-11T21:02:40.924Z"
+      },
+      {
+        "id": "wamid.HBgNNTUxMTk3MTk3MjAzOBUCABIYFjNFQjAyMzEzODc2OEJFN0EwQkRFMzEA",
+        "sender": "user",
+        "text": "Não tenho interesse",
+        "status": "sent",
+        "timestamp": "2026-09-11T21:42:38.381Z"
+      }
+    ]
+  },
+  "551136854255": {
+    "phone": "551136854255",
+    "chatTitle": "551136854255",
+    "unread": 0,
+    "updatedAt": "2026-09-11T21:12:40.906Z",
+    "messages": [
+      {
+        "id": "wamid.HBgMNTUxMTM2ODU0MjU1FQIAERgSNEZFQzJGMUQ4NDM1RTBEN0ZCAA==",
+        "sender": "agent",
+        "text": "[Template: primeiro_contato]",
+        "status": "failed",
+        "timestamp": "2026-09-11T21:12:40.906Z",
+        "error": "Message undeliverable"
+      }
+    ]
+  },
+  "5511994976996": {
+    "phone": "5511994976996",
+    "chatTitle": "Alliance Contabilidade",
+    "unread": 0,
+    "updatedAt": "2026-09-11T21:12:47.757Z",
+    "messages": [
+      {
+        "id": "wamid.HBgNNTUxMTk5NDk3Njk5NhUCABEYEjNCNDFFQjAzMjlCQkQ3MTY3NAA=",
+        "sender": "agent",
+        "text": "[Template: primeiro_contato]",
+        "status": "delivered",
+        "timestamp": "2026-09-11T21:12:42.637Z"
+      },
+      {
+        "id": "wamid.HBgNNTUxMTk5NDk3Njk5NhUCABIYIEE1RTZGRTQwOTEzNkJDNkY0QzBDRDgzMTdBMEJBNkJEAA==",
+        "sender": "user",
+        "text": "Agradecemos sua mensagem, não estamos disponíveis no momento, retornaremos o contato assim que possível!",
+        "status": "sent",
+        "timestamp": "2026-09-11T21:12:47.757Z"
+      }
+    ],
+    "discarded": true
+  },
+  "5511999170057": {
+    "phone": "5511999170057",
+    "chatTitle": "5511999170057",
+    "unread": 0,
+    "updatedAt": "2026-09-11T21:22:40.806Z",
+    "messages": [
+      {
+        "id": "wamid.HBgNNTUxMTk5OTE3MDA1NxUCABEYEjkxMEZCNTM3NzQ1MTVCNkQxMwA=",
+        "sender": "agent",
+        "text": "[Template: primeiro_contato]",
+        "status": "failed",
+        "timestamp": "2026-09-11T21:22:40.806Z",
+        "error": "This message was not delivered to maintain healthy ecosystem engagement."
+      }
+    ]
+  },
+  "5511991028092": {
+    "phone": "5511991028092",
+    "chatTitle": "5511991028092",
+    "unread": 0,
+    "updatedAt": "2026-09-11T21:22:43.199Z",
+    "messages": [
+      {
+        "id": "wamid.HBgNNTUxMTk5MTAyODA5MhUCABEYEkYyOTNDODVEMjAxMTM5REU2RQA=",
+        "sender": "agent",
+        "text": "[Template: primeiro_contato]",
+        "status": "delivered",
+        "timestamp": "2026-09-11T21:22:43.199Z"
+      }
+    ]
+  },
+  "551135925621": {
+    "phone": "551135925621",
+    "chatTitle": "551135925621",
+    "unread": 0,
+    "updatedAt": "2026-09-11T21:32:39.750Z",
+    "messages": [
+      {
+        "id": "wamid.HBgMNTUxMTM1OTI1NjIxFQIAERgSM0FFRkYwNzk0RkEwQ0U2NzI4AA==",
+        "sender": "agent",
+        "text": "[Template: primeiro_contato]",
+        "status": "failed",
+        "timestamp": "2026-09-11T21:32:39.750Z",
+        "error": "Message undeliverable"
+      }
+    ]
+  },
+  "551129506714": {
+    "phone": "551129506714",
+    "chatTitle": "551129506714",
+    "unread": 0,
+    "updatedAt": "2026-09-11T21:32:41.195Z",
+    "messages": [
+      {
+        "id": "wamid.HBgMNTUxMTI5NTA2NzE0FQIAERgSREFCRUMwRDhCRjEwNEEzMUIwAA==",
+        "sender": "agent",
+        "text": "[Template: primeiro_contato]",
+        "status": "failed",
+        "timestamp": "2026-09-11T21:32:41.195Z",
+        "error": "Message undeliverable"
+      }
+    ]
+  },
+  "551131954149": {
+    "phone": "551131954149",
+    "chatTitle": "551131954149",
+    "unread": 0,
+    "updatedAt": "2026-09-11T21:32:43.072Z",
+    "messages": [
+      {
+        "id": "wamid.HBgMNTUxMTMxOTU0MTQ5FQIAERgSMjU1QjMwMzhEOTgwQ0Q3RDZGAA==",
+        "sender": "agent",
+        "text": "[Template: primeiro_contato]",
+        "status": "failed",
+        "timestamp": "2026-09-11T21:32:43.072Z",
+        "error": "Message undeliverable"
+      }
+    ]
+  },
+  "5511975348780": {
+    "phone": "5511975348780",
+    "chatTitle": "5511975348780",
+    "unread": 0,
+    "updatedAt": "2026-09-11T21:32:44.977Z",
+    "messages": [
+      {
+        "id": "wamid.HBgNNTUxMTk3NTM0ODc4MBUCABEYEkMxRUE2NEMzRTEwQzAzRTFDNAA=",
+        "sender": "agent",
+        "text": "[Template: primeiro_contato]",
+        "status": "delivered",
+        "timestamp": "2026-09-11T21:32:44.977Z"
+      }
+    ]
+  },
+  "551143849560": {
+    "phone": "551143849560",
+    "chatTitle": "551143849560",
+    "unread": 0,
+    "updatedAt": "2026-09-11T21:42:40.991Z",
+    "messages": [
+      {
+        "id": "wamid.HBgMNTUxMTQzODQ5NTYwFQIAERgSNjY0MENEMzlFMjRGN0Y0NzVDAA==",
+        "sender": "agent",
+        "text": "[Template: primeiro_contato]",
+        "status": "failed",
+        "timestamp": "2026-09-11T21:42:40.991Z",
+        "error": "Message undeliverable"
+      }
+    ]
+  },
+  "551150901560": {
+    "phone": "551150901560",
+    "chatTitle": "551150901560",
+    "unread": 0,
+    "updatedAt": "2026-09-11T21:42:42.616Z",
+    "messages": [
+      {
+        "id": "wamid.HBgMNTUxMTUwOTAxNTYwFQIAERgSNjNBRENBQjA2QUQ4OTRFOTM1AA==",
+        "sender": "agent",
+        "text": "[Template: primeiro_contato]",
+        "status": "read",
+        "timestamp": "2026-09-11T21:42:42.616Z"
+      }
+    ]
+  },
+  "551136852113": {
+    "phone": "551136852113",
+    "chatTitle": "551136852113",
+    "unread": 0,
+    "updatedAt": "2026-09-11T21:52:40.940Z",
+    "messages": [
+      {
+        "id": "wamid.HBgMNTUxMTM2ODUyMTEzFQIAERgSRTg3QzY2MzI0MkJGODk5Q0M1AA==",
+        "sender": "agent",
+        "text": "[Template: primeiro_contato]",
+        "status": "failed",
+        "timestamp": "2026-09-11T21:52:40.940Z",
+        "error": "Message undeliverable"
+      }
+    ]
+  },
+  "5511972351057": {
+    "phone": "5511972351057",
+    "chatTitle": "5511972351057",
+    "unread": 0,
+    "updatedAt": "2026-09-11T21:52:42.746Z",
+    "messages": [
+      {
+        "id": "wamid.HBgNNTUxMTk3MjM1MTA1NxUCABEYEkM0RjI1QkUxNTRDQTI2M0REQwA=",
+        "sender": "agent",
+        "text": "[Template: primeiro_contato]",
+        "status": "read",
+        "timestamp": "2026-09-11T21:52:42.746Z"
       }
     ]
   }

@@ -1844,22 +1844,22 @@
     "name": "You Odontologia",
     "phone": "5511966000689",
     "niche": "Clínica de Odontologia no Bonfiglioli",
-    "status": 1,
-    "lastSent": null
+    "status": 3,
+    "lastSent": "2026-09-11T16:15:50.836Z"
   },
   {
     "name": "Viu Odontologia - Clínica Odontológica - Jardim Bonfiglioli",
     "phone": "5511951941032",
     "niche": "Clínica de Odontologia no Bonfiglioli",
-    "status": 1,
-    "lastSent": null
+    "status": 3,
+    "lastSent": "2026-09-11T20:52:46.852Z"
   },
   {
     "name": "Sorridents Jardim Bonfiglioli",
     "phone": "5511975348780",
     "niche": "Clínica de Odontologia no Bonfiglioli",
-    "status": 1,
-    "lastSent": null
+    "status": 2,
+    "lastSent": "2026-09-11T21:32:46.916Z"
   },
   {
     "name": "Tambourgi Odontologia & Harmonização Facial",
@@ -1998,8 +1998,8 @@
     "name": "Estética Integrada Unidade Santana",
     "phone": "5511947894571",
     "niche": "Clínica de Estética em Santana",
-    "status": 1,
-    "lastSent": null
+    "status": 3,
+    "lastSent": "2026-09-11T19:52:44.787Z"
   },
   {
     "name": "OLENKA | Estética Avançada, Clínica Médica e Coworking",
@@ -2705,7 +2705,7 @@
     "name": "Despachante JR Despachantes",
     "phone": "551137680877",
     "niche": "Despachantes Imobiliários no Centro de Osasco",
-    "status": 1,
+    "status": 4,
     "lastSent": null
   },
   {
@@ -2894,8 +2894,8 @@
     "name": "Iran Morais | Corretor de Imóveis | Avaliador de Imóveis | Perito Judicial",
     "phone": "5511974327283",
     "niche": "Avaliadores de Imóveis na Saúde",
-    "status": 1,
-    "lastSent": null
+    "status": 3,
+    "lastSent": "2026-09-11T18:32:50.160Z"
   },
   {
     "name": "Nacional Avaliações de Imóveis – Laudo CNAI Rápido",
@@ -3090,8 +3090,8 @@
     "name": "Porto Lapa Corretora de Seguros",
     "phone": "5511982840504",
     "niche": "Corretora de Seguros na Lapa",
-    "status": 1,
-    "lastSent": null
+    "status": 3,
+    "lastSent": "2026-09-11T15:55:55.087Z"
   },
   {
     "name": "Kaprice Corretora - especialista em seguro auto",
@@ -4392,7 +4392,7 @@
     "name": "Lapa Assessoria Contábil Fiscal",
     "phone": "551125970707",
     "niche": "Escritório de Contabilidade na Lapa",
-    "status": 1,
+    "status": 4,
     "lastSent": null
   },
   {
@@ -5197,7 +5197,7 @@
     "name": "Natural Odonto",
     "phone": "551129506714",
     "niche": "Clínica de Odontologia na Saúde",
-    "status": 1,
+    "status": 4,
     "lastSent": null
   },
   {
@@ -5995,8 +5995,8 @@
     "name": "Essência Estética Avançada/ DraJane Esteta",
     "phone": "5511952311891",
     "niche": "Clínica de Estética na Saúde",
-    "status": 1,
-    "lastSent": null
+    "status": 3,
+    "lastSent": "2026-09-11T16:03:52.774Z"
   },
   {
     "name": "Frann Podologia Clínica",
@@ -6562,7 +6562,7 @@
     "name": "Livas Despachante",
     "phone": "551138657836",
     "niche": "Despachantes Imobiliários na Lapa",
-    "status": 1,
+    "status": 4,
     "lastSent": null
   },
   {
@@ -6688,8 +6688,8 @@
     "name": "Ricardo Imóveis - Creci/SP 206152-F",
     "phone": "5511999483362",
     "niche": "Avaliadores de Imóveis em Santana",
-    "status": 1,
-    "lastSent": null
+    "status": 2,
+    "lastSent": "2026-09-11T15:59:51.019Z"
   },
   {
     "name": "Cida Reis, Especialista do Mercado Imobiliário",
@@ -6863,8 +6863,8 @@
     "name": "IX8 Corretora - Planos de Saúde e Odontológicos",
     "phone": "551145563555",
     "niche": "Corretora de Seguros em Campesina Osasco",
-    "status": 1,
-    "lastSent": null
+    "status": 3,
+    "lastSent": "2026-09-11T16:32:44.052Z"
   },
   {
     "name": "IMA Corretora de Seguros",
@@ -8368,15 +8368,15 @@
     "name": "Clínica Odontológica Bela Vista Implantes",
     "phone": "5511994644592",
     "niche": "Clínica de Odontologia em Bela Vista Osasco",
-    "status": 1,
-    "lastSent": null
+    "status": 3,
+    "lastSent": "2026-09-11T16:01:52.685Z"
   },
   {
     "name": "Sorrix Osasco Bela Vista",
     "phone": "5511956986091",
     "niche": "Clínica de Odontologia em Bela Vista Osasco",
-    "status": 1,
-    "lastSent": null
+    "status": 2,
+    "lastSent": "2026-09-11T19:42:44.448Z"
   },
   {
     "name": "OdontoCompany Osasco - Vila Yara",
@@ -8683,7 +8683,7 @@
     "name": "Codestir - Despachante Imobiliário",
     "phone": "551137491945",
     "niche": "Despachantes Imobiliários em Santo Amaro",
-    "status": 1,
+    "status": 4,
     "lastSent": null
   },
   {
@@ -8760,15 +8760,15 @@
     "name": "Otto Lima - Consultor Imobiliário Cyrela",
     "phone": "5511947679129",
     "niche": "Avaliadores de Imóveis na Lapa",
-    "status": 1,
-    "lastSent": null
+    "status": 2,
+    "lastSent": "2026-09-11T16:42:44.330Z"
   },
   {
     "name": "Império Real Imóveis",
     "phone": "551136479023",
     "niche": "Avaliadores de Imóveis na Lapa",
-    "status": 1,
-    "lastSent": null
+    "status": 2,
+    "lastSent": "2026-09-11T20:42:47.814Z"
   },
   {
     "name": "IDEAL IMÓVEIS | Imobiliária em São Paulo",
@@ -8816,7 +8816,7 @@
     "name": "Quartz Engenharia e Comércio Ltda",
     "phone": "551136824922",
     "niche": "Consultora de Engenharia em Vila Yara Osasco",
-    "status": 1,
+    "status": 4,
     "lastSent": null
   },
   {
@@ -9684,8 +9684,8 @@
     "name": "Emi Orto",
     "phone": "5511971972038",
     "niche": "Clínica de Odontologia em Vila Yara Osasco",
-    "status": 1,
-    "lastSent": null
+    "status": 3,
+    "lastSent": "2026-09-11T21:02:43.771Z"
   },
   {
     "name": "Conclin Odontologia",
@@ -10587,8 +10587,8 @@
     "name": "Sinal Verde Despachante",
     "phone": "551120813240",
     "niche": "Despachantes Imobiliários na Mooca",
-    "status": 1,
-    "lastSent": null
+    "status": 2,
+    "lastSent": "2026-09-11T16:22:49.983Z"
   },
   {
     "name": "DeCaria Despachante",
@@ -10748,8 +10748,8 @@
     "name": "Avaliador ,Corretor e Vistoria de Imóveis José Antonio dos Passos",
     "phone": "5511972351057",
     "niche": "Avaliadores de Imóveis no Centro de Osasco",
-    "status": 1,
-    "lastSent": null
+    "status": 2,
+    "lastSent": "2026-09-11T21:52:45.747Z"
   },
   {
     "name": "Avaliação de Imóveis em Osasco - Avalia-Osasco",
@@ -10811,8 +10811,8 @@
     "name": "Well Corretora de Seguros",
     "phone": "5511981830119",
     "niche": "Corretora de Seguros no Centro de Osasco",
-    "status": 1,
-    "lastSent": null
+    "status": 2,
+    "lastSent": "2026-09-11T18:52:46.307Z"
   },
   {
     "name": "as cunha bueno - corretora de seguros",
@@ -11483,21 +11483,21 @@
     "name": "Escritório Santana de Contabilidade",
     "phone": "551130187700",
     "niche": "Escritório de Contabilidade em Santana",
-    "status": 1,
+    "status": 4,
     "lastSent": null
   },
   {
     "name": "SAC - Serviços de Assessoria Contábil",
     "phone": "551126092781",
     "niche": "Escritório de Contabilidade em Santana",
-    "status": 1,
+    "status": 4,
     "lastSent": null
   },
   {
     "name": "ContaBio | Contabilidade para área da saúde",
     "phone": "5511999170057",
     "niche": "Escritório de Contabilidade em Santana",
-    "status": 1,
+    "status": 4,
     "lastSent": null
   },
   {
@@ -12281,7 +12281,7 @@
     "name": "JB Odontologia Clínica Integrada",
     "phone": "551126593032",
     "niche": "Clínica de Odontologia em Santana",
-    "status": 1,
+    "status": 4,
     "lastSent": null
   },
   {
@@ -13002,15 +13002,15 @@
     "name": "Espaço Mulher Campesina",
     "phone": "5511999655521",
     "niche": "Clínica de Estética em Campesina Osasco",
-    "status": 1,
-    "lastSent": null
+    "status": 2,
+    "lastSent": "2026-09-11T15:46:02.789Z"
   },
   {
     "name": "Arcas Estética avançada",
     "phone": "5511942822827",
     "niche": "Clínica de Estética em Campesina Osasco",
-    "status": 1,
-    "lastSent": null
+    "status": 2,
+    "lastSent": "2026-09-11T19:22:43.925Z"
   },
   {
     "name": "Master Clinic Estética Avançada",
@@ -13142,15 +13142,15 @@
     "name": "Ravena Despachante",
     "phone": "551129761573",
     "niche": "Despachantes Imobiliários em Santana",
-    "status": 1,
-    "lastSent": null
+    "status": 2,
+    "lastSent": "2026-09-11T16:05:51.268Z"
   },
   {
     "name": "Die Despachante Santana",
     "phone": "5511991028092",
     "niche": "Despachantes Imobiliários em Santana",
-    "status": 1,
-    "lastSent": null
+    "status": 2,
+    "lastSent": "2026-09-11T21:22:45.711Z"
   },
   {
     "name": "Despachante Pecini (Jardim São Paulo) Na Zona Norte",
@@ -14213,15 +14213,15 @@
     "name": "Lineks Engenharia e Consultoria",
     "phone": "5511956072926",
     "niche": "Consultora de Engenharia na Vila Leopoldina",
-    "status": 1,
-    "lastSent": null
+    "status": 2,
+    "lastSent": "2026-09-11T16:11:53.051Z"
   },
   {
     "name": "Proreng Projetos, Reengenharia e Gestão de Instalações",
     "phone": "5511991112606",
     "niche": "Consultora de Engenharia na Vila Leopoldina",
-    "status": 1,
-    "lastSent": null
+    "status": 2,
+    "lastSent": "2026-09-11T20:02:46.895Z"
   },
   {
     "name": "Alpha Prime Engenharia",
@@ -14843,8 +14843,8 @@
     "name": "Pactual Contabilidade",
     "phone": "5511947710480",
     "niche": "Escritório de Contabilidade em Vila Yara Osasco",
-    "status": 1,
-    "lastSent": null
+    "status": 3,
+    "lastSent": "2026-09-11T20:32:43.355Z"
   },
   {
     "name": "Evang Contabilidade",
@@ -14983,29 +14983,29 @@
     "name": "Oral Unic Implantes Butantã",
     "phone": "5511917188900",
     "niche": "Clínica de Odontologia no Butantã",
-    "status": 1,
-    "lastSent": null
+    "status": 2,
+    "lastSent": "2026-09-11T15:57:50.358Z"
   },
   {
     "name": "Clínica Lauravi",
     "phone": "5511955959825",
     "niche": "Clínica de Odontologia no Butantã",
-    "status": 1,
-    "lastSent": null
+    "status": 3,
+    "lastSent": "2026-09-11T18:02:45.787Z"
   },
   {
     "name": "OdontoCompany Butantã SP",
     "phone": "551130326526",
     "niche": "Clínica de Odontologia no Butantã",
-    "status": 1,
+    "status": 4,
     "lastSent": null
   },
   {
     "name": "OroSaúde Odontologia Dra. Silvana Guerra",
     "phone": "5511981710292",
     "niche": "Clínica de Odontologia no Butantã",
-    "status": 1,
-    "lastSent": null
+    "status": 2,
+    "lastSent": "2026-09-11T20:22:44.202Z"
   },
   {
     "name": "Instituto Edimar Aguiar - Butantã",
@@ -15277,7 +15277,7 @@
     "name": "Pró-Corpo Estética Avançada - Tucuruvi",
     "phone": "551129710017",
     "niche": "Clínica de Estética no Tucuruvi",
-    "status": 1,
+    "status": 4,
     "lastSent": null
   },
   {
@@ -15564,15 +15564,15 @@
     "name": "Marabá Despachantes",
     "phone": "5511981225451",
     "niche": "Despachantes Imobiliários na Saúde",
-    "status": 1,
-    "lastSent": null
+    "status": 2,
+    "lastSent": "2026-09-11T16:07:51.171Z"
   },
   {
     "name": "CCD DESPACHANTE",
     "phone": "5511915068887",
     "niche": "Despachantes Imobiliários na Saúde",
-    "status": 1,
-    "lastSent": null
+    "status": 3,
+    "lastSent": "2026-09-11T19:02:45.222Z"
   },
   {
     "name": "Vila Mariana despachantes",
@@ -16194,8 +16194,8 @@
     "name": "HU Consultoria e Engenharia Civil",
     "phone": "5511952420892",
     "niche": "Consultora de Engenharia em Santo Amaro",
-    "status": 1,
-    "lastSent": null
+    "status": 2,
+    "lastSent": "2026-09-11T15:31:02.485Z"
   },
   {
     "name": "BGF Consultoria em Engenharia Ltda.",
@@ -16502,7 +16502,7 @@
     "name": "Franco Contabilidade",
     "phone": "551137325500",
     "niche": "Escritório de Contabilidade no Butantã",
-    "status": 1,
+    "status": 4,
     "lastSent": null
   },
   {
@@ -16803,7 +16803,7 @@
     "name": "Instituto Paulista do Sorriso l Odontologia Avançada",
     "phone": "551129912323",
     "niche": "Clínica de Odontologia no Tucuruvi",
-    "status": 1,
+    "status": 4,
     "lastSent": null
   },
   {
@@ -17559,7 +17559,7 @@
     "name": "Onodera Estética - Butantã",
     "phone": "551128940548",
     "niche": "Clínica de Estética no Butantã",
-    "status": 1,
+    "status": 4,
     "lastSent": null
   },
   {
@@ -17853,15 +17853,15 @@
     "name": "Achei Imóveis SP | Aluguel & Venda de Imóveis",
     "phone": "551137330747",
     "niche": "Avaliadores de Imóveis no Butantã",
-    "status": 1,
+    "status": 4,
     "lastSent": null
   },
   {
     "name": "RealCasa Imóveis Butantã | Venda, Locação e Financiamento",
     "phone": "5511973790101",
     "niche": "Avaliadores de Imóveis no Butantã",
-    "status": 1,
-    "lastSent": null
+    "status": 2,
+    "lastSent": "2026-09-11T17:32:45.977Z"
   },
   {
     "name": "Butantã Imóveis - CRECI 22447-J",
@@ -17923,8 +17923,8 @@
     "name": "PAIVA CORRETORA DE SEGUROS",
     "phone": "5511976331174",
     "niche": "Corretora de Seguros no Bonfiglioli",
-    "status": 1,
-    "lastSent": null
+    "status": 2,
+    "lastSent": "2026-09-11T16:19:50.996Z"
   },
   {
     "name": "Assis & Assis Corretora de Seguros",
@@ -18525,8 +18525,8 @@
     "name": "Apontual Contabilidade | Contabilidade em Bairro da Saúde - SP",
     "phone": "5511956961413",
     "niche": "Escritório de Contabilidade na Saúde",
-    "status": 1,
-    "lastSent": null
+    "status": 3,
+    "lastSent": "2026-09-11T16:52:45.427Z"
   },
   {
     "name": "Ozai Contábil - Escritório de Contabilidade - São Paulo - SP",
@@ -20233,14 +20233,14 @@
     "name": "Ávila & Manno Imóveis",
     "phone": "551120201122",
     "niche": "Avaliadores de Imóveis na Mooca",
-    "status": 1,
+    "status": 4,
     "lastSent": null
   },
   {
     "name": "Solatium Seguros",
     "phone": "551126136208",
     "niche": "Corretora de Seguros na Mooca",
-    "status": 1,
+    "status": 4,
     "lastSent": null
   },
   {
@@ -21164,7 +21164,7 @@
     "name": "Resolve Contabilidade",
     "phone": "551136854255",
     "niche": "Escritório de Contabilidade em Campesina Osasco",
-    "status": 1,
+    "status": 4,
     "lastSent": null
   },
   {
@@ -23131,14 +23131,14 @@
     "name": "North Contabilidade",
     "phone": "551151963434",
     "niche": "Escritório de Contabilidade em Bela Vista Osasco",
-    "status": 1,
-    "lastSent": null
+    "status": 3,
+    "lastSent": "2026-09-11T15:41:00.868Z"
   },
   {
     "name": "Contabilidade Arcoverde",
     "phone": "551136852113",
     "niche": "Escritório de Contabilidade em Bela Vista Osasco",
-    "status": 1,
+    "status": 4,
     "lastSent": null
   },
   {
@@ -24160,14 +24160,14 @@
     "name": "Onodera Estética - Lapa",
     "phone": "5511978473867",
     "niche": "Clínica de Estética na Lapa",
-    "status": 1,
-    "lastSent": null
+    "status": 2,
+    "lastSent": "2026-09-11T18:42:43.907Z"
   },
   {
     "name": "Pró-Corpo Estética Avançada - Lapa",
     "phone": "551144509353",
     "niche": "Clínica de Estética na Lapa",
-    "status": 1,
+    "status": 4,
     "lastSent": null
   },
   {
@@ -24706,14 +24706,14 @@
     "name": "Primax Corretora de Seguros",
     "phone": "551146181003",
     "niche": "Corretora de Seguros no Centro de Barueri",
-    "status": 1,
-    "lastSent": null
+    "status": 2,
+    "lastSent": "2026-09-11T15:36:00.727Z"
   },
   {
     "name": "TORRES & GRIMALDI CORRETORA DE SEGUROS",
     "phone": "551141980858",
     "niche": "Corretora de Seguros no Centro de Barueri",
-    "status": 1,
+    "status": 4,
     "lastSent": null
   },
   {
@@ -25091,21 +25091,21 @@
     "name": "Ferrarezi Engenharia E Construções",
     "phone": "551136830530",
     "niche": "Consultora de Engenharia em Bela Vista Osasco",
-    "status": 1,
-    "lastSent": null
+    "status": 3,
+    "lastSent": "2026-09-11T15:51:00.850Z"
   },
   {
     "name": "WS Consultoria Ambiental",
     "phone": "551127792087",
     "niche": "Consultora de Engenharia em Bela Vista Osasco",
-    "status": 1,
+    "status": 4,
     "lastSent": null
   },
   {
     "name": "Mvector Construtora Ltda",
     "phone": "551135925621",
     "niche": "Consultora de Engenharia em Bela Vista Osasco",
-    "status": 1,
+    "status": 4,
     "lastSent": null
   },
   {
@@ -25175,15 +25175,15 @@
     "name": "Digital Contador",
     "phone": "5511941127314",
     "niche": "Escritório de Contabilidade no Centro de Barueri",
-    "status": 1,
-    "lastSent": null
+    "status": 3,
+    "lastSent": "2026-09-11T17:22:44.118Z"
   },
   {
     "name": "Contabilidade em Barueri - SP | Alliance Contabilidade",
     "phone": "5511994976996",
     "niche": "Escritório de Contabilidade no Centro de Barueri",
-    "status": 1,
-    "lastSent": null
+    "status": 3,
+    "lastSent": "2026-09-11T21:12:45.365Z"
   },
   {
     "name": "MR Contábil | Contabilidade em Barueri - SP",
@@ -27037,14 +27037,14 @@
     "name": "DESPACHANTE ÁGIL",
     "phone": "551129555358",
     "niche": "Despachantes Imobiliários no Tucuruvi",
-    "status": 1,
-    "lastSent": null
+    "status": 3,
+    "lastSent": "2026-09-11T16:09:53.849Z"
   },
   {
     "name": "Nenê Despachante",
     "phone": "551129515950",
     "niche": "Despachantes Imobiliários no Tucuruvi",
-    "status": 1,
+    "status": 4,
     "lastSent": null
   },
   {
@@ -27114,8 +27114,8 @@
     "name": "Athena Corretora de Seguros",
     "phone": "551150901560",
     "niche": "Corretora de Seguros em Santo Amaro",
-    "status": 1,
-    "lastSent": null
+    "status": 2,
+    "lastSent": "2026-09-11T21:42:44.932Z"
   },
   {
     "name": "Supper Certo",
@@ -27905,14 +27905,14 @@
     "name": "JCR Engenharia de Segurança do Trabalho",
     "phone": "551123913662",
     "niche": "Consultora de Engenharia na Saúde",
-    "status": 1,
-    "lastSent": null
+    "status": 3,
+    "lastSent": "2026-09-11T17:42:44.756Z"
   },
   {
     "name": "Almeida Consultoria Engenharia e Medicina do Trabalho",
     "phone": "551131295453",
     "niche": "Consultora de Engenharia na Saúde",
-    "status": 1,
+    "status": 4,
     "lastSent": null
   },
   {
@@ -29760,7 +29760,7 @@
     "name": "Despachante Campesina",
     "phone": "5511992096991",
     "niche": "Despachantes Imobiliários em Campesina Osasco",
-    "status": 1,
+    "status": 4,
     "lastSent": null
   },
   {
@@ -29774,29 +29774,29 @@
     "name": "Gregório Imóveis - Jd. Bonfiglioli",
     "phone": "5511941574145",
     "niche": "Avaliadores de Imóveis no Bonfiglioli",
-    "status": 1,
+    "status": 4,
     "lastSent": null
   },
   {
     "name": "Ventura Negócios Imobiliários",
     "phone": "551137339897",
     "niche": "Avaliadores de Imóveis no Bonfiglioli",
-    "status": 1,
+    "status": 4,
     "lastSent": null
   },
   {
     "name": "Bellarrê Imóveis",
     "phone": "5511939354462",
     "niche": "Avaliadores de Imóveis no Bonfiglioli",
-    "status": 1,
-    "lastSent": null
+    "status": 3,
+    "lastSent": "2026-09-11T18:12:44.041Z"
   },
   {
     "name": "Leandra Silva",
     "phone": "5511997012273",
     "niche": "Avaliadores de Imóveis no Bonfiglioli",
-    "status": 1,
-    "lastSent": null
+    "status": 2,
+    "lastSent": "2026-09-11T18:22:45.746Z"
   },
   {
     "name": "IVS IMÓVEIS",
@@ -29886,7 +29886,7 @@
     "name": "Barra Velha Corretora de Seguros Ltda",
     "phone": "551123599005",
     "niche": "Corretora de Seguros na Vila Leopoldina",
-    "status": 1,
+    "status": 4,
     "lastSent": null
   },
   {
@@ -30551,8 +30551,8 @@
     "name": "L2C Engenharia e Consultoria",
     "phone": "551120281853",
     "niche": "Consultora de Engenharia no Tatuapé",
-    "status": 1,
-    "lastSent": null
+    "status": 2,
+    "lastSent": "2026-09-11T17:52:44.459Z"
   },
   {
     "name": "MTS Engenharia e Empreendimentos",
@@ -31083,7 +31083,7 @@
     "name": "Convergencia Assessoria Contabil",
     "phone": "551126280350",
     "niche": "Escritório de Contabilidade no Tucuruvi",
-    "status": 1,
+    "status": 4,
     "lastSent": null
   },
   {
@@ -32007,14 +32007,14 @@
     "name": "Clínica Estética Virtuosa - Barueri",
     "phone": "5511911771777",
     "niche": "Clínica de Estética no Centro de Barueri",
-    "status": 1,
-    "lastSent": null
+    "status": 3,
+    "lastSent": "2026-09-11T17:02:43.773Z"
   },
   {
     "name": "Clínica de Estética | Dra. Jéssica Amaral Estética Avançada | Limpeza de Pele, Harmonização Facial e Preenchimento Labial",
     "phone": "551145524825",
     "niche": "Clínica de Estética no Centro de Barueri",
-    "status": 1,
+    "status": 4,
     "lastSent": null
   },
   {
@@ -32462,21 +32462,21 @@
     "name": "Abrão Lucas Corretor Avaliador Imóveis",
     "phone": "5511996254317",
     "niche": "Avaliadores de Imóveis no Tatuapé",
-    "status": 1,
-    "lastSent": null
+    "status": 3,
+    "lastSent": "2026-09-11T16:17:49.452Z"
   },
   {
     "name": "2H Engenharia",
     "phone": "551132800286",
     "niche": "Avaliadores de Imóveis no Tatuapé",
-    "status": 1,
-    "lastSent": null
+    "status": 3,
+    "lastSent": "2026-09-11T19:12:47.755Z"
   },
   {
     "name": "Assessoria Tatuapé",
     "phone": "551131954149",
     "niche": "Avaliadores de Imóveis no Tatuapé",
-    "status": 1,
+    "status": 4,
     "lastSent": null
   },
   {
@@ -32602,8 +32602,8 @@
     "name": "Planari Corretora de Seguros",
     "phone": "551127800456",
     "niche": "Corretora de Seguros no Tatuapé",
-    "status": 1,
-    "lastSent": null
+    "status": 3,
+    "lastSent": "2026-09-11T20:12:43.333Z"
   },
   {
     "name": "Similar Seguros | Corretora de Seguros",
@@ -33211,8 +33211,8 @@
     "name": "Fox Engenharia",
     "phone": "556121039555",
     "niche": "Consultora de Engenharia em Pinheiros",
-    "status": 1,
-    "lastSent": null
+    "status": 3,
+    "lastSent": "2026-09-11T16:21:56.715Z"
   },
   {
     "name": "2YOU Engenharia",
@@ -35325,7 +35325,7 @@
     "name": "Linestética - Clínica de Estética Avançada",
     "phone": "551143849560",
     "niche": "Clínica de Estética no Centro de Osasco",
-    "status": 1,
+    "status": 4,
     "lastSent": null
   },
   {
@@ -35675,14 +35675,14 @@
     "name": "Camargo & Associados Imóveis - Venda, Aluga e Administra",
     "phone": "5511971115677",
     "niche": "Avaliadores de Imóveis na Vila Leopoldina",
-    "status": 1,
-    "lastSent": null
+    "status": 3,
+    "lastSent": "2026-09-11T16:13:52.391Z"
   },
   {
     "name": "Garoni Imóveis | imobiliária na Vila Leopoldina",
     "phone": "5511982731418",
     "niche": "Avaliadores de Imóveis na Vila Leopoldina",
-    "status": 1,
+    "status": 4,
     "lastSent": null
   },
   {
@@ -36242,8 +36242,8 @@
     "name": "Razy Corretora",
     "phone": "5511914203165",
     "niche": "Corretora de Seguros no Tucuruvi",
-    "status": 1,
-    "lastSent": null
+    "status": 3,
+    "lastSent": "2026-09-11T17:12:55.619Z"
   },
   {
     "name": "Livre Consultoria e Corretora de Seguros",
@@ -36641,14 +36641,14 @@
     "name": "MAGFi Projetos e Serviços",
     "phone": "551131054499",
     "niche": "Consultora de Engenharia no Bonfiglioli",
-    "status": 1,
+    "status": 4,
     "lastSent": null
   },
   {
     "name": "Regea - Geologia, Engenharia e Estudos Ambientais",
     "phone": "551137355172",
     "niche": "Consultora de Engenharia no Bonfiglioli",
-    "status": 1,
+    "status": 4,
     "lastSent": null
   },
   {
@@ -38076,7 +38076,7 @@
     "name": "Pró-Corpo Estética Avançada - Santo Amaro",
     "phone": "551156816991",
     "niche": "Clínica de Estética em Santo Amaro",
-    "status": 1,
+    "status": 4,
     "lastSent": null
   },
   {
@@ -38482,7 +38482,7 @@
     "name": "Jomi Despachantes",
     "phone": "551138312755",
     "niche": "Despachantes Imobiliários na Vila Leopoldina",
-    "status": 1,
+    "status": 4,
     "lastSent": null
   },
   {
@@ -38524,8 +38524,8 @@
     "name": "Schiesari Lau Corretora de Seguros & Investimentos",
     "phone": "551136676370",
     "niche": "Corretora de Seguros em Pinheiros",
-    "status": 1,
-    "lastSent": null
+    "status": 2,
+    "lastSent": "2026-09-11T19:32:43.399Z"
   },
   {
     "name": "Agência Pinheiros Corretora de Seguros",
@@ -39049,7 +39049,7 @@
     "name": "SPQ Consultoria Projetos S S",
     "phone": "551122629900",
     "niche": "Consultora de Engenharia no Tucuruvi",
-    "status": 1,
+    "status": 4,
     "lastSent": null
   },
   {
@@ -39203,7 +39203,7 @@
     "name": "Allume Contabilidade | Contabilidade em Pinheiros - SP",
     "phone": "551135549464",
     "niche": "Escritório de Contabilidade em Pinheiros",
-    "status": 1,
+    "status": 4,
     "lastSent": null
   },
   {
@@ -39630,14 +39630,14 @@
     "name": "Odonto Pinheiros",
     "phone": "551130819404",
     "niche": "Clínica de Odontologia em Pinheiros",
-    "status": 1,
+    "status": 4,
     "lastSent": null
   },
   {
     "name": "Nipodonto",
     "phone": "551130615567",
     "niche": "Clínica de Odontologia em Pinheiros",
-    "status": 1,
+    "status": 4,
     "lastSent": null
   },
   {
@@ -40575,7 +40575,7 @@
     "name": "Inteli Despachante Faria lima",
     "phone": "551137976895",
     "niche": "Despachantes Imobiliários em Pinheiros",
-    "status": 1,
+    "status": 4,
     "lastSent": null
   },
   {

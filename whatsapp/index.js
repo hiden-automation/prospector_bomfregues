@@ -70,6 +70,18 @@ function recordMessage(phone, { sender, text, messageId = null, title = null, st
     data[cleanPhone].chatTitle = title;
   }
 
+  // Reativa automaticamente a conversa se o cliente responder
+  if (sender === 'user') {
+    data[cleanPhone].discarded = false;
+    if (Array.isArray(data[cleanPhone].messages)) {
+      data[cleanPhone].messages.forEach(m => {
+        if (m.sender === 'user' && m.text) {
+          m.text = m.text.replace(/não tenho interesse|nao tenho interesse/gi, '[Interesse Reaberto]');
+        }
+      });
+    }
+  }
+
   const msgObj = {
     id: messageId || `local_${Date.now()}`,
     sender,
@@ -211,7 +223,6 @@ async function sendMessage({ phone, text, templateName, templateParams = [] }) {
       io.emit('new_message', recorded);
     }
 
-    // Push de falha removido aqui (silencioso)
     throw new Error(errorMsg);
   }
 }
@@ -371,10 +382,8 @@ app.post('/api/chat/conversations/:phone/restore', checkAuthCookie, (req, res) =
   const conv = data[cleanPhone];
   if (!conv) return res.status(404).json({ error: 'Conversa não encontrada' });
 
-  // Remove a marcação de descarte manual
   conv.discarded = false;
 
-  // Se o cliente havia enviado "não tenho interesse", limpamos a flag para ele voltar ao funil normal
   if (conv.messages) {
     conv.messages.forEach(m => {
       if (m.sender === 'user' && m.text) {
@@ -450,7 +459,6 @@ app.post('/webhook', async (req, res) => {
   const entry = req.body?.entry?.[0];
   const change = entry?.changes?.[0]?.value;
 
-  // Recebimento de mensagens (Respostas dos leads) -> PUSH ATIVO
   if (change?.messages && change.messages.length > 0) {
     for (const msg of change.messages) {
       const fromNumber = msg.from;
@@ -481,7 +489,6 @@ app.post('/webhook', async (req, res) => {
 
       io.emit('new_message', recorded);
 
-      // Único push disparado: quando o lead responde
       await sendPushNotification(`WhatsApp: ${profileName || fromNumber}`, incomingText);
 
       try {
@@ -499,7 +506,6 @@ app.post('/webhook', async (req, res) => {
     }
   }
 
-  // Atualizações de status de entrega (Sent, Delivered, Read, Failed) -> PUSH SILENCIADO
   if (change?.statuses && change.statuses.length > 0) {
     for (const st of change.statuses) {
       const msgId = st.id;
@@ -527,7 +533,6 @@ app.post('/webhook', async (req, res) => {
           });
         }
 
-        // Marca como inválido no orquestrador silenciosamente sem enviar push
         axios.post(`${ORCHESTRATOR_URL}/contacts/invalid`, { phone: recipient }, {
           headers: { 'x-api-key': API_KEY }
         }).catch(() => {});
