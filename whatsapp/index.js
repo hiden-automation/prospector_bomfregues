@@ -5,8 +5,13 @@ const http = require('http');
 const path = require('path');
 const fs = require('fs');
 const axios = require('axios');
+const multer = require('multer');
 const cookieParser = require('cookie-parser');
 const { Server } = require('socket.io');
+const ffmpeg = require('fluent-ffmpeg');
+const ffmpegStatic = require('ffmpeg-static');
+
+ffmpeg.setFfmpegPath(ffmpegStatic);
 
 const API_KEY = process.env.API_KEY;
 const ORCHESTRATOR_URL = process.env.ORCHESTRATOR_URL || 'http://localhost:4000';
@@ -25,9 +30,14 @@ const ONESIGNAL_APP_ID = process.env.ONESIGNAL_APP_ID;
 const ONESIGNAL_REST_API_KEY = process.env.ONESIGNAL_REST_API_KEY;
 
 const CONVERSATIONS_FILE = path.join(__dirname, 'conversations.json');
+const MEDIA_DIR = path.join(__dirname, 'public', 'media');
 
 if (!fs.existsSync(CONVERSATIONS_FILE)) {
   fs.writeFileSync(CONVERSATIONS_FILE, '{}', 'utf8');
+}
+
+if (!fs.existsSync(MEDIA_DIR)) {
+  fs.mkdirSync(MEDIA_DIR, { recursive: true });
 }
 
 if (!API_KEY || !WA_PHONE_NUMBER_ID || !WA_ACCESS_TOKEN) {
@@ -35,7 +45,136 @@ if (!API_KEY || !WA_PHONE_NUMBER_ID || !WA_ACCESS_TOKEN) {
   process.exit(1);
 }
 
-// ─── GERENCIADOR DE CONVERSAS (PERSISTÊNCIA LOCAL) ──────────────────────
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => cb(null, MEDIA_DIR),
+  filename: (req, file, cb) => {
+    const ext = path.extname(file.originalname) || '';
+    cb(null, `upload_${Date.now()}${ext}`);
+  }
+});
+const upload = multer({ storage });
+
+const MIME_MAP = {
+  'image/jpeg': 'jpg',
+  'image/png': 'png',
+  'image/webp': 'webp',
+  'video/mp4': 'mp4',
+  'video/3gpp': '3gp',
+  'video/quicktime': 'mov',
+  'audio/ogg': 'ogg',
+  'audio/mp4': 'm4a',
+  'audio/mpeg': 'mp3',
+  'application/pdf': 'pdf',
+  'application/msword': 'doc',
+  'application/vnd.openxmlformats-officedocument.wordprocessingml.document': 'docx',
+  'application/vnd.ms-excel': 'xls',
+  'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': 'xlsx',
+  'text/plain': 'txt'
+};
+
+function convertVideoForWhatsApp(inputPath) {
+  return new Promise((resolve, reject) => {
+    const outputPath = path.join(MEDIA_DIR, `converted_${Date.now()}.mp4`);
+    console.log(`🔄 Transcodificando vídeo para H.264/AAC: ${path.basename(inputPath)}...`);
+
+    ffmpeg(inputPath)
+      .outputOptions([
+        '-c:v libx264',
+        '-profile:v main',
+        '-level 3.1',
+        '-pix_fmt yuv420p',
+        '-c:a aac',
+        '-b:a 128k',
+        '-movflags +faststart'
+      ])
+      .toFormat('mp4')
+      .on('end', () => {
+        console.log(`✅ Vídeo transcodificado com sucesso: ${path.basename(outputPath)}`);
+        try { fs.unlinkSync(inputPath); } catch (e) {}
+        resolve(outputPath);
+      })
+      .on('error', (err) => {
+        console.error('❌ Erro na transcodificação do vídeo:', err.message);
+        reject(err);
+      })
+      .save(outputPath);
+  });
+}
+
+async function downloadWhatsAppMedia(mediaId, originalFilename = null) {
+  try {
+    const metaRes = await axios.get(`https://graph.facebook.com/v21.0/${mediaId}`, {
+      headers: { Authorization: `Bearer ${WA_ACCESS_TOKEN}` },
+      timeout: 10000
+    });
+
+    const { url: mediaUrl, mime_type: mimeType } = metaRes.data;
+    const cleanMime = (mimeType || '').split(';')[0].trim().toLowerCase();
+    const ext = MIME_MAP[cleanMime] || cleanMime.split('/')[1] || 'bin';
+
+    const fileRes = await axios.get(mediaUrl, {
+      headers: { Authorization: `Bearer ${WA_ACCESS_TOKEN}` },
+      responseType: 'arraybuffer',
+      timeout: 30000
+    });
+
+    const fileName = `media_${mediaId}_${Date.now()}.${ext}`;
+    fs.writeFileSync(path.join(MEDIA_DIR, fileName), Buffer.from(fileRes.data));
+
+    return {
+      mediaUrl: `/media/${fileName}`,
+      mediaMime: cleanMime,
+      mediaFileName: originalFilename || fileName
+    };
+  } catch (err) {
+    console.error(`❌ Falha no download da mídia ${mediaId}:`, err.message);
+    return null;
+  }
+}
+
+async function uploadMediaToMeta(filePath, mimeType, filename) {
+  const fileData = fs.readFileSync(filePath);
+  const ext = path.extname(filename || '').toLowerCase();
+  const cleanMime = (mimeType || '').split(';')[0].trim().toLowerCase();
+
+  let mediaType = 'document';
+  let finalMime = 'application/pdf';
+
+  if (cleanMime.startsWith('image/') || ['.jpg', '.jpeg', '.png'].includes(ext)) {
+    mediaType = 'image';
+    finalMime = (cleanMime === 'image/png' || ext === '.png') ? 'image/png' : 'image/jpeg';
+  } else if (cleanMime.startsWith('video/') || ['.mp4', '.mov', '.avi', '.mkv', '.3gp'].includes(ext)) {
+    mediaType = 'video';
+    finalMime = 'video/mp4';
+  } else {
+    mediaType = 'document';
+    finalMime = cleanMime || 'application/pdf';
+  }
+
+  const blob = new Blob([fileData], { type: finalMime });
+  const formData = new FormData();
+  formData.append('messaging_product', 'whatsapp');
+  formData.append('file', blob, path.basename(filePath));
+  formData.append('type', finalMime);
+
+  const res = await axios.post(
+    `https://graph.facebook.com/v21.0/${WA_PHONE_NUMBER_ID}/media`,
+    formData,
+    {
+      headers: {
+        Authorization: `Bearer ${WA_ACCESS_TOKEN}`
+      },
+      timeout: 60000
+    }
+  );
+
+  return { 
+    mediaId: res.data.id, 
+    mediaType, 
+    mimeType: finalMime 
+  };
+}
+
 function loadConversations() {
   try {
     return JSON.parse(fs.readFileSync(CONVERSATIONS_FILE, 'utf8'));
@@ -52,7 +191,7 @@ function saveConversations(data) {
   }
 }
 
-function recordMessage(phone, { sender, text, messageId = null, title = null, status = 'sent' }) {
+function recordMessage(phone, { sender, text, messageId = null, title = null, status = 'sent', mediaUrl = null, mediaMime = null, mediaFileName = null }) {
   const cleanPhone = phone.replace(/\D/g, '');
   const data = loadConversations();
 
@@ -60,6 +199,7 @@ function recordMessage(phone, { sender, text, messageId = null, title = null, st
     data[cleanPhone] = {
       phone: cleanPhone,
       chatTitle: title || cleanPhone,
+      stage: 'iniciado',
       unread: 0,
       updatedAt: new Date().toISOString(),
       messages: []
@@ -70,23 +210,20 @@ function recordMessage(phone, { sender, text, messageId = null, title = null, st
     data[cleanPhone].chatTitle = title;
   }
 
-  // Reativa automaticamente a conversa se o cliente responder
   if (sender === 'user') {
+    data[cleanPhone].stage = 'interagindo';
     data[cleanPhone].discarded = false;
-    if (Array.isArray(data[cleanPhone].messages)) {
-      data[cleanPhone].messages.forEach(m => {
-        if (m.sender === 'user' && m.text) {
-          m.text = m.text.replace(/não tenho interesse|nao tenho interesse/gi, '[Interesse Reaberto]');
-        }
-      });
-    }
+    data[cleanPhone].closed = false;
   }
 
   const msgObj = {
     id: messageId || `local_${Date.now()}`,
     sender,
-    text,
-    status: status,
+    text: text || '',
+    status,
+    mediaUrl,
+    mediaMime,
+    mediaFileName,
     timestamp: new Date().toISOString()
   };
 
@@ -115,7 +252,6 @@ function updateMessageStatus(messageId, status, errorReason = null) {
   return null;
 }
 
-// ─── NOTIFICAÇÃO PUSH VIA ONESIGNAL ──────────────────────────────────────
 async function sendPushNotification(title, message) {
   if (!ONESIGNAL_APP_ID || !ONESIGNAL_REST_API_KEY) return;
 
@@ -142,7 +278,6 @@ async function sendPushNotification(title, message) {
   }
 }
 
-// ─── DISPARO OFICIAL VIA GRAPH API ──────────────────────────────────────
 async function sendMessage({ phone, text, templateName, templateParams = [] }) {
   const cleanPhone = phone.replace(/\D/g, '');
   console.log(`📤 Enviando mensagem oficial para ${cleanPhone}...`);
@@ -227,6 +362,76 @@ async function sendMessage({ phone, text, templateName, templateParams = [] }) {
   }
 }
 
+async function sendMediaMessage({ phone, mediaId, mediaType, mimeType, filename, localUrl }) {
+  const cleanPhone = phone.replace(/\D/g, '');
+  const type = mediaType || 'document';
+
+  const mediaPayload = { id: mediaId };
+  if (type === 'document' && filename) {
+    mediaPayload.filename = filename;
+  }
+
+  const payload = {
+    messaging_product: 'whatsapp',
+    recipient_type: 'individual',
+    to: cleanPhone,
+    type,
+    [type]: mediaPayload
+  };
+
+  try {
+    const res = await axios.post(
+      `https://graph.facebook.com/v21.0/${WA_PHONE_NUMBER_ID}/messages`,
+      payload,
+      {
+        headers: {
+          Authorization: `Bearer ${WA_ACCESS_TOKEN}`,
+          'Content-Type': 'application/json'
+        },
+        timeout: 25000
+      }
+    );
+
+    const messageId = res.data.messages?.[0]?.id;
+    console.log(`✅ Sucesso no envio de ${type} para ${cleanPhone} (ID: ${messageId})`);
+
+    const recorded = recordMessage(cleanPhone, {
+      sender: 'agent',
+      text: '',
+      messageId,
+      status: 'sent',
+      mediaUrl: localUrl,
+      mediaMime: mimeType,
+      mediaFileName: filename
+    });
+
+    if (io) {
+      io.emit('new_message', recorded);
+    }
+
+    return { success: true, messageId, message: recorded.message };
+  } catch (err) {
+    const errData = err.response?.data?.error;
+    const errorMsg = errData?.message || err.message;
+    console.error(`❌ Erro no envio de mídia para ${cleanPhone}:`, errorMsg);
+
+    const recorded = recordMessage(cleanPhone, {
+      sender: 'agent',
+      text: '',
+      status: 'failed',
+      mediaUrl: localUrl,
+      mediaMime: mimeType,
+      mediaFileName: filename
+    });
+
+    if (io) {
+      io.emit('new_message', recorded);
+    }
+
+    throw new Error(errorMsg);
+  }
+}
+
 // ─── SERVIDOR EXPRESS + COOKIES + SOCKET.IO ─────────────────────────────
 const app = express();
 app.set('trust proxy', 1);
@@ -237,7 +442,6 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// ─── AUTENTICAÇÃO PERSISTENTE (COOKIE + HEADER X-AUTH-TOKEN) ────────────
 function checkAuthCookie(req, res, next) {
   const sessionToken = req.cookies?.auth_session || req.headers['x-auth-token'] || req.query.auth_token;
   if (sessionToken === DASHBOARD_ACCESS_TOKEN) {
@@ -358,39 +562,61 @@ app.post('/api/chat/send', checkAuthCookie, async (req, res) => {
   }
 });
 
-// 🗑️ Descartar conversa manualmente
-app.post('/api/chat/conversations/:phone/discard', checkAuthCookie, (req, res) => {
-  const cleanPhone = req.params.phone.replace(/\D/g, '');
-  const data = loadConversations();
-  const conv = data[cleanPhone];
-  if (!conv) return res.status(404).json({ error: 'Conversa não encontrada' });
+app.post('/api/chat/send-media', checkAuthCookie, upload.single('file'), async (req, res) => {
+  const { phone } = req.body;
+  const file = req.file;
 
-  conv.discarded = true;
-  saveConversations(data);
-
-  if (io) {
-    io.emit('conversation_updated', conv);
+  if (!phone || !file) {
+    return res.status(400).json({ error: 'Telefone e arquivo são obrigatórios' });
   }
 
-  res.json({ success: true, phone: cleanPhone });
+  let finalFilePath = file.path;
+  let finalMimeType = file.mimetype;
+  let finalOriginalName = file.originalname;
+
+  const ext = path.extname(file.originalname || '').toLowerCase();
+  const isVideo = file.mimetype.startsWith('video/') || ['.mp4', '.mov', '.avi', '.mkv', '.3gp'].includes(ext);
+
+  try {
+    if (isVideo) {
+      finalFilePath = await convertVideoForWhatsApp(file.path);
+      finalMimeType = 'video/mp4';
+      finalOriginalName = 'video.mp4';
+    }
+
+    const localUrl = `/media/${path.basename(finalFilePath)}`;
+    const { mediaId, mediaType, mimeType } = await uploadMediaToMeta(finalFilePath, finalMimeType, finalOriginalName);
+
+    const result = await sendMediaMessage({
+      phone,
+      mediaId,
+      mediaType,
+      mimeType,
+      filename: finalOriginalName,
+      localUrl
+    });
+
+    res.json(result);
+  } catch (err) {
+    const errorMsg = err.response?.data?.error?.message || err.message;
+    console.error('❌ Erro no endpoint /api/chat/send-media:', errorMsg);
+    res.status(500).json({ error: errorMsg });
+  }
 });
 
-// ↩️ Recuperar conversa descartada
-app.post('/api/chat/conversations/:phone/restore', checkAuthCookie, (req, res) => {
+// 🔄 Alterar Estágio via Dropdown único (Sincronização 100% Determinística de Status)
+app.post('/api/chat/conversations/:phone/stage', checkAuthCookie, async (req, res) => {
   const cleanPhone = req.params.phone.replace(/\D/g, '');
+  const { stage } = req.body;
   const data = loadConversations();
   const conv = data[cleanPhone];
   if (!conv) return res.status(404).json({ error: 'Conversa não encontrada' });
 
-  conv.discarded = false;
-
-  if (conv.messages) {
-    conv.messages.forEach(m => {
-      if (m.sender === 'user' && m.text) {
-        m.text = m.text.replace(/não tenho interesse|nao tenho interesse/gi, '[Interesse Reaberto]');
-      }
-    });
-  }
+  // Normalização da string do estágio
+  const normalizedStage = (stage || '').toLowerCase().trim();
+  conv.stage = normalizedStage;
+  conv.closed = (normalizedStage === 'ganho');
+  conv.discarded = (normalizedStage === 'perdido' || normalizedStage === 'descartado' || normalizedStage === 'descartados');
 
   saveConversations(data);
 
@@ -398,7 +624,39 @@ app.post('/api/chat/conversations/:phone/restore', checkAuthCookie, (req, res) =
     io.emit('conversation_updated', conv);
   }
 
-  res.json({ success: true, phone: cleanPhone });
+  // Mapeamento exato de status numérico para o orquestrador
+  let orchestratorStatus = null;
+  if (normalizedStage === 'iniciado') {
+    orchestratorStatus = 2;
+  } else if (normalizedStage === 'interagindo') {
+    orchestratorStatus = 3;
+  } else if (normalizedStage === 'congelado' || normalizedStage === 'frio') {
+    orchestratorStatus = 5;
+  } else if (normalizedStage === 'ganho') {
+    orchestratorStatus = 6;
+  } else if (normalizedStage === 'perdido') {
+    orchestratorStatus = 7;
+  } else if (normalizedStage === 'descartado' || normalizedStage === 'descartados') {
+    orchestratorStatus = 8;
+  }
+
+  if (orchestratorStatus !== null) {
+    try {
+      await axios.post(
+        `${ORCHESTRATOR_URL}/contacts/status`,
+        { phone: cleanPhone, status: orchestratorStatus },
+        {
+          headers: { 'x-api-key': API_KEY },
+          timeout: 5000
+        }
+      );
+      console.log(`📡 Sincronizado: ${cleanPhone} → status ${orchestratorStatus} (${normalizedStage})`);
+    } catch (err) {
+      console.warn(`⚠️ Falha ao sincronizar status do contato ${cleanPhone} com orquestrador:`, err.message);
+    }
+  }
+
+  res.json({ success: true, phone: cleanPhone, stage: normalizedStage, status: orchestratorStatus });
 });
 
 // ─── WEBHOOK DA META (RECEBIMENTO E STATUS) ─────────────────────────────
@@ -466,6 +724,8 @@ app.post('/webhook', async (req, res) => {
       const profileName = contactInfo?.profile?.name || null;
 
       let incomingText = '';
+      let mediaData = null;
+
       if (msg.type === 'text') {
         incomingText = msg.text?.body || '';
       } else if (msg.type === 'button') {
@@ -476,20 +736,30 @@ app.post('/webhook', async (req, res) => {
         } else if (msg.interactive?.type === 'list_reply') {
           incomingText = msg.interactive.list_reply?.title || '[Opção selecionada]';
         }
+      } else if (['audio', 'image', 'video', 'document'].includes(msg.type)) {
+        const mediaObj = msg[msg.type];
+        const originalName = mediaObj.filename || null;
+        incomingText = mediaObj.caption || '';
+        
+        mediaData = await downloadWhatsAppMedia(mediaObj.id, originalName);
       } else {
-        incomingText = `[Mensagem do tipo ${msg.type}]`;
+        incomingText = '';
       }
 
       const recorded = recordMessage(fromNumber, {
         sender: 'user',
         text: incomingText,
         messageId: msg.id,
-        title: profileName
+        title: profileName,
+        mediaUrl: mediaData?.mediaUrl || null,
+        mediaMime: mediaData?.mediaMime || null,
+        mediaFileName: mediaData?.mediaFileName || null
       });
 
       io.emit('new_message', recorded);
 
-      await sendPushNotification(`WhatsApp: ${profileName || fromNumber}`, incomingText);
+      const pushBody = incomingText || (mediaData ? 'Novo arquivo recebido' : 'Nova mensagem');
+      await sendPushNotification(`WhatsApp: ${profileName || fromNumber}`, pushBody);
 
       try {
         await axios.post(

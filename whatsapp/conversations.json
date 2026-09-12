@@ -3,7 +3,7 @@
     "phone": "5511945414569",
     "chatTitle": "Caio Vilor Brandão",
     "unread": 0,
-    "updatedAt": "2026-09-12T14:16:21.073Z",
+    "updatedAt": "2026-09-12T18:20:04.590Z",
     "messages": [
       {
         "id": "wamid.HBgNNTUxMTk0NTQxNDU2ORUCABEYEjM4MzY0Njc2NTg2MTUwQjg3NAA=",
@@ -20,35 +20,79 @@
         "timestamp": "2026-09-11T15:18:54.576Z"
       },
       {
-        "id": "wamid.HBgNNTUxMTk0NTQxNDU2ORUCABIYIEE1OTMzQzYzQkU5MkQyNEY3OEM2NjNCNjhBNEQ4ODY0AA==",
-        "sender": "user",
-        "text": "Podemos agendar uma reunião?",
-        "status": "sent",
-        "timestamp": "2026-09-11T23:09:05.341Z"
+        "id": "wamid.HBgNNTUxMTk0NTQxNDU2ORUCABEYEjgzMDVBODgyNkRFNDQ5ODE5NgA=",
+        "sender": "agent",
+        "text": "",
+        "status": "read",
+        "mediaUrl": "/media/converted_1789237037668.mp4",
+        "mediaMime": "video/mp4",
+        "mediaFileName": "video.mp4",
+        "timestamp": "2026-09-12T18:17:25.915Z"
       },
       {
-        "id": "wamid.HBgNNTUxMTk0NTQxNDU2ORUCABIYIEE1MDEyMUM5QkVFNUQ0NzAzOEQwRDQ2RUIwMTRBODU4AA==",
-        "sender": "user",
-        "text": "Teste",
-        "status": "sent",
-        "timestamp": "2026-09-12T00:39:29.463Z"
+        "id": "wamid.HBgNNTUxMTk0NTQxNDU2ORUCABEYEkIwQzNBMEE3RUQ5RUMyNjNERAA=",
+        "sender": "agent",
+        "text": "",
+        "status": "read",
+        "mediaUrl": "/media/upload_1789237093587.png",
+        "mediaMime": "image/png",
+        "mediaFileName": "1788791584955(1).png",
+        "timestamp": "2026-09-12T18:18:17.171Z"
       },
       {
-        "id": "wamid.HBgNNTUxMTk0NTQxNDU2ORUCABIYIEE1MDEyMUM5QkVFNUQ0NzAzOEQwRDQ2RUIwMTRBODU4AA==",
-        "sender": "user",
-        "text": "Teste",
-        "status": "sent",
-        "timestamp": "2026-09-12T00:43:48.706Z"
+        "id": "wamid.HBgNNTUxMTk0NTQxNDU2ORUCABEYEjcyOENBMDRDRENBQzhEQUI2RQA=",
+        "sender": "agent",
+        "text": "",
+        "status": "read",
+        "mediaUrl": "/media/upload_1789237109371.pdf",
+        "mediaMime": "application/pdf",
+        "mediaFileName": "Monkeyllm.pdf",
+        "timestamp": "2026-09-12T18:18:31.615Z"
       },
       {
-        "id": "wamid.HBgNNTUxMTk0NTQxNDU2ORUCABIYIEE1RUQxMjhBNUIxMUUzRUZFNzgwRDE2RUYwRDUxODUwAA==",
+        "id": "wamid.HBgNNTUxMTk0NTQxNDU2ORUCABIYIEE1MkQxMjU5N0REQThEQkY3NjYwMDg4MTM0RDc5QTI5AA==",
         "sender": "user",
-        "text": "Teste",
+        "text": "",
         "status": "sent",
-        "timestamp": "2026-09-12T14:16:21.073Z"
+        "mediaUrl": "/media/media_1104425558592946_1789237138374.jpg",
+        "mediaMime": "image/jpeg",
+        "mediaFileName": "media_1104425558592946_1789237138374.jpg",
+        "timestamp": "2026-09-12T18:18:58.376Z"
+      },
+      {
+        "id": "wamid.HBgNNTUxMTk0NTQxNDU2ORUCABIYIEE1MDczREYyQzk5OEU0OENGMDJCRjg4NDU2MjNBRDI5AA==",
+        "sender": "user",
+        "text": "",
+        "status": "sent",
+        "mediaUrl": "/media/media_930216673001273_1789237149471.mp4",
+        "mediaMime": "video/mp4",
+        "mediaFileName": "media_930216673001273_1789237149471.mp4",
+        "timestamp": "2026-09-12T18:19:09.477Z"
+      },
+      {
+        "id": "wamid.HBgNNTUxMTk0NTQxNDU2ORUCABIYIEE1QzIwMjc4NEI0NkVBMUYyMTQ1QzE3OUI2M0Q3NjdCAA==",
+        "sender": "user",
+        "text": "",
+        "status": "sent",
+        "mediaUrl": "/media/media_1094009263120843_1789237168682.pdf",
+        "mediaMime": "application/pdf",
+        "mediaFileName": "1-1.pdf",
+        "timestamp": "2026-09-12T18:19:28.695Z"
+      },
+      {
+        "id": "wamid.HBgNNTUxMTk0NTQxNDU2ORUCABIYIEE1RURENjkwNUMzRDk0NTlDQUREMjI5RDg5NEVDMkUyAA==",
+        "sender": "user",
+        "text": "",
+        "status": "sent",
+        "mediaUrl": "/media/media_2469405183582277_1789237204586.ogg",
+        "mediaMime": "audio/ogg",
+        "mediaFileName": "media_2469405183582277_1789237204586.ogg",
+        "timestamp": "2026-09-12T18:20:04.590Z"
       }
     ],
-    "discarded": true
+    "discarded": false,
+    "closed": false,
+    "stage": "interagindo"
   },
   "551137770187": {
     "phone": "551137770187",
@@ -71,7 +115,9 @@
         "timestamp": "2026-09-11T14:17:38.766Z"
       }
     ],
-    "discarded": true
+    "discarded": false,
+    "stage": "descartado",
+    "closed": false
   },
   "5511966167668": {
     "phone": "5511966167668",
@@ -341,7 +387,10 @@
         "status": "sent",
         "timestamp": "2026-09-11T15:20:50.675Z"
       }
-    ]
+    ],
+    "stage": "perdido",
+    "closed": false,
+    "discarded": true
   },
   "551136865405": {
     "phone": "551136865405",
@@ -472,7 +521,9 @@
         "timestamp": "2026-09-11T15:26:15.906Z"
       }
     ],
-    "discarded": true
+    "discarded": false,
+    "stage": "descartado",
+    "closed": false
   },
   "5511952420892": {
     "phone": "5511952420892",
@@ -532,7 +583,9 @@
         "timestamp": "2026-09-11T15:42:19.736Z"
       }
     ],
-    "discarded": true
+    "discarded": true,
+    "stage": "perdido",
+    "closed": false
   },
   "5511999655521": {
     "phone": "5511999655521",
@@ -570,7 +623,9 @@
         "timestamp": "2026-09-11T15:51:02.738Z"
       }
     ],
-    "discarded": true
+    "discarded": false,
+    "stage": "descartado",
+    "closed": false
   },
   "5511982840504": {
     "phone": "5511982840504",
@@ -593,7 +648,9 @@
         "timestamp": "2026-09-11T15:55:55.913Z"
       }
     ],
-    "discarded": true
+    "discarded": false,
+    "stage": "descartado",
+    "closed": false
   },
   "5511917188900": {
     "phone": "5511917188900",
@@ -646,7 +703,9 @@
         "timestamp": "2026-09-11T16:02:23.784Z"
       }
     ],
-    "discarded": true
+    "discarded": false,
+    "stage": "descartado",
+    "closed": false
   },
   "551137325500": {
     "phone": "551137325500",
@@ -692,7 +751,9 @@
         "timestamp": "2026-09-11T16:03:56.888Z"
       }
     ],
-    "discarded": true
+    "discarded": false,
+    "stage": "descartado",
+    "closed": false
   },
   "551129761573": {
     "phone": "551129761573",
@@ -811,7 +872,10 @@
         "status": "sent",
         "timestamp": "2026-09-12T01:23:18.758Z"
       }
-    ]
+    ],
+    "discarded": false,
+    "stage": "interagindo",
+    "closed": false
   },
   "5511956072926": {
     "phone": "5511956072926",
@@ -865,7 +929,9 @@
         "timestamp": "2026-09-11T16:13:55.559Z"
       }
     ],
-    "discarded": true
+    "discarded": false,
+    "stage": "descartado",
+    "closed": false
   },
   "5511966000689": {
     "phone": "5511966000689",
@@ -888,7 +954,9 @@
         "timestamp": "2026-09-11T16:15:53.831Z"
       }
     ],
-    "discarded": true
+    "discarded": false,
+    "stage": "descartado",
+    "closed": false
   },
   "5511996254317": {
     "phone": "5511996254317",
@@ -911,7 +979,9 @@
         "timestamp": "2026-09-11T16:17:54.804Z"
       }
     ],
-    "discarded": true
+    "discarded": false,
+    "stage": "descartado",
+    "closed": false
   },
   "5511976331174": {
     "phone": "5511976331174",
@@ -1012,7 +1082,10 @@
         "status": "sent",
         "timestamp": "2026-09-11T22:08:45.915Z"
       }
-    ]
+    ],
+    "stage": "perdido",
+    "closed": false,
+    "discarded": true
   },
   "551129912323": {
     "phone": "551129912323",
@@ -1066,7 +1139,9 @@
         "timestamp": "2026-09-11T16:32:45.947Z"
       }
     ],
-    "discarded": true
+    "discarded": false,
+    "stage": "descartado",
+    "closed": false
   },
   "5511947679129": {
     "phone": "5511947679129",
@@ -1104,7 +1179,9 @@
         "timestamp": "2026-09-11T16:52:48.235Z"
       }
     ],
-    "discarded": true
+    "discarded": false,
+    "stage": "descartado",
+    "closed": false
   },
   "5511911771777": {
     "phone": "5511911771777",
@@ -1141,7 +1218,9 @@
         "timestamp": "2026-09-11T17:03:25.795Z"
       }
     ],
-    "discarded": true
+    "discarded": true,
+    "stage": "perdido",
+    "closed": false
   },
   "5511941574145": {
     "phone": "5511941574145",
@@ -1260,7 +1339,9 @@
         "timestamp": "2026-09-11T17:13:16.167Z"
       }
     ],
-    "discarded": true
+    "discarded": false,
+    "stage": "descartado",
+    "closed": false
   },
   "5511941127314": {
     "phone": "5511941127314",
@@ -1283,7 +1364,9 @@
         "timestamp": "2026-09-11T17:22:59.466Z"
       }
     ],
-    "discarded": true
+    "discarded": false,
+    "stage": "descartado",
+    "closed": false
   },
   "551137339897": {
     "phone": "551137339897",
@@ -1353,7 +1436,9 @@
         "timestamp": "2026-09-11T17:43:31.625Z"
       }
     ],
-    "discarded": true
+    "discarded": false,
+    "stage": "descartado",
+    "closed": false
   },
   "551120281853": {
     "phone": "551120281853",
@@ -1407,7 +1492,9 @@
         "timestamp": "2026-09-11T18:04:29.181Z"
       }
     ],
-    "discarded": true
+    "discarded": false,
+    "stage": "descartado",
+    "closed": false
   },
   "5511939354462": {
     "phone": "5511939354462",
@@ -1430,7 +1517,9 @@
         "timestamp": "2026-09-11T18:14:57.104Z"
       }
     ],
-    "discarded": true
+    "discarded": false,
+    "stage": "descartado",
+    "closed": false
   },
   "551130187700": {
     "phone": "551130187700",
@@ -1563,7 +1652,10 @@
         "status": "sent",
         "timestamp": "2026-09-11T18:33:20.508Z"
       }
-    ]
+    ],
+    "stage": "perdido",
+    "closed": false,
+    "discarded": true
   },
   "5511978473867": {
     "phone": "5511978473867",
@@ -1664,7 +1756,9 @@
         "timestamp": "2026-09-11T19:03:01.688Z"
       }
     ],
-    "discarded": true
+    "discarded": false,
+    "stage": "descartado",
+    "closed": false
   },
   "551137355172": {
     "phone": "551137355172",
@@ -1734,7 +1828,10 @@
         "status": "sent",
         "timestamp": "2026-09-11T19:14:34.934Z"
       }
-    ]
+    ],
+    "stage": "perdido",
+    "closed": false,
+    "discarded": true
   },
   "5511942822827": {
     "phone": "5511942822827",
@@ -1818,7 +1915,9 @@
         "timestamp": "2026-09-11T19:52:46.639Z"
       }
     ],
-    "discarded": true
+    "discarded": false,
+    "stage": "descartado",
+    "closed": false
   },
   "551130615567": {
     "phone": "551130615567",
@@ -1887,7 +1986,10 @@
         "status": "sent",
         "timestamp": "2026-09-11T20:14:27.730Z"
       }
-    ]
+    ],
+    "stage": "perdido",
+    "closed": false,
+    "discarded": true
   },
   "5511981710292": {
     "phone": "5511981710292",
@@ -1932,7 +2034,9 @@
         "timestamp": "2026-09-11T20:32:46.526Z"
       }
     ],
-    "discarded": true
+    "discarded": true,
+    "stage": "descartado",
+    "closed": false
   },
   "551156816991": {
     "phone": "551156816991",
@@ -2034,7 +2138,9 @@
         "timestamp": "2026-09-11T20:52:49.825Z"
       }
     ],
-    "discarded": true
+    "discarded": false,
+    "stage": "descartado",
+    "closed": false
   },
   "5511971972038": {
     "phone": "5511971972038",
@@ -2056,7 +2162,10 @@
         "status": "sent",
         "timestamp": "2026-09-11T21:42:38.381Z"
       }
-    ]
+    ],
+    "stage": "perdido",
+    "closed": false,
+    "discarded": true
   },
   "551136854255": {
     "phone": "551136854255",
@@ -2095,7 +2204,9 @@
         "timestamp": "2026-09-11T21:12:47.757Z"
       }
     ],
-    "discarded": true
+    "discarded": true,
+    "stage": "descartado",
+    "closed": false
   },
   "5511999170057": {
     "phone": "5511999170057",
@@ -2251,6 +2362,7 @@
         "status": "read",
         "timestamp": "2026-09-11T21:52:42.746Z"
       }
-    ]
+    ],
+    "discarded": false
   }
 }

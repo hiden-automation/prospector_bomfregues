@@ -68,7 +68,10 @@ app.post('/contacts/title', authMiddleware, (req, res) => {
 
   const contacts = JSON.parse(fs.readFileSync(CONTACTS_FILE, 'utf8'));
   const cleanPhone = phone.replace(/\D/g, '');
-  const contact = contacts.find((c) => c.phone.replace(/\D/g, '') === cleanPhone);
+  const contact = contacts.find((c) => {
+    const cPhone = (c.phone || '').replace(/\D/g, '');
+    return cPhone === cleanPhone || cPhone.endsWith(cleanPhone.slice(-8)) || cleanPhone.endsWith(cPhone.slice(-8));
+  });
 
   if (!contact) {
     return res.status(404).json({ error: 'Contato não encontrado' });
@@ -80,7 +83,7 @@ app.post('/contacts/title', authMiddleware, (req, res) => {
   res.json({ status: 'title_updated', phone: cleanPhone });
 });
 
-// 📩 Contato respondeu: Atualiza para Status 3 (Sai da cadência)
+// 📩 Contato respondeu: Atualiza para Status 3 (Sai da cadência de follow-up)
 app.post('/contacts/responded', authMiddleware, (req, res) => {
   const { phone, identifier } = req.body;
   const target = (identifier || phone || '').replace(/\D/g, '');
@@ -90,7 +93,10 @@ app.post('/contacts/responded', authMiddleware, (req, res) => {
   }
 
   const contacts = JSON.parse(fs.readFileSync(CONTACTS_FILE, 'utf8'));
-  const matching = contacts.filter((c) => c.phone.replace(/\D/g, '').endsWith(target.slice(-8)));
+  const matching = contacts.filter((c) => {
+    const cPhone = (c.phone || '').replace(/\D/g, '');
+    return cPhone === target || cPhone.endsWith(target.slice(-8)) || target.endsWith(cPhone.slice(-8));
+  });
 
   if (matching.length === 0) {
     return res.status(404).json({ error: 'Contato não encontrado' });
@@ -103,13 +109,78 @@ app.post('/contacts/responded', authMiddleware, (req, res) => {
   res.json({ status: 'marked_as_responded', count: matching.length });
 });
 
+// 🔄 Atualização de status (2: Iniciado, 3: Interagindo, 5: Congelado, 6: Ganho, 7: Perdido, 8: Descartado)
+app.post('/contacts/status', authMiddleware, (req, res) => {
+  const { phone, status } = req.body;
+  const target = (phone || '').replace(/\D/g, '');
+
+  if (!target || status === undefined) {
+    return res.status(400).json({ error: 'phone e status são obrigatórios' });
+  }
+
+  const newStatus = Number(status);
+  const contacts = JSON.parse(fs.readFileSync(CONTACTS_FILE, 'utf8'));
+  
+  // Busca flexível tolerando com ou sem DDI (55)
+  const matching = contacts.filter((c) => {
+    const cPhone = (c.phone || '').replace(/\D/g, '');
+    return cPhone === target || cPhone.endsWith(target.slice(-8)) || target.endsWith(cPhone.slice(-8));
+  });
+
+  if (matching.length === 0) {
+    console.warn(`⚠️ Tentativa de atualizar status para ${target} (status: ${newStatus}), mas contato não existe no contacts.json.`);
+    return res.status(404).json({ error: 'Contato não encontrado' });
+  }
+
+  matching.forEach((c) => { 
+    c.status = newStatus;
+    if (newStatus === 2 && !c.lastSent) {
+      c.lastSent = new Date().toISOString();
+    }
+  });
+
+  fs.writeFileSync(CONTACTS_FILE, JSON.stringify(contacts, null, 2), 'utf8');
+
+  console.log(`🔄 Status do contato "${target}" atualizado para ${newStatus} em ${matching.length} registro(s).`);
+  res.json({ status: 'status_updated', phone: target, newStatus, updated: matching.length });
+});
+
+// 🤝 Contato fechado / Ganho: Atualiza para Status 6
+app.post('/contacts/closed', authMiddleware, (req, res) => {
+  const { phone, identifier } = req.body;
+  const target = (identifier || phone || '').replace(/\D/g, '');
+
+  if (!target) {
+    return res.status(400).json({ error: 'phone ou identifier é obrigatório' });
+  }
+
+  const contacts = JSON.parse(fs.readFileSync(CONTACTS_FILE, 'utf8'));
+  const matching = contacts.filter((c) => {
+    const cPhone = (c.phone || '').replace(/\D/g, '');
+    return cPhone === target || cPhone.endsWith(target.slice(-8)) || target.endsWith(cPhone.slice(-8));
+  });
+
+  if (matching.length === 0) {
+    return res.status(404).json({ error: 'Contato não encontrado' });
+  }
+
+  matching.forEach((c) => { c.status = 6; });
+  fs.writeFileSync(CONTACTS_FILE, JSON.stringify(contacts, null, 2), 'utf8');
+
+  console.log(`🤝 Contato Ganho: "${target}" → Marcado com status 6.`);
+  res.json({ status: 'marked_as_closed', count: matching.length });
+});
+
 // ❌ Contato inválido: Atualiza para Status 4
 app.post('/contacts/invalid', authMiddleware, (req, res) => {
   const { phone } = req.body;
   const cleanPhone = (phone || '').replace(/\D/g, '');
 
   const contacts = JSON.parse(fs.readFileSync(CONTACTS_FILE, 'utf8'));
-  const contact = contacts.find((c) => c.phone.replace(/\D/g, '') === cleanPhone);
+  const contact = contacts.find((c) => {
+    const cPhone = (c.phone || '').replace(/\D/g, '');
+    return cPhone === cleanPhone || cPhone.endsWith(cleanPhone.slice(-8)) || cleanPhone.endsWith(cPhone.slice(-8));
+  });
 
   if (!contact) return res.status(404).json({ error: 'Contato não encontrado' });
 
@@ -125,10 +196,7 @@ function isWithinWorkingHours() {
   const day = now.getDay();
   const hour = now.getHours();
 
-  // Bloqueio de Sábado (6) e Domingo (0)
   if (day === 0 || day === 6) return false;
-
-  // Janela das 10h00 às 18h59 (encerra às 19h00)
   if (hour < 10 || hour >= 19) return false;
 
   return true;
@@ -149,7 +217,6 @@ app.listen(PORT, () => {
   console.log('📅 Horário de operação: 10h às 19h (Segunda a Sexta)');
   console.log('⚖️ Cadência: 1 envio a cada 10 min (70% Novos / 30% Follow-up)');
 
-  // Verificação inicial 5 segundos após inicialização
   setTimeout(async () => {
     if (isWithinWorkingHours()) {
       console.log('⚡ Disparo inicial de inicialização...');

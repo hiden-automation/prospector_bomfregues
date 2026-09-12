@@ -4,6 +4,9 @@
 .env.*
 !.env.example
 
+# Ignora arquivos de media
+**/media/*
+
 # Pastas comuns de dependências e builds (ajuste conforme a stack)
 node_modules/
 dist/
