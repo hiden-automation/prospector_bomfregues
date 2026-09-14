@@ -171,25 +171,26 @@ app.post('/contacts/closed', authMiddleware, (req, res) => {
   res.json({ status: 'marked_as_closed', count: matching.length });
 });
 
-// ❌ Contato inválido: Atualiza para Status 4
+// ❌ Contato inválido / Falha de Envio: Atualiza para Status 4
 app.post('/contacts/invalid', authMiddleware, (req, res) => {
   const { phone } = req.body;
   const cleanPhone = (phone || '').replace(/\D/g, '');
 
   const contacts = JSON.parse(fs.readFileSync(CONTACTS_FILE, 'utf8'));
-  const contact = contacts.find((c) => {
+  const matching = contacts.filter((c) => {
     const cPhone = (c.phone || '').replace(/\D/g, '');
     return cPhone === cleanPhone || cPhone.endsWith(cleanPhone.slice(-8)) || cleanPhone.endsWith(cPhone.slice(-8));
   });
 
-  if (!contact) return res.status(404).json({ error: 'Contato não encontrado' });
+  if (matching.length === 0) return res.status(404).json({ error: 'Contato não encontrado' });
 
-  contact.status = 4;
+  matching.forEach((c) => { c.status = 4; });
   fs.writeFileSync(CONTACTS_FILE, JSON.stringify(contacts, null, 2), 'utf8');
-  res.json({ status: 'marked_as_invalid', phone: cleanPhone });
+  console.log(`❌ Contato com falha/inválido: "${cleanPhone}" → Marcado com status 4.`);
+  res.json({ status: 'marked_as_invalid', phone: cleanPhone, updated: matching.length });
 });
 
-// ─── CRONOGRAMA DETERMINÍSTICO (10h às 19h / Seg-Sex) ───────────────────
+// ─── CRONOGRAMA DETERMINÍSTICO (9h às 19h / Seg-Sex) ───────────────────
 
 function isWithinWorkingHours() {
   const now = new Date();
@@ -197,32 +198,32 @@ function isWithinWorkingHours() {
   const hour = now.getHours();
 
   if (day === 0 || day === 6) return false;
-  if (hour < 10 || hour >= 19) return false;
+  if (hour < 9 || hour >= 19) return false;
 
   return true;
 }
 
-// Disparo a cada 10 minutos cravados
+// Disparo a cada 5 minutos cravados
 setInterval(async () => {
   if (!isWithinWorkingHours()) {
-    console.log('⛔ Fora do horário comercial (10h às 19h, Seg–Sex). Envio suspenso.');
+    console.log('⛔ Fora do horário comercial (9h às 19h, Seg–Sex). Envio suspenso.');
     return;
   }
-  console.log('⏰ [Ciclo de 10 minutos] Avaliando próximo envio...');
+  console.log('⏰ [Ciclo de 5 minutos] Avaliando próximo envio...');
   await processNextContact();
-}, 10 * 60 * 1000);
+}, 5 * 60 * 1000);
 
 app.listen(PORT, () => {
   console.log(`🚀 Orquestrador rodando em http://localhost:${PORT}`);
-  console.log('📅 Horário de operação: 10h às 19h (Segunda a Sexta)');
-  console.log('⚖️ Cadência: 1 envio a cada 10 min (70% Novos / 30% Follow-up)');
+  console.log('📅 Horário de operação: 9h às 19h (Segunda a Sexta)');
+  console.log('⚖️ Cadência: 1 envio a cada 5 min (100% Novos / 0% Follow-up)');
 
   setTimeout(async () => {
     if (isWithinWorkingHours()) {
       console.log('⚡ Disparo inicial de inicialização...');
       await processNextContact();
     } else {
-      console.log('⏸️ Inicializado fora do expediente (10h às 19h). Aguardando próximo ciclo válido.');
+      console.log('⏸️ Inicializado fora do expediente (9h às 19h). Aguardando próximo ciclo válido.');
     }
   }, 5000);
 });

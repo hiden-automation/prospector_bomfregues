@@ -10,8 +10,7 @@ const WA_TEMPLATE_FIRST_CONTACT = process.env.WA_TEMPLATE_FIRST_CONTACT || 'prim
 const WA_TEMPLATE_FOLLOW_UP = process.env.WA_TEMPLATE_FOLLOW_UP || 'segundo_contato';
 
 // ⚙️ CONTROLE DE PROBABILIDADE
-// 0.70 = 70% novos contatos / 30% follow-up
-const NEW_CONTACT_RATIO = 0.70;
+const NEW_CONTACT_RATIO = 1;
 
 // Tempo mínimo após o 1º contato para se tornar elegível ao follow-up (20 horas em ms)
 const MIN_FOLLOWUP_DELAY_MS = 20 * 60 * 60 * 1000;
@@ -36,7 +35,6 @@ function findNewContact(contacts) {
   const eligible = contacts.filter((c) => c.status === 1);
   if (eligible.length === 0) return null;
 
-  // Agrupa os contatos por uma chave única: "nicho | bairro"
   const groups = new Map();
 
   for (const contact of eligible) {
@@ -52,17 +50,14 @@ function findNewContact(contacts) {
 
   const availableKeys = Array.from(groups.keys());
 
-  // Prioriza grupos diferentes do último disparado
   let candidateKeys = availableKeys.filter((k) => k !== lastDispatchedGroupKey);
   if (candidateKeys.length === 0) {
     candidateKeys = availableKeys;
   }
 
-  // Sorteia um dos nichos/bairros disponíveis para garantir diversidade contínua
   const selectedKey = candidateKeys[Math.floor(Math.random() * candidateKeys.length)];
   lastDispatchedGroupKey = selectedKey;
 
-  // Retorna o primeiro contato daquele grupo selecionado
   const selectedList = groups.get(selectedKey);
   return selectedList[0];
 }
@@ -79,7 +74,7 @@ function findEligibleFollowUp(contacts) {
 
 async function dispatchMessage(contact, isFollowUp) {
   const templateName = isFollowUp ? WA_TEMPLATE_FOLLOW_UP : WA_TEMPLATE_FIRST_CONTACT;
-  const nextStatus = isFollowUp ? 5 : 2; // 5: Concluído | 2: Aguardando follow-up
+  const nextStatus = isFollowUp ? 5 : 2; // 5: Congelado/Concluído follow-up | 2: Aguardando follow-up
 
   // Lock temporário de segurança (status 99)
   const contacts = loadContacts();
@@ -120,11 +115,12 @@ async function dispatchMessage(contact, isFollowUp) {
       saveContacts(freshList);
     }
 
-    console.log(`📤 [${isFollowUp ? 'FOLLOW-UP' : 'NOVO CONTATO'}] Enviado → ${contact.phone} [Nicho: ${niche} | Bairro: ${neighborhood}]`);
+    console.log(`📤 [${isFollowUp ? 'FOLLOW-UP (segundo_contato)' : 'NOVO CONTATO'}] Enviado → ${contact.phone} [Nicho: ${niche} | Bairro: ${neighborhood}]`);
     return { success: true };
   } catch (err) {
-    console.error(`❌ Falha no envio para ${contact.phone}:`, err.response?.data?.error || err.message);
+    console.error(`❌ Falha no envio [${isFollowUp ? 'FOLLOW-UP' : 'NOVO'}] para ${contact.phone}:`, err.response?.data?.error || err.message);
 
+    // Se falhar (tanto 1º quanto 2º contato), vai automaticamente para status 4
     const freshList = loadContacts();
     const failContact = freshList.find((c) => c.phone === contact.phone);
     if (failContact) {
@@ -135,7 +131,6 @@ async function dispatchMessage(contact, isFollowUp) {
   }
 }
 
-// Executa em loop até encontrar um envio bem-sucedido ou esgotar a base
 async function processNextContact() {
   while (true) {
     const contacts = loadContacts();
@@ -174,7 +169,7 @@ async function processNextContact() {
       return result;
     }
 
-    console.log(`🔄 Tentando outro nicho/bairro imediatamente após falha...`);
+    console.log(`🔄 Tentando outro contato imediatamente após falha...`);
   }
 }
 

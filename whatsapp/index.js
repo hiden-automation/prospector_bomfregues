@@ -22,6 +22,7 @@ const WA_PHONE_NUMBER_ID = process.env.WA_PHONE_NUMBER_ID;
 const WA_ACCESS_TOKEN = process.env.WA_ACCESS_TOKEN;
 const WA_WEBHOOK_VERIFY_TOKEN = process.env.WA_WEBHOOK_VERIFY_TOKEN;
 const WA_TEMPLATE_LANG = process.env.WA_TEMPLATE_LANG || 'pt_BR';
+const WA_TEMPLATE_THIRD_CONTACT = process.env.WA_TEMPLATE_THIRD_CONTACT || 'segundo_contato';
 const pendingDispatches = new Map();
 
 // Segurança do Painel & Notificações OneSignal
@@ -562,6 +563,23 @@ app.post('/api/chat/send', checkAuthCookie, async (req, res) => {
   }
 });
 
+// Dispara Template do 3º Contato para Reabrir Janela sem alterar status nem pasta
+app.post('/api/chat/send-third-template', checkAuthCookie, async (req, res) => {
+  const { phone } = req.body;
+  if (!phone) return res.status(400).json({ error: 'phone é obrigatório' });
+
+  try {
+    const result = await sendMessage({
+      phone,
+      templateName: WA_TEMPLATE_THIRD_CONTACT,
+      templateParams: []
+    });
+    res.json(result);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 app.post('/api/chat/send-media', checkAuthCookie, upload.single('file'), async (req, res) => {
   const { phone } = req.body;
   const file = req.file;
@@ -604,7 +622,7 @@ app.post('/api/chat/send-media', checkAuthCookie, upload.single('file'), async (
   }
 });
 
-// 🔄 Alterar Estágio via Dropdown único (Sincronização 100% Determinística de Status)
+// 🔄 Alterar Estágio via Dropdown único
 app.post('/api/chat/conversations/:phone/stage', checkAuthCookie, async (req, res) => {
   const cleanPhone = req.params.phone.replace(/\D/g, '');
   const { stage } = req.body;
@@ -612,7 +630,6 @@ app.post('/api/chat/conversations/:phone/stage', checkAuthCookie, async (req, re
   const conv = data[cleanPhone];
   if (!conv) return res.status(404).json({ error: 'Conversa não encontrada' });
 
-  // Normalização da string do estágio
   const normalizedStage = (stage || '').toLowerCase().trim();
   conv.stage = normalizedStage;
   conv.closed = (normalizedStage === 'ganho');
@@ -624,7 +641,6 @@ app.post('/api/chat/conversations/:phone/stage', checkAuthCookie, async (req, re
     io.emit('conversation_updated', conv);
   }
 
-  // Mapeamento exato de status numérico para o orquestrador
   let orchestratorStatus = null;
   if (normalizedStage === 'iniciado') {
     orchestratorStatus = 2;
@@ -803,6 +819,7 @@ app.post('/webhook', async (req, res) => {
           });
         }
 
+        // Falha no disparo automático (1º ou 2º contato) envia para status 4 no orquestrador
         axios.post(`${ORCHESTRATOR_URL}/contacts/invalid`, { phone: recipient }, {
           headers: { 'x-api-key': API_KEY }
         }).catch(() => {});

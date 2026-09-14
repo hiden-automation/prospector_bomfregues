@@ -205,11 +205,18 @@
     .chat-header { padding: 12px 18px; background: #f0f2f5; border-bottom: 1px solid #e9edef; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
     .chat-header-left { display: flex; align-items: center; gap: 12px; min-width: 0; flex: 1; overflow: hidden; }
     .back-btn { display: none; background: none; border: none; font-size: 1.3rem; cursor: pointer; color: #54656f; margin-right: 4px; flex-shrink: 0; }
-    .chat-header-info { min-width: 0; max-width: 220px; overflow: hidden; }
+    .chat-header-info { min-width: 0; max-width: 260px; overflow: hidden; }
     .chat-header-info h3 { font-size: 1rem; color: #111b21; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .chat-header-info h3 a { color: inherit; text-decoration: none; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; cursor: pointer; outline: none; }
     .chat-header-info h3 a:hover, .chat-header-info h3 a:active, .chat-header-info h3 a:focus, .chat-header-info h3 a:visited { text-decoration: none; color: inherit; }
     .chat-header-info p { font-size: 0.8rem; color: #667781; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+    .chat-header-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
 
     /* Dropdown simples e sem cor */
     .status-dropdown {
@@ -223,7 +230,6 @@
       outline: none;
       cursor: pointer;
       flex-shrink: 0;
-      margin-left: 8px;
     }
     .status-dropdown:hover {
       border-color: #8696a0;
@@ -299,22 +305,87 @@
       z-index: 10;
     }
 
-    .icon-input-btn {
+    /* Container do Menu de Ações (Dropup) */
+    .action-menu-container {
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .icon-plus-btn {
       background: none;
       border: none;
-      font-size: 1.35rem;
       cursor: pointer;
       color: #54656f;
       height: 44px;
-      width: 36px;
+      width: 40px;
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: color 0.2s;
+      transition: transform 0.2s ease, color 0.2s ease;
       flex-shrink: 0;
-      user-select: none;
+      border-radius: 50%;
     }
-    .icon-input-btn:hover { color: #111b21; }
+    .icon-plus-btn:hover {
+      color: #111b21;
+      background: rgba(0,0,0,0.05);
+    }
+    .icon-plus-btn.open {
+      transform: rotate(45deg);
+      color: #111b21;
+    }
+
+    .dropup-menu {
+      display: none;
+      position: absolute;
+      bottom: 54px;
+      left: 0;
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 4px 18px rgba(11, 20, 26, 0.18);
+      border: 1px solid #e9edef;
+      padding: 6px;
+      min-width: 190px;
+      z-index: 999;
+      animation: dropupFade 0.15s ease-out;
+    }
+    .dropup-menu.active {
+      display: block;
+    }
+
+    @keyframes dropupFade {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .dropup-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      width: 100%;
+      padding: 10px 14px;
+      background: transparent;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: #111b21;
+      cursor: pointer;
+      text-align: left;
+      transition: background 0.15s;
+    }
+    .dropup-item:hover {
+      background: #f5f6f6;
+    }
+    .dropup-item svg {
+      width: 18px;
+      height: 18px;
+      fill: currentColor;
+      color: #54656f;
+      flex-shrink: 0;
+    }
+    .dropup-item:hover svg {
+      color: #008069;
+    }
 
     .upload-spinner {
       display: none;
@@ -459,14 +530,16 @@
               <p id="currentContactPhone"></p>
             </div>
           </div>
-          <select id="statusSelect" class="status-dropdown" onchange="handleStatusChange(this.value)">
-            <option value="iniciado">Iniciado</option>
-            <option value="interagindo">Interagindo</option>
-            <option value="congelado">Congelado</option>
-            <option value="ganho">Ganho</option>
-            <option value="perdido">Perdido</option>
-            <option value="descartado">Descartado</option>
-          </select>
+          <div class="chat-header-right">
+            <select id="statusSelect" class="status-dropdown" onchange="handleStatusChange(this.value)">
+              <option value="iniciado">Iniciado</option>
+              <option value="interagindo">Interagindo</option>
+              <option value="congelado">Congelado</option>
+              <option value="ganho">Ganho</option>
+              <option value="perdido">Perdido</option>
+              <option value="descartado">Descartado</option>
+            </select>
+          </div>
         </header>
 
         <div class="messages-box" id="messagesBox"></div>
@@ -474,7 +547,30 @@
         <form class="chat-input-area" id="chatForm">
           <input type="file" id="fileUploadInput" accept="image/*,video/*,application/pdf,.doc,.docx,.xls,.xlsx,.txt" style="display: none;" onchange="handleFileUpload(event)" />
 
-          <button type="button" id="btnAttachFile" class="icon-input-btn" title="Anexar foto, vídeo da galeria ou PDF" onclick="document.getElementById('fileUploadInput').click()">📎</button>
+          <!-- Botão + e Dropup com ícones vetoriais -->
+          <div class="action-menu-container" id="actionMenuContainer">
+            <button type="button" id="btnToggleActions" class="icon-plus-btn" title="Ações" onclick="toggleActionMenu(event)">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+                <path d="M19 11h-6V5a1 1 0 0 0-2 0v6H5a1 1 0 0 0 0 2h6v6a1 1 0 0 0 2 0v-6h6a1 1 0 0 0 0-2z"/>
+              </svg>
+            </button>
+
+            <div class="dropup-menu" id="actionsDropup">
+              <button type="button" class="dropup-item" onclick="triggerFileInput()">
+                <svg viewBox="0 0 24 24">
+                  <path d="M16.5 6v11.5c0 2.21-1.79 4-4 4s-4-1.79-4-4V5a2.5 2.5 0 0 1 5 0v10.5c0 .83-.67 1.5-1.5 1.5s-1.5-.67-1.5-1.5V6H9v9.5a3.5 3.5 0 0 0 7 0V5a4.5 4.5 0 0 0-9 0v12.5c0 3.31 2.69 6 6 6s6-2.69 6-6V6h-2z"/>
+                </svg>
+                <span>Enviar arquivo</span>
+              </button>
+              <button type="button" class="dropup-item" onclick="triggerThirdContact()">
+                <svg viewBox="0 0 24 24">
+                  <path d="M7 2v11h3v9l7-12h-4l4-8z"/>
+                </svg>
+                <span>Retomar contato</span>
+              </button>
+            </div>
+          </div>
+
           <div id="uploadSpinner" class="upload-spinner" title="Enviando arquivo..."></div>
 
           <textarea id="messageInput" rows="1" placeholder="Digite aqui..." autocomplete="off"></textarea>
@@ -591,12 +687,12 @@
 
     function getConversationCategory(c) {
       const msgs = c.messages || [];
+      const lastMsg = msgs.length ? msgs[msgs.length - 1] : null;
 
-      if (msgs.length === 1 && msgs[0].sender === 'agent' && msgs[0].status === 'failed') {
+      if (lastMsg && lastMsg.sender === 'agent' && lastMsg.status === 'failed') {
         return 'falha';
       }
 
-      // Prioridade absoluta para o estágio atribuído explicitamente
       if (c.stage === 'ganho') return 'ganho';
       if (c.stage === 'perdido') return 'perdido';
       if (c.stage === 'congelado' || c.stage === 'frio') return 'congelado';
@@ -750,7 +846,7 @@
           perdido: 'Nenhum lead perdido.',
           congelado: 'Nenhum lead congelado.',
           descartado: 'Nenhum lead descartado.',
-          falha: 'Nenhum disparo falhou no 1º envio.'
+          falha: 'Nenhum disparo falhou.'
         };
         emptyLi.textContent = labels[currentTab];
         listEl.appendChild(emptyLi);
@@ -830,6 +926,62 @@
       }
     }
 
+    /* Dropup de Ações */
+    function toggleActionMenu(event) {
+      if (event) event.stopPropagation();
+      const dropup = document.getElementById('actionsDropup');
+      const btn = document.getElementById('btnToggleActions');
+      const isOpen = dropup.classList.contains('active');
+
+      if (isOpen) {
+        dropup.classList.remove('active');
+        btn.classList.remove('open');
+      } else {
+        dropup.classList.add('active');
+        btn.classList.add('open');
+      }
+    }
+
+    function closeActionMenu() {
+      const dropup = document.getElementById('actionsDropup');
+      const btn = document.getElementById('btnToggleActions');
+      if (dropup) dropup.classList.remove('active');
+      if (btn) btn.classList.remove('open');
+    }
+
+    document.addEventListener('click', (e) => {
+      const container = document.getElementById('actionMenuContainer');
+      if (container && !container.contains(e.target)) {
+        closeActionMenu();
+      }
+    });
+
+    function triggerFileInput() {
+      closeActionMenu();
+      document.getElementById('fileUploadInput').click();
+    }
+
+    async function triggerThirdContact() {
+      closeActionMenu();
+      if (!currentPhone) return;
+
+      try {
+        const res = await fetch('/api/chat/send-third-template', {
+          method: 'POST',
+          headers: getAuthHeaders(),
+          body: JSON.stringify({ phone: currentPhone })
+        });
+
+        const data = await res.json();
+        if (!res.ok) {
+          alert('🚨 Falha ao retomar contato: ' + (data.error || 'Erro desconhecido.'));
+        }
+        await loadConversations();
+      } catch (err) {
+        alert('🚨 Erro de conexão ao disparar template de retorno: ' + err.message);
+      }
+    }
+
     async function handleFileUpload(event) {
       const file = event.target.files[0];
       if (!file) return;
@@ -847,12 +999,12 @@
       const savedToken = localStorage.getItem('pwa_auth_token') || '';
 
       const spinner = document.getElementById('uploadSpinner');
-      const attachBtn = document.getElementById('btnAttachFile');
+      const actionContainer = document.getElementById('actionMenuContainer');
       const submitBtn = document.getElementById('btnSubmitMessage');
       const msgInput = document.getElementById('messageInput');
 
       if (spinner) spinner.style.display = 'block';
-      if (attachBtn) attachBtn.style.display = 'none';
+      if (actionContainer) actionContainer.style.display = 'none';
       if (submitBtn) submitBtn.disabled = true;
       if (msgInput) msgInput.disabled = true;
 
@@ -872,7 +1024,7 @@
         alert('🚨 Erro de conexão ao enviar arquivo: ' + err.message);
       } finally {
         if (spinner) spinner.style.display = 'none';
-        if (attachBtn) attachBtn.style.display = 'flex';
+        if (actionContainer) actionContainer.style.display = 'block';
         if (submitBtn) submitBtn.disabled = false;
         if (msgInput) {
           msgInput.disabled = false;
