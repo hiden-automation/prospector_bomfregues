@@ -83,9 +83,9 @@ app.post('/contacts/title', authMiddleware, (req, res) => {
   res.json({ status: 'title_updated', phone: cleanPhone });
 });
 
-// 📩 Contato respondeu: Atualiza para Status 3 (Sai da cadência de follow-up)
+// 📩 Contato respondeu: Atualiza para Status 3 ou 7 caso declare encerramento
 app.post('/contacts/responded', authMiddleware, (req, res) => {
-  const { phone, identifier } = req.body;
+  const { phone, identifier, message } = req.body;
   const target = (identifier || phone || '').replace(/\D/g, '');
 
   if (!target) {
@@ -102,11 +102,15 @@ app.post('/contacts/responded', authMiddleware, (req, res) => {
     return res.status(404).json({ error: 'Contato não encontrado' });
   }
 
-  matching.forEach((c) => { c.status = 3; });
+  const normalizedMsg = (message || '').trim().toLowerCase();
+  const isLost = normalizedMsg === 'não tenho interesse' || normalizedMsg === 'nao tenho interesse' || normalizedMsg === 'pode encerrar';
+  const newStatus = isLost ? 7 : 3;
+
+  matching.forEach((c) => { c.status = newStatus; });
   fs.writeFileSync(CONTACTS_FILE, JSON.stringify(contacts, null, 2), 'utf8');
 
-  console.log(`🛑 Contato respondeu: "${target}" → Marcado com status 3.`);
-  res.json({ status: 'marked_as_responded', count: matching.length });
+  console.log(`🛑 Contato respondeu: "${target}" → Marcado com status ${newStatus}${isLost ? ' (Perdido)' : ''}.`);
+  res.json({ status: 'marked_as_responded', newStatus, count: matching.length });
 });
 
 // 🔄 Atualização de status (2: Iniciado, 3: Interagindo, 5: Congelado, 6: Ganho, 7: Perdido, 8: Descartado)
@@ -203,20 +207,20 @@ function isWithinWorkingHours() {
   return true;
 }
 
-// Disparo a cada 5 minutos cravados
+// Disparo a cada 10 minutos cravados
 setInterval(async () => {
   if (!isWithinWorkingHours()) {
     console.log('⛔ Fora do horário comercial (9h às 19h, Seg–Sex). Envio suspenso.');
     return;
   }
-  console.log('⏰ [Ciclo de 5 minutos] Avaliando próximo envio...');
+  console.log('⏰ [Ciclo de 10 minutos] Avaliando próximo envio...');
   await processNextContact();
-}, 5 * 60 * 1000);
+}, 10000 * 60 * 1000);
 
 app.listen(PORT, () => {
   console.log(`🚀 Orquestrador rodando em http://localhost:${PORT}`);
   console.log('📅 Horário de operação: 9h às 19h (Segunda a Sexta)');
-  console.log('⚖️ Cadência: 1 envio a cada 5 min (100% Novos / 0% Follow-up)');
+  console.log('⚖️ Cadência: 1 envio a cada 10 min (70% Novos / 30% Follow-up)');
 
   setTimeout(async () => {
     if (isWithinWorkingHours()) {

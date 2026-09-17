@@ -22,7 +22,7 @@ const WA_PHONE_NUMBER_ID = process.env.WA_PHONE_NUMBER_ID;
 const WA_ACCESS_TOKEN = process.env.WA_ACCESS_TOKEN;
 const WA_WEBHOOK_VERIFY_TOKEN = process.env.WA_WEBHOOK_VERIFY_TOKEN;
 const WA_TEMPLATE_LANG = process.env.WA_TEMPLATE_LANG || 'pt_BR';
-const WA_TEMPLATE_THIRD_CONTACT = process.env.WA_TEMPLATE_THIRD_CONTACT || 'segundo_contato';
+const WA_TEMPLATE_THIRD_CONTACT = process.env.WA_TEMPLATE_THIRD_CONTACT || 'lavacar_m2';
 const pendingDispatches = new Map();
 
 // Segurança do Painel & Notificações OneSignal
@@ -212,9 +212,18 @@ function recordMessage(phone, { sender, text, messageId = null, title = null, st
   }
 
   if (sender === 'user') {
-    data[cleanPhone].stage = 'interagindo';
-    data[cleanPhone].discarded = false;
-    data[cleanPhone].closed = false;
+    const normalizedText = (text || '').trim().toLowerCase();
+    const isLostTrigger = normalizedText === 'não tenho interesse' || normalizedText === 'nao tenho interesse' || normalizedText === 'pode encerrar';
+
+    if (isLostTrigger) {
+      data[cleanPhone].stage = 'perdido';
+      data[cleanPhone].discarded = true;
+      data[cleanPhone].closed = false;
+    } else {
+      data[cleanPhone].stage = 'interagindo';
+      data[cleanPhone].discarded = false;
+      data[cleanPhone].closed = false;
+    }
   }
 
   const msgObj = {
@@ -333,9 +342,12 @@ async function sendMessage({ phone, text, templateName, templateParams = [] }) {
     const messageId = res.data.messages?.[0]?.id;
     console.log(`✅ Sucesso no envio para ${cleanPhone} (ID: ${messageId})`);
 
+    const chatTitle = (Array.isArray(templateParams) && templateParams.length > 0) ? templateParams[0] : null;
+
     const recorded = recordMessage(cleanPhone, {
       sender: 'agent',
       text: templateName ? `[Template: ${templateName}]` : text,
+      title: chatTitle,
       messageId,
       status: 'sent'
     });
@@ -349,9 +361,12 @@ async function sendMessage({ phone, text, templateName, templateParams = [] }) {
     const errData = err.response?.data?.error;
     const errorMsg = errData?.message || err.message;
 
+    const chatTitle = (Array.isArray(templateParams) && templateParams.length > 0) ? templateParams[0] : null;
+
     const recorded = recordMessage(cleanPhone, {
       sender: 'agent',
       text: templateName ? `[Template: ${templateName}]` : text,
+      title: chatTitle,
       status: 'failed'
     });
 
@@ -563,7 +578,7 @@ app.post('/api/chat/send', checkAuthCookie, async (req, res) => {
   }
 });
 
-// Dispara Template do 3º Contato para Reabrir Janela sem alterar status nem pasta
+// Dispara Template de Reabertura (lavacar_m2)
 app.post('/api/chat/send-third-template', checkAuthCookie, async (req, res) => {
   const { phone } = req.body;
   if (!phone) return res.status(400).json({ error: 'phone é obrigatório' });
@@ -777,15 +792,31 @@ app.post('/webhook', async (req, res) => {
       const pushBody = incomingText || (mediaData ? 'Novo arquivo recebido' : 'Nova mensagem');
       await sendPushNotification(`WhatsApp: ${profileName || fromNumber}`, pushBody);
 
+      // Verificação de Encerramento ("Não tenho interesse" ou "Pode encerrar")
+      const normalizedIncoming = incomingText.trim().toLowerCase();
+      const isLostTrigger = normalizedIncoming === 'não tenho interesse' || normalizedIncoming === 'nao tenho interesse' || normalizedIncoming === 'pode encerrar';
+
       try {
-        await axios.post(
-          `${ORCHESTRATOR_URL}/contacts/responded`,
-          { phone: fromNumber },
-          {
-            headers: { 'x-api-key': API_KEY },
-            timeout: 5000
-          }
-        );
+        if (isLostTrigger) {
+          await axios.post(
+            `${ORCHESTRATOR_URL}/contacts/status`,
+            { phone: fromNumber, status: 7 },
+            {
+              headers: { 'x-api-key': API_KEY },
+              timeout: 5000
+            }
+          );
+          console.log(`🛑 Mensagem de recusa de ${fromNumber}: contato enviado para status 7 (Perdido).`);
+        } else {
+          await axios.post(
+            `${ORCHESTRATOR_URL}/contacts/responded`,
+            { phone: fromNumber, message: incomingText },
+            {
+              headers: { 'x-api-key': API_KEY },
+              timeout: 5000
+            }
+          );
+        }
       } catch (err) {
         console.warn('⚠️ Falha ao sincronizar resposta com orquestrador:', err.message);
       }
@@ -819,7 +850,6 @@ app.post('/webhook', async (req, res) => {
           });
         }
 
-        // Falha no disparo automático (1º ou 2º contato) envia para status 4 no orquestrador
         axios.post(`${ORCHESTRATOR_URL}/contacts/invalid`, { phone: recipient }, {
           headers: { 'x-api-key': API_KEY }
         }).catch(() => {});

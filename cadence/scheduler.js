@@ -6,17 +6,85 @@ const CONTACTS_FILE = path.join(__dirname, 'contacts.json');
 const WEBHOOK_URL = process.env.WEBHOOK_URL || 'http://localhost:3000/send';
 const API_KEY = process.env.API_KEY;
 
-const WA_TEMPLATE_FIRST_CONTACT = process.env.WA_TEMPLATE_FIRST_CONTACT || 'primeiro_contato';
-const WA_TEMPLATE_FOLLOW_UP = process.env.WA_TEMPLATE_FOLLOW_UP || 'segundo_contato';
+// Novos templates definidos
+const WA_TEMPLATE_FIRST_CONTACT = process.env.WA_TEMPLATE_FIRST_CONTACT || 'lavacar_m1';
+const WA_TEMPLATE_FOLLOW_UP = process.env.WA_TEMPLATE_FOLLOW_UP || 'lavacar_m2';
 
 // ⚙️ CONTROLE DE PROBABILIDADE
-const NEW_CONTACT_RATIO = 1;
+const NEW_CONTACT_RATIO = 7;
 
 // Tempo mínimo após o 1º contato para se tornar elegível ao follow-up (20 horas em ms)
 const MIN_FOLLOWUP_DELAY_MS = 20 * 60 * 60 * 1000;
 
 // Armazena em memória o último agrupamento disparado para evitar repetição consecutiva
 let lastDispatchedGroupKey = null;
+
+// Algoritmo de extração e higienização do nome comercial
+function formatBusinessName(rawName) {
+  if (!rawName) return 'Equipe';
+
+  const words = rawName.trim().split(/\s+/);
+  if (words.length === 0) return 'Equipe';
+
+  const normalize = (str) =>
+    (str || '')
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toLowerCase()
+      .replace(/[^\w]/g, '');
+
+  const bannedWords = new Set([
+    'estetica',
+    'automotiva',
+    'automotivo',
+    'lava',
+    'rapido',
+    'car',
+    'estacionamento',
+    'nosso',
+    'nossa',
+    'nossos',
+    'nossas',
+    'de',
+    'do',
+    'da',
+    'dos',
+    'das',
+    'no',
+    'na',
+    'nos',
+    'nas',
+    'o',
+    'a',
+    'os',
+    'as',
+    'e',
+    '-'
+  ]);
+
+  let targetWord = null;
+
+  for (const word of words) {
+    const cleanToken = normalize(word);
+
+    if (!cleanToken || bannedWords.has(cleanToken) || /^[^a-zA-Z0-9]+$/.test(word)) {
+      continue;
+    }
+
+    targetWord = word;
+    break;
+  }
+
+  if (!targetWord) {
+    targetWord = words[0] || 'Equipe';
+  }
+
+  const sanitizedWord = targetWord.replace(/^[^a-zA-Z0-9]+|[^a-zA-Z0-9]+$/g, '');
+
+  if (!sanitizedWord) return 'Equipe';
+
+  return sanitizedWord.charAt(0).toUpperCase() + sanitizedWord.slice(1).toLowerCase();
+}
 
 function loadContacts() {
   try {
@@ -90,13 +158,22 @@ async function dispatchMessage(contact, isFollowUp) {
   const niche = contact.niche || 'geral';
   const neighborhood = contact.neighborhood || contact.bairro || 'N/A';
 
+  // Extração do nome comercial
+  const cleanName = formatBusinessName(contact.name);
+
+  // Se for follow-up ou se o template não for o customizado (lavacar_m1), envia array vazio sem quebrar na Meta
+  let templateParams = [];
+  if (!isFollowUp && templateName === 'lavacar_m1') {
+    templateParams = [cleanName, cleanName];
+  }
+
   try {
     await axios.post(
       WEBHOOK_URL,
       {
         phone: contact.phone,
         templateName,
-        templateParams: []
+        templateParams
       },
       {
         headers: {
@@ -115,7 +192,7 @@ async function dispatchMessage(contact, isFollowUp) {
       saveContacts(freshList);
     }
 
-    console.log(`📤 [${isFollowUp ? 'FOLLOW-UP (segundo_contato)' : 'NOVO CONTATO'}] Enviado → ${contact.phone} [Nicho: ${niche} | Bairro: ${neighborhood}]`);
+    console.log(`📤 [${isFollowUp ? 'FOLLOW-UP' : 'NOVO CONTATO'}] Enviado (${templateName}) → ${contact.phone} [Nome: ${cleanName} | Nicho: ${niche} | Bairro: ${neighborhood}]`);
     return { success: true };
   } catch (err) {
     console.error(`❌ Falha no envio [${isFollowUp ? 'FOLLOW-UP' : 'NOVO'}] para ${contact.phone}:`, err.response?.data?.error || err.message);
