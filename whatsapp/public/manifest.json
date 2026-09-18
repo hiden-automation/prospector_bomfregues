@@ -1,6 +1,6 @@
 {
-  "name": "WhatsApp Leads",
-  "short_name": "Leads",
+  "name": "WhatsApp Bom Freguês",
+  "short_name": "Bom Freguês",
   "start_url": "/chat",
   "display": "standalone",
   "background_color": "#008069",

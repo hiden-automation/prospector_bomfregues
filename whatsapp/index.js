@@ -14,15 +14,17 @@ const ffmpegStatic = require('ffmpeg-static');
 ffmpeg.setFfmpegPath(ffmpegStatic);
 
 const API_KEY = process.env.API_KEY;
-const ORCHESTRATOR_URL = process.env.ORCHESTRATOR_URL || 'http://localhost:4000';
 const PORT = process.env.PORT || 3000;
+
+// Configuração das duas instâncias de Orquestrador / Cadências
+const ORCHESTRATOR_6000_URL = process.env.ORCHESTRATOR_6000_URL || 'http://localhost:6000';
+const ORCHESTRATOR_4000_URL = process.env.ORCHESTRATOR_4000_URL || 'http://localhost:4000';
 
 // WhatsApp Cloud API
 const WA_PHONE_NUMBER_ID = process.env.WA_PHONE_NUMBER_ID;
 const WA_ACCESS_TOKEN = process.env.WA_ACCESS_TOKEN;
 const WA_WEBHOOK_VERIFY_TOKEN = process.env.WA_WEBHOOK_VERIFY_TOKEN;
 const WA_TEMPLATE_LANG = process.env.WA_TEMPLATE_LANG || 'pt_BR';
-const WA_TEMPLATE_THIRD_CONTACT = process.env.WA_TEMPLATE_THIRD_CONTACT || 'lavacar_m2';
 const pendingDispatches = new Map();
 
 // Segurança do Painel & Notificações OneSignal
@@ -44,6 +46,117 @@ if (!fs.existsSync(MEDIA_DIR)) {
 if (!API_KEY || !WA_PHONE_NUMBER_ID || !WA_ACCESS_TOKEN) {
   console.error('❌ Variáveis de ambiente obrigatórias não configuradas no .env');
   process.exit(1);
+}
+
+// ─── ROTEAMENTO DINÂMICO DE CADÊNCIAS ──────────────────────────────────
+const CADENCE_6000_TEMPLATES = ['fidelidade_m1', 'fidelidade_m2', 'lavacar_m1', 'lavacar_m2'];
+const CADENCE_4000_TEMPLATES = ['primeiro_contato', 'segundo_contato'];
+
+function resolveCadenceFromTemplate(templateName) {
+  if (!templateName) return null;
+  const name = templateName.trim().toLowerCase();
+  if (CADENCE_6000_TEMPLATES.includes(name)) return '6000';
+  if (CADENCE_4000_TEMPLATES.includes(name)) return '4000';
+  return null;
+}
+
+function getOrchestratorUrlByCadence(cadence) {
+  return cadence === '6000' ? ORCHESTRATOR_6000_URL : ORCHESTRATOR_4000_URL;
+}
+
+// ─── FILA ATÔMICA PARA ARQUIVO JSON (ANTI RACE-CONDITION) ──────────────
+let fileQueue = Promise.resolve();
+
+function loadConversations() {
+  try {
+    return JSON.parse(fs.readFileSync(CONVERSATIONS_FILE, 'utf8'));
+  } catch (e) {
+    return {};
+  }
+}
+
+function safeAtomicUpdate(updaterFn) {
+  return new Promise((resolve, reject) => {
+    fileQueue = fileQueue.then(async () => {
+      try {
+        let currentData = {};
+        try {
+          const content = await fs.promises.readFile(CONVERSATIONS_FILE, 'utf8');
+          currentData = JSON.parse(content);
+        } catch (err) {
+          currentData = {};
+        }
+
+        const result = updaterFn(currentData);
+        await fs.promises.writeFile(CONVERSATIONS_FILE, JSON.stringify(currentData, null, 2), 'utf8');
+        resolve(result);
+      } catch (err) {
+        console.error('❌ Erro na fila de escrita atômica do JSON:', err.message);
+        reject(err);
+      }
+    });
+  });
+}
+
+// 🔄 Sincronizador inteligente com fallback automático (4000 ➔ 6000)
+async function syncWithOrchestrator(phone, endpoint, payload, knownCadence = null) {
+  const cleanPhone = phone.replace(/\D/g, '');
+
+  if (knownCadence) {
+    const targetUrl = getOrchestratorUrlByCadence(knownCadence);
+    try {
+      const res = await axios.post(`${targetUrl}${endpoint}`, payload, {
+        headers: { 'x-api-key': API_KEY },
+        timeout: 5000
+      });
+      return { success: true, cadence: knownCadence, data: res.data };
+    } catch (err) {
+      console.warn(`⚠️ Falha ao sincronizar com ${targetUrl}${endpoint} (${cleanPhone}):`, err.response?.data?.error || err.message);
+      return { success: false, error: err };
+    }
+  }
+
+  // Se não tem cadence gravada, tenta 4000 primeiro
+  try {
+    const res4000 = await axios.post(`${ORCHESTRATOR_4000_URL}${endpoint}`, payload, {
+      headers: { 'x-api-key': API_KEY },
+      timeout: 5000
+    });
+    console.log(`📡 Sincronizado com fallback na 4000: ${cleanPhone} → ${endpoint}`);
+
+    // Persiste que o contato pertence à 4000 para as próximas chamadas
+    await safeAtomicUpdate((data) => {
+      if (data[cleanPhone]) data[cleanPhone].cadence = '4000';
+    });
+
+    return { success: true, cadence: '4000', data: res4000.data };
+  } catch (err4000) {
+    const is404 = err4000.response?.status === 404;
+
+    if (is404) {
+      console.log(`⚠️ Contato ${cleanPhone} não encontrado na 4000 (404). Tentando fallback na porta 6000...`);
+      try {
+        const res6000 = await axios.post(`${ORCHESTRATOR_6000_URL}${endpoint}`, payload, {
+          headers: { 'x-api-key': API_KEY },
+          timeout: 5000
+        });
+        console.log(`✅ Sucesso na recuperação via fallback na 6000: ${cleanPhone} → ${endpoint}`);
+
+        // Persiste que o contato pertence à 6000
+        await safeAtomicUpdate((data) => {
+          if (data[cleanPhone]) data[cleanPhone].cadence = '6000';
+        });
+
+        return { success: true, cadence: '6000', data: res6000.data };
+      } catch (err6000) {
+        console.warn(`❌ Falha dupla no sincronismo de ${cleanPhone} (nem 4000 nem 6000):`, err6000.response?.data?.error || err6000.message);
+        return { success: false, error: err6000 };
+      }
+    }
+
+    console.warn(`⚠️ Falha ao tentar 4000 para ${cleanPhone} (não foi 404):`, err4000.response?.data?.error || err4000.message);
+    return { success: false, error: err4000 };
+  }
 }
 
 const storage = multer.diskStorage({
@@ -176,90 +289,79 @@ async function uploadMediaToMeta(filePath, mimeType, filename) {
   };
 }
 
-function loadConversations() {
-  try {
-    return JSON.parse(fs.readFileSync(CONVERSATIONS_FILE, 'utf8'));
-  } catch (e) {
-    return {};
-  }
-}
-
-function saveConversations(data) {
-  try {
-    fs.writeFileSync(CONVERSATIONS_FILE, JSON.stringify(data, null, 2), 'utf8');
-  } catch (e) {
-    console.error('❌ Falha ao gravar conversas:', e.message);
-  }
-}
-
-function recordMessage(phone, { sender, text, messageId = null, title = null, status = 'sent', mediaUrl = null, mediaMime = null, mediaFileName = null }) {
+async function recordMessage(phone, { sender, text, messageId = null, title = null, status = 'sent', mediaUrl = null, mediaMime = null, mediaFileName = null, cadence = null }) {
   const cleanPhone = phone.replace(/\D/g, '');
-  const data = loadConversations();
 
-  if (!data[cleanPhone]) {
-    data[cleanPhone] = {
-      phone: cleanPhone,
-      chatTitle: title || cleanPhone,
-      stage: 'iniciado',
-      unread: 0,
-      updatedAt: new Date().toISOString(),
-      messages: []
-    };
-  }
-
-  if (title) {
-    data[cleanPhone].chatTitle = title;
-  }
-
-  if (sender === 'user') {
-    const normalizedText = (text || '').trim().toLowerCase();
-    const isLostTrigger = normalizedText === 'não tenho interesse' || normalizedText === 'nao tenho interesse' || normalizedText === 'pode encerrar';
-
-    if (isLostTrigger) {
-      data[cleanPhone].stage = 'perdido';
-      data[cleanPhone].discarded = true;
-      data[cleanPhone].closed = false;
-    } else {
-      data[cleanPhone].stage = 'interagindo';
-      data[cleanPhone].discarded = false;
-      data[cleanPhone].closed = false;
+  return await safeAtomicUpdate((data) => {
+    if (!data[cleanPhone]) {
+      data[cleanPhone] = {
+        phone: cleanPhone,
+        chatTitle: title || cleanPhone,
+        stage: 'iniciado',
+        cadence: cadence || null,
+        unread: 0,
+        updatedAt: new Date().toISOString(),
+        messages: []
+      };
     }
-  }
 
-  const msgObj = {
-    id: messageId || `local_${Date.now()}`,
-    sender,
-    text: text || '',
-    status,
-    mediaUrl,
-    mediaMime,
-    mediaFileName,
-    timestamp: new Date().toISOString()
-  };
+    if (cadence) {
+      data[cleanPhone].cadence = cadence;
+    }
 
-  data[cleanPhone].messages.push(msgObj);
-  data[cleanPhone].updatedAt = msgObj.timestamp;
+    if (title) {
+      data[cleanPhone].chatTitle = title;
+    }
 
-  if (sender === 'user') {
-    data[cleanPhone].unread = (data[cleanPhone].unread || 0) + 1;
-  }
+    if (sender === 'user') {
+      const normalizedText = (text || '').trim().toLowerCase();
+      const isLostTrigger = normalizedText === 'não tenho interesse' || normalizedText === 'nao tenho interesse' || normalizedText === 'pode encerrar';
 
-  saveConversations(data);
-  return { phone: cleanPhone, message: msgObj, conversation: data[cleanPhone] };
+      if (isLostTrigger) {
+        data[cleanPhone].stage = 'perdido';
+        data[cleanPhone].discarded = true;
+        data[cleanPhone].closed = false;
+      } else {
+        data[cleanPhone].stage = 'interagindo';
+        data[cleanPhone].discarded = false;
+        data[cleanPhone].closed = false;
+      }
+    }
+
+    const msgObj = {
+      id: messageId || `local_${Date.now()}`,
+      sender,
+      text: text || '',
+      status,
+      mediaUrl,
+      mediaMime,
+      mediaFileName,
+      timestamp: new Date().toISOString()
+    };
+
+    data[cleanPhone].messages.push(msgObj);
+    data[cleanPhone].updatedAt = msgObj.timestamp;
+
+    if (sender === 'user') {
+      data[cleanPhone].unread = (data[cleanPhone].unread || 0) + 1;
+    }
+
+    return { phone: cleanPhone, message: msgObj, conversation: data[cleanPhone] };
+  });
 }
 
-function updateMessageStatus(messageId, status, errorReason = null) {
-  const data = loadConversations();
-  for (const phone in data) {
-    const msg = data[phone].messages.find(m => m.id === messageId);
-    if (msg) {
-      msg.status = status;
-      if (errorReason) msg.error = errorReason;
-      saveConversations(data);
-      return { phone, message: msg };
+async function updateMessageStatus(messageId, status, errorReason = null) {
+  return await safeAtomicUpdate((data) => {
+    for (const phone in data) {
+      const msg = data[phone].messages.find(m => m.id === messageId);
+      if (msg) {
+        msg.status = status;
+        if (errorReason) msg.error = errorReason;
+        return { phone, message: msg, cadence: data[phone].cadence || null };
+      }
     }
-  }
-  return null;
+    return null;
+  });
 }
 
 async function sendPushNotification(title, message) {
@@ -311,7 +413,7 @@ async function sendMessage({ phone, text, templateName, templateParams = [] }) {
           type: 'body',
           parameters: templateParams.map((val) => ({
             type: 'text',
-            text: String(val || ' ')
+            text: String(val !== undefined && val !== null ? val : ' ')
           }))
         }
       ];
@@ -325,6 +427,8 @@ async function sendMessage({ phone, text, templateName, templateParams = [] }) {
       text: { body: text }
     };
   }
+
+  const detectedCadence = resolveCadenceFromTemplate(templateName);
 
   try {
     const res = await axios.post(
@@ -344,12 +448,13 @@ async function sendMessage({ phone, text, templateName, templateParams = [] }) {
 
     const chatTitle = (Array.isArray(templateParams) && templateParams.length > 0) ? templateParams[0] : null;
 
-    const recorded = recordMessage(cleanPhone, {
+    const recorded = await recordMessage(cleanPhone, {
       sender: 'agent',
       text: templateName ? `[Template: ${templateName}]` : text,
       title: chatTitle,
       messageId,
-      status: 'sent'
+      status: 'sent',
+      cadence: detectedCadence
     });
 
     if (io) {
@@ -363,11 +468,12 @@ async function sendMessage({ phone, text, templateName, templateParams = [] }) {
 
     const chatTitle = (Array.isArray(templateParams) && templateParams.length > 0) ? templateParams[0] : null;
 
-    const recorded = recordMessage(cleanPhone, {
+    const recorded = await recordMessage(cleanPhone, {
       sender: 'agent',
       text: templateName ? `[Template: ${templateName}]` : text,
       title: chatTitle,
-      status: 'failed'
+      status: 'failed',
+      cadence: detectedCadence
     });
 
     if (io) {
@@ -411,7 +517,7 @@ async function sendMediaMessage({ phone, mediaId, mediaType, mimeType, filename,
     const messageId = res.data.messages?.[0]?.id;
     console.log(`✅ Sucesso no envio de ${type} para ${cleanPhone} (ID: ${messageId})`);
 
-    const recorded = recordMessage(cleanPhone, {
+    const recorded = await recordMessage(cleanPhone, {
       sender: 'agent',
       text: '',
       messageId,
@@ -431,7 +537,7 @@ async function sendMediaMessage({ phone, mediaId, mediaType, mimeType, filename,
     const errorMsg = errData?.message || err.message;
     console.error(`❌ Erro no envio de mídia para ${cleanPhone}:`, errorMsg);
 
-    const recorded = recordMessage(cleanPhone, {
+    const recorded = await recordMessage(cleanPhone, {
       sender: 'agent',
       text: '',
       status: 'failed',
@@ -556,13 +662,18 @@ app.get('/api/chat/conversations', checkAuthCookie, (req, res) => {
   res.json(list);
 });
 
-app.get('/api/chat/conversations/:phone', checkAuthCookie, (req, res) => {
+app.get('/api/chat/conversations/:phone', checkAuthCookie, async (req, res) => {
   const cleanPhone = req.params.phone.replace(/\D/g, '');
-  const data = loadConversations();
-  const conv = data[cleanPhone];
+
+  const conv = await safeAtomicUpdate((data) => {
+    const target = data[cleanPhone];
+    if (target) {
+      target.unread = 0;
+    }
+    return target || null;
+  });
+
   if (!conv) return res.status(404).json({ error: 'Conversa não encontrada' });
-  conv.unread = 0;
-  saveConversations(data);
   res.json(conv);
 });
 
@@ -578,15 +689,28 @@ app.post('/api/chat/send', checkAuthCookie, async (req, res) => {
   }
 });
 
-// Dispara Template de Reabertura (lavacar_m2)
+// Reabertura respeitando a cadência atual (se indefinido, tenta deduzir ou usa segundo_contato)
 app.post('/api/chat/send-third-template', checkAuthCookie, async (req, res) => {
   const { phone } = req.body;
   if (!phone) return res.status(400).json({ error: 'phone é obrigatório' });
 
+  const cleanPhone = phone.replace(/\D/g, '');
+  const data = loadConversations();
+  const conv = data[cleanPhone];
+  
+  // Se não tem cadence, checa se há vestígios de template da 6000 no histórico
+  let cadence = conv?.cadence;
+  if (!cadence) {
+    const has6000 = conv?.messages?.some(m => m.text && (m.text.includes('lavacar') || m.text.includes('fidelidade')));
+    cadence = has6000 ? '6000' : '4000';
+  }
+
+  const chosenTemplate = cadence === '6000' ? 'lavacar_m2' : 'segundo_contato';
+
   try {
     const result = await sendMessage({
-      phone,
-      templateName: WA_TEMPLATE_THIRD_CONTACT,
+      phone: cleanPhone,
+      templateName: chosenTemplate,
       templateParams: []
     });
     res.json(result);
@@ -637,20 +761,23 @@ app.post('/api/chat/send-media', checkAuthCookie, upload.single('file'), async (
   }
 });
 
-// 🔄 Alterar Estágio via Dropdown único
+// 🔄 Alterar Estágio via Dropdown com Fallback Automático
 app.post('/api/chat/conversations/:phone/stage', checkAuthCookie, async (req, res) => {
   const cleanPhone = req.params.phone.replace(/\D/g, '');
   const { stage } = req.body;
-  const data = loadConversations();
-  const conv = data[cleanPhone];
-  if (!conv) return res.status(404).json({ error: 'Conversa não encontrada' });
-
   const normalizedStage = (stage || '').toLowerCase().trim();
-  conv.stage = normalizedStage;
-  conv.closed = (normalizedStage === 'ganho');
-  conv.discarded = (normalizedStage === 'perdido' || normalizedStage === 'descartado' || normalizedStage === 'descartados');
 
-  saveConversations(data);
+  const conv = await safeAtomicUpdate((data) => {
+    const target = data[cleanPhone];
+    if (!target) return null;
+
+    target.stage = normalizedStage;
+    target.closed = (normalizedStage === 'ganho');
+    target.discarded = (normalizedStage === 'perdido' || normalizedStage === 'descartado' || normalizedStage === 'descartados');
+    return target;
+  });
+
+  if (!conv) return res.status(404).json({ error: 'Conversa não encontrada' });
 
   if (io) {
     io.emit('conversation_updated', conv);
@@ -672,19 +799,13 @@ app.post('/api/chat/conversations/:phone/stage', checkAuthCookie, async (req, re
   }
 
   if (orchestratorStatus !== null) {
-    try {
-      await axios.post(
-        `${ORCHESTRATOR_URL}/contacts/status`,
-        { phone: cleanPhone, status: orchestratorStatus },
-        {
-          headers: { 'x-api-key': API_KEY },
-          timeout: 5000
-        }
-      );
-      console.log(`📡 Sincronizado: ${cleanPhone} → status ${orchestratorStatus} (${normalizedStage})`);
-    } catch (err) {
-      console.warn(`⚠️ Falha ao sincronizar status do contato ${cleanPhone} com orquestrador:`, err.message);
-    }
+    // Sincroniza via fallback (tenta cadência salva ou 4000 ➔ 6000)
+    await syncWithOrchestrator(
+      cleanPhone,
+      '/contacts/status',
+      { phone: cleanPhone, status: orchestratorStatus },
+      conv.cadence
+    );
   }
 
   res.json({ success: true, phone: cleanPhone, stage: normalizedStage, status: orchestratorStatus });
@@ -698,6 +819,7 @@ app.get('/webhook', (req, res) => {
   return res.sendStatus(403);
 });
 
+// Endpoint disparado pelos orquestradores (porta 4000 ou 6000)
 app.post('/send', async (req, res) => {
   const apiKey = req.headers['x-api-key'];
   if (!apiKey || apiKey !== API_KEY) {
@@ -777,7 +899,7 @@ app.post('/webhook', async (req, res) => {
         incomingText = '';
       }
 
-      const recorded = recordMessage(fromNumber, {
+      const recorded = await recordMessage(fromNumber, {
         sender: 'user',
         text: incomingText,
         messageId: msg.id,
@@ -792,33 +914,24 @@ app.post('/webhook', async (req, res) => {
       const pushBody = incomingText || (mediaData ? 'Novo arquivo recebido' : 'Nova mensagem');
       await sendPushNotification(`WhatsApp: ${profileName || fromNumber}`, pushBody);
 
-      // Verificação de Encerramento ("Não tenho interesse" ou "Pode encerrar")
+      const knownCadence = recorded.conversation?.cadence || null;
       const normalizedIncoming = incomingText.trim().toLowerCase();
       const isLostTrigger = normalizedIncoming === 'não tenho interesse' || normalizedIncoming === 'nao tenho interesse' || normalizedIncoming === 'pode encerrar';
 
-      try {
-        if (isLostTrigger) {
-          await axios.post(
-            `${ORCHESTRATOR_URL}/contacts/status`,
-            { phone: fromNumber, status: 7 },
-            {
-              headers: { 'x-api-key': API_KEY },
-              timeout: 5000
-            }
-          );
-          console.log(`🛑 Mensagem de recusa de ${fromNumber}: contato enviado para status 7 (Perdido).`);
-        } else {
-          await axios.post(
-            `${ORCHESTRATOR_URL}/contacts/responded`,
-            { phone: fromNumber, message: incomingText },
-            {
-              headers: { 'x-api-key': API_KEY },
-              timeout: 5000
-            }
-          );
-        }
-      } catch (err) {
-        console.warn('⚠️ Falha ao sincronizar resposta com orquestrador:', err.message);
+      if (isLostTrigger) {
+        await syncWithOrchestrator(
+          fromNumber,
+          '/contacts/status',
+          { phone: fromNumber, status: 7 },
+          knownCadence
+        );
+      } else {
+        await syncWithOrchestrator(
+          fromNumber,
+          '/contacts/responded',
+          { phone: fromNumber, message: incomingText },
+          knownCadence
+        );
       }
     }
   }
@@ -840,7 +953,7 @@ app.post('/webhook', async (req, res) => {
         const reason = errDetails?.title || errDetails?.message || 'Erro desconhecido na entrega';
         console.warn(`❌ Mensagem ${msgId} para ${recipient} FALHOU: ${reason}`);
 
-        const updated = updateMessageStatus(msgId, 'failed', reason);
+        const updated = await updateMessageStatus(msgId, 'failed', reason);
         if (updated && io) {
           io.emit('message_status_update', { 
             messageId: msgId, 
@@ -850,11 +963,14 @@ app.post('/webhook', async (req, res) => {
           });
         }
 
-        axios.post(`${ORCHESTRATOR_URL}/contacts/invalid`, { phone: recipient }, {
-          headers: { 'x-api-key': API_KEY }
-        }).catch(() => {});
+        await syncWithOrchestrator(
+          recipient,
+          '/contacts/invalid',
+          { phone: recipient },
+          updated?.cadence || null
+        );
       } else {
-        const updated = updateMessageStatus(msgId, status);
+        const updated = await updateMessageStatus(msgId, status);
         if (updated && io) {
           io.emit('message_status_update', { 
             messageId: msgId, 
@@ -869,4 +985,8 @@ app.post('/webhook', async (req, res) => {
 
 server.listen(PORT, '0.0.0.0', () => {
   console.log(`🌐 Servidor rodando na porta ${PORT}`);
+  console.log(`🔒 Fila atômica ativada para ${path.basename(CONVERSATIONS_FILE)}`);
+  console.log(`🔗 Roteamento 6000: ${ORCHESTRATOR_6000_URL} (fidelidade_m1, fidelidade_m2, lavacar_m1, lavacar_m2)`);
+  console.log(`🔗 Roteamento 4000: ${ORCHESTRATOR_4000_URL} (primeiro_contato, segundo_contato)`);
+  console.log(`🔄 Modo Fallback Ativo: tentará 4000 e, se retornar 404, sincronizará com a 6000 e salvará a cadência.`);
 });

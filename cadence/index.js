@@ -7,7 +7,7 @@ const { processNextContact } = require('./scheduler');
 
 const CONTACTS_FILE = path.join(__dirname, 'contacts.json');
 const API_KEY = process.env.API_KEY;
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 6000;
 
 if (!fs.existsSync(CONTACTS_FILE)) {
   fs.writeFileSync(CONTACTS_FILE, '[]');
@@ -207,20 +207,20 @@ function isWithinWorkingHours() {
   return true;
 }
 
-// Disparo a cada 10 minutos cravados
+// Disparo a cada 5 minutos cravados
 setInterval(async () => {
   if (!isWithinWorkingHours()) {
     console.log('⛔ Fora do horário comercial (9h às 19h, Seg–Sex). Envio suspenso.');
     return;
   }
-  console.log('⏰ [Ciclo de 10 minutos] Avaliando próximo envio...');
+  console.log('⏰ [Ciclo de 5 minutos] Avaliando próximo envio...');
   await processNextContact();
-}, 10000 * 60 * 1000);
+}, 5 * 60 * 1000);
 
 app.listen(PORT, () => {
   console.log(`🚀 Orquestrador rodando em http://localhost:${PORT}`);
   console.log('📅 Horário de operação: 9h às 19h (Segunda a Sexta)');
-  console.log('⚖️ Cadência: 1 envio a cada 10 min (70% Novos / 30% Follow-up)');
+  console.log('⚖️ Cadência: 1 envio a cada 5 min (70% Novos / 30% Follow-up)');
 
   setTimeout(async () => {
     if (isWithinWorkingHours()) {

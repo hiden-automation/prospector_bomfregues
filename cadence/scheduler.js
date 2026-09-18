@@ -6,12 +6,11 @@ const CONTACTS_FILE = path.join(__dirname, 'contacts.json');
 const WEBHOOK_URL = process.env.WEBHOOK_URL || 'http://localhost:3000/send';
 const API_KEY = process.env.API_KEY;
 
-// Novos templates definidos
 const WA_TEMPLATE_FIRST_CONTACT = process.env.WA_TEMPLATE_FIRST_CONTACT || 'lavacar_m1';
 const WA_TEMPLATE_FOLLOW_UP = process.env.WA_TEMPLATE_FOLLOW_UP || 'lavacar_m2';
 
 // ⚙️ CONTROLE DE PROBABILIDADE
-const NEW_CONTACT_RATIO = 7;
+const NEW_CONTACT_RATIO = 0.7;
 
 // Tempo mínimo após o 1º contato para se tornar elegível ao follow-up (20 horas em ms)
 const MIN_FOLLOWUP_DELAY_MS = 20 * 60 * 60 * 1000;
@@ -158,10 +157,10 @@ async function dispatchMessage(contact, isFollowUp) {
   const niche = contact.niche || 'geral';
   const neighborhood = contact.neighborhood || contact.bairro || 'N/A';
 
-  // Extração do nome comercial
+  // Extração e formatação do primeiro nome / razão social
   const cleanName = formatBusinessName(contact.name);
 
-  // Se for follow-up ou se o template não for o customizado (lavacar_m1), envia array vazio sem quebrar na Meta
+  // Parâmetros dinâmicos: lavacar_m1 recebe duas variáveis {{1}} e {{2}}
   let templateParams = [];
   if (!isFollowUp && templateName === 'lavacar_m1') {
     templateParams = [cleanName, cleanName];
@@ -192,7 +191,7 @@ async function dispatchMessage(contact, isFollowUp) {
       saveContacts(freshList);
     }
 
-    console.log(`📤 [${isFollowUp ? 'FOLLOW-UP' : 'NOVO CONTATO'}] Enviado (${templateName}) → ${contact.phone} [Nome: ${cleanName} | Nicho: ${niche} | Bairro: ${neighborhood}]`);
+    console.log(`📤 [${isFollowUp ? 'FOLLOW-UP (lavacar_m2)' : 'NOVO CONTATO'}] Enviado → ${contact.phone} [Nome: ${cleanName} | Nicho: ${niche} | Bairro: ${neighborhood}]`);
     return { success: true };
   } catch (err) {
     console.error(`❌ Falha no envio [${isFollowUp ? 'FOLLOW-UP' : 'NOVO'}] para ${contact.phone}:`, err.response?.data?.error || err.message);
